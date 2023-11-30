@@ -25,9 +25,15 @@ const LoginAndRegiScreen = () => {
           buttonTextColor={customColors.primary}
           borderColor="primary"
           borderWidth={2}
-          onPress={() => console.log("Login pressed")}
+          onPress={() => console.log("Register pressed")}
           style={{ marginBottom: 20 }}
         />
+        <View style={{height: 50}}/>
+
+        <Image
+          style={styles.centeredImage}
+          source={require("../assets/images/funnyslime.png")}
+      />
       </View>
     </View>
   );
@@ -59,5 +65,14 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     marginTop: 50,
+  },
+  centeredImage: {
+    position: "absolute",
+    top: "0%",
+    left: "50%",
+    width: 100, // Set the width of your centered image
+    height: 100, // Set the height of your centered image
+    marginTop: -60, // Half of the height
+    marginLeft: -50, // Half of the width
   },
 });
