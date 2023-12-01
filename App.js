@@ -4,6 +4,7 @@ import LoginAndRegiScreen from './screens/LoginAndRegiScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import AboutUsScreen from './screens/AboutUsScreen';
+import NavScreenHolder from './navigation/NavScreenHolder';
 
 export default function App() {
   return (
@@ -12,7 +13,8 @@ export default function App() {
     //   <StatusBar style="auto" />
     // </View>
     // <LoginScreen/>
-    <AboutUsScreen/>
+    // <AboutUsScreen/>
+    <NavScreenHolder/>
     // <RegisterScreen/>
     // <LoginAndRegiScreen/>
   );

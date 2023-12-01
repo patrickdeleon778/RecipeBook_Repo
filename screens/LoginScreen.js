@@ -162,14 +162,13 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
   button: {
-    width: "50%", // Set the width to 50%
+    width: "50%",
     height: 35,
     borderRadius: 50,
     justifyContent: "center",
     alignItems: "center",
-    // padding: 10, // Adjust padding to make the button smaller
-    margin: 20, // Adjust margin to make the button smaller
-    alignSelf: "center", // Center the button horizontally
+    margin: 20,
+    alignSelf: "center",
   },
   buttonText: {
     fontSize: 16,
