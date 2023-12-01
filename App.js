@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import LoginAndRegiScreen from './screens/LoginAndRegiScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
+import AboutUsScreen from './screens/AboutUsScreen';
 
 export default function App() {
   return (
@@ -11,7 +12,8 @@ export default function App() {
     //   <StatusBar style="auto" />
     // </View>
     // <LoginScreen/>
-    <RegisterScreen/>
+    <AboutUsScreen/>
+    // <RegisterScreen/>
     // <LoginAndRegiScreen/>
   );
 }
@@ -23,3 +25,4 @@ const styles = StyleSheet.create({
       justifyContent: 'center'
   }
 })
+
