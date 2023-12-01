@@ -1,13 +1,26 @@
 import React from "react";
-import { View, Text, StyleSheet, TextInput } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import customColors from "../config/customColors";
-import { MaterialCommunityIcons} from '@expo/vector-icons'
-import { Feather } from '@expo/vector-icons'; 
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 
 const LoginScreen = () => {
   return (
     <View style={styles.container}>
-      <View style={styles.topHalf}></View>
+      <View style={styles.topHalf}>
+        <Image
+          style={styles.logo}
+          source={require("../assets/images/dishLogo.png")}
+        />
+      </View>
       <View style={styles.bottomHalf}>
         <View style={styles.bottomHalfContent}>
           <Text style={styles.welcomeText}>Welcome</Text>
@@ -22,14 +35,61 @@ const LoginScreen = () => {
             </Text>
 
             <View style={styles.inputContainer}>
-              <TextInput style={styles.input} />
-              {/* <Feather
+              <TextInput
+                style={styles.input}
+                keyboardType="email-address"
+                autoCapitalize="none"
+              />
+              <Feather
                 name="check"
-                size={20}
+                size={30}
                 color="green"
                 style={styles.icon}
-              /> */}
+              />
             </View>
+          </View>
+
+          <View style={{ marginTop: 30 }}>
+            <Text style={{ fontSize: 20, color: customColors.medium }}>
+              Password
+            </Text>
+
+            <View style={styles.inputContainer}>
+              <TextInput style={styles.input} />
+              <Feather name="eye" size={30} color="green" style={styles.icon} />
+            </View>
+          </View>
+
+          <View style={{ flexDirection: "row", marginTop: 10 }}>
+            <FontAwesome
+              name="check-circle"
+              size={24}
+              color={customColors.primary}
+            />
+            <Text
+              style={{
+                marginLeft: 10,
+                fontSize: 12,
+                marginTop: 4,
+                color: "grey",
+              }}
+            >
+              Remember me
+            </Text>
+          </View>
+
+          <View style={{ marginTop: 20 }}>
+            <TouchableOpacity
+              style={[
+                styles.button,
+                {
+                  backgroundColor: customColors.primary,
+                },
+              ]}
+              onPress={() => console.log("Login in Login page pressed")}
+            >
+              <Text style={styles.buttonText}>Login</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -44,12 +104,13 @@ const styles = StyleSheet.create({
   },
   topHalf: {
     flex: 0.4,
+    alignItems: "center",
+    justifyContent: "center",
   },
   bottomHalf: {
     flex: 0.6,
-    // overflow: "hidden", // This is needed to apply the border radius
-    borderTopLeftRadius: 40, // Adjust as needed
-    borderTopRightRadius: 40, // Adjust as needed
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
     backgroundColor: customColors.white,
   },
   bottomHalfContent: {
@@ -86,12 +147,35 @@ const styles = StyleSheet.create({
     height: 30,
     color: customColors.medium,
     paddingLeft: 10,
+    paddingRight: 40,
     paddingBottom: 5,
   },
   icon: {
     position: "absolute",
     right: 10,
-    paddingBottom: 5,
+    paddingBottom: 10,
+  },
+  logo: {
+    borderRadius: 200,
+    width: 250,
+    height: 250,
+    marginTop: 50,
+  },
+  button: {
+    width: "50%", // Set the width to 50%
+    height: 35,
+    borderRadius: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    // padding: 10, // Adjust padding to make the button smaller
+    margin: 20, // Adjust margin to make the button smaller
+    alignSelf: "center", // Center the button horizontally
+  },
+  buttonText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "center",
+    color: customColors.white,
   },
 });
 

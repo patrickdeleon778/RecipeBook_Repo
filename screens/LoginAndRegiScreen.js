@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View, Platform } from "react-native";
 import customColors from "../config/customColors";
 import LoginAndRegiButtons from "../components/LoginAndRegiButtons";
 
@@ -28,12 +28,14 @@ const LoginAndRegiScreen = () => {
           onPress={() => console.log("Register pressed")}
           style={{ marginBottom: 20 }}
         />
-        <View style={{height: 50}}/>
+        <View style={{ height: 50 }} />
 
-        <Image
-          style={styles.centeredImage}
-          source={require("../assets/images/funnyslime.png")}
-      />
+        <View style={styles.centeredImageView}>
+          <Image
+            style={styles.centeredImage}
+            source={require("../assets/images/foodPlate.png")}
+          />
+        </View>
       </View>
     </View>
   );
@@ -66,13 +68,26 @@ const styles = StyleSheet.create({
     height: 200,
     marginTop: 50,
   },
-  centeredImage: {
+  centeredImageView: {
     position: "absolute",
-    top: "0%",
-    left: "50%",
-    width: 100, // Set the width of your centered image
-    height: 100, // Set the height of your centered image
-    marginTop: -60, // Half of the height
-    marginLeft: -50, // Half of the width
+    top: "-25%",
+    left: "23%",
+    width: 320,
+    height: 320,
+    marginTop: -60,
+    marginLeft: -50,
+    borderRadius: 150, // Half of the width and height
+    overflow: "hidden", // Make sure the image doesn't spill out of the border radius
+    backgroundColor: "transparent", // Make sure the background doesn't cover the image
+    shadowColor: "#000",
+    shadowOffset: { width: 10, height: 10 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    ...(Platform.OS === "android" ? { elevation: 13 } : {}),
+  },
+
+  centeredImage: {
+    width: "100%",
+    height: "100%",
   },
 });
