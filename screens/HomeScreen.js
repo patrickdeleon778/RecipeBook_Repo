@@ -8,12 +8,13 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  FlatList,
 } from "react-native";
 import customColors from "../config/customColors";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 const HomeScreen = () => {
-  const [foodData, setFoodData] = useState([
+  const [foodCatData, setFoodCatData] = useState([
     {
       id: 1,
       name: "Chicken",
@@ -33,91 +34,164 @@ const HomeScreen = () => {
     },
   ]);
 
+  const [recipeData, setRecipeData] = useState([
+    {
+      id: 1,
+      name: "Meatloaf",
+      image: require("../assets/images/PQ2_Teddie.webp"),
+    },
+    {
+      id: 2,
+      name: "Chicken Alfredo",
+      image: require("../assets/images/PQ2_Teddie.webp"),
+    },
+    {
+      id: 3,
+      name: "Pizza",
+      image: require("../assets/images/PQ2_Teddie.webp"),
+    },
+    {
+      id: 4,
+      name: "Philly Cheesesteak",
+      image: require("../assets/images/PQ2_Teddie.webp"),
+    },
+    {
+      id: 5,
+      name: "Potato salad",
+      image: require("../assets/images/PQ2_Teddie.webp"),
+    },
+    {
+      id: 6,
+      name: "Potato cake",
+      image: require("../assets/images/PQ2_Teddie.webp"),
+    },
+    {
+      id: 7,
+      name: "Potato Pancake",
+      image: require("../assets/images/PQ2_Teddie.webp"),
+    },
+    {
+      id: 8,
+      name: "Potato Soup",
+      image: require("../assets/images/PQ2_Teddie.webp"),
+    },
+  ]);
+
   return (
-    <View
-      className="flex-1 bg-white"
-      style={{ marginHorizontal: 30, marginTop: 80 }}
-    >
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 50 }}
-      >
-        <View>
-          <Image
-            source={require("../assets/images/PQ2_Teddie.webp")}
-            style={{ height: 75, width: 75, borderRadius: 100 }}
-          />
-        </View>
-
-        <View>
-          <Text style={{ fontSize: 20, marginTop: 20 }}>Hello, user!</Text>
-          <Text style={{ fontSize: 30, fontWeight: "bold", marginTop: 20 }}>
-            A cool slogan goes here.
-          </Text>
-        </View>
-
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            borderWidth: 1,
-            borderColor: "#E2E8F0",
-            backgroundColor: customColors.light,
-            borderRadius: 40,
-            marginTop: 30,
-            padding: 5,
-          }}
-        >
-          <TextInput
-            style={{ flex: 1, marginLeft: 10, paddingRight: 10 }}
-            placeholder="Search for a recipe"
-          />
-
-          <TouchableOpacity
-            style={{
-              backgroundColor: customColors.white,
-              width: 50,
-              height: 50,
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: 50,
-            }}
-            onPress={() => console.log("Search button pressed")}
-          >
-            <FontAwesome5
-              name="pizza-slice"
-              size={28}
-              color={customColors.medium}
+    <FlatList
+      contentContainerStyle={{ marginHorizontal: 20, paddingTop: 60 }}
+      ListHeaderComponent={
+        <>
+          <View>
+            <Image
+              source={require("../assets/images/PQ2_Teddie.webp")}
+              style={{ height: 75, width: 75, borderRadius: 100 }}
             />
-          </TouchableOpacity>
-        </View>
-        
-        <View style={{ marginTop: 20, flexDirection: 'row', alignItems: "center" }}>
-        {foodData.map((item) => (
-          <TouchableOpacity
-            key={item.id}
-            onPress={() => console.log(item.name + " pressed")}
-            style={styles.button}
+          </View>
+
+          <View>
+            <Text style={{ fontSize: 20, marginTop: 20 }}>Hello, user!</Text>
+            <Text style={{ fontSize: 30, fontWeight: "bold", marginTop: 20 }}>
+              A cool slogan goes here.
+            </Text>
+          </View>
+
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              borderWidth: 1,
+              borderColor: "#E2E8F0",
+              backgroundColor: customColors.light,
+              borderRadius: 40,
+              marginTop: 30,
+              padding: 5,
+            }}
           >
-            <Image source={item.image} style={styles.image} />
-            <Text style={styles.text}>{item.name}</Text>
-          </TouchableOpacity>
-        ))}
-        </View>
-      </ScrollView>
-    </View>
+            <TextInput
+              style={{ flex: 1, marginLeft: 10, paddingRight: 10 }}
+              placeholder="Search for a recipe"
+            />
+
+            <TouchableOpacity
+              style={{
+                backgroundColor: customColors.white,
+                width: 50,
+                height: 50,
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: 50,
+              }}
+              onPress={() => console.log("Search button pressed")}
+            >
+              <FontAwesome5
+                name="pizza-slice"
+                size={28}
+                color={customColors.medium}
+              />
+            </TouchableOpacity>
+          </View>
+
+          <View
+            style={{
+              marginTop: 20,
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-around",
+            }}
+          >
+            {foodCatData.map((item) => (
+              <TouchableOpacity
+                key={item.id}
+                onPress={() => console.log(item.name + " pressed")}
+                style={styles.button}
+              >
+                <Image source={item.image} style={styles.image} />
+                <Text style={styles.text}>{item.name}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+
+          <View style={{ marginTop: 20, marginLeft: 5 }}>
+            <Text style={{ fontSize: 20, fontWeight: "bold" }}>Recipes</Text>
+          </View>
+        </>
+      }
+      data={recipeData}
+      numColumns={2}
+      keyExtractor={(item) => item.id}
+      renderItem={({ item }) => (
+        <>
+          <View style={{ flex: 1, margin: 10 }}>
+            <TouchableOpacity onPress={() => console.log("Pressed:", item.name)}>
+              <Image
+                source={item.image}
+                style={{
+                  width: "100%",
+                  height: 200,
+                  backgroundColor: customColors.light,
+                  borderRadius: 40,
+                }}
+              />
+            </TouchableOpacity>
+            <Text style={{ textAlign: "center", marginTop: 5 }}>
+              {item.name}
+            </Text>
+          </View>
+        </>
+      )}
+    />
   );
 };
-
 const styles = StyleSheet.create({
   button: {
     alignItems: "center",
     margin: 5,
   },
   image: {
-    width: 60,
-    height: 60,
-    borderRadius: 50, 
+    width: 50,
+    height: 50,
+    borderRadius: 50,
     backgroundColor: customColors.light,
   },
   text: {
