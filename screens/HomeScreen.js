@@ -10,6 +10,10 @@ import {
   StyleSheet,
   FlatList,
 } from "react-native";
+
+import AnonReg from "../components/customFonts/AnonReg";
+import AnonBold from "../components/customFonts/AnonBold";
+
 import customColors from "../config/customColors";
 import { FontAwesome5 } from "@expo/vector-icons";
 
@@ -90,10 +94,10 @@ const HomeScreen = () => {
           </View>
 
           <View>
-            <Text style={{ fontSize: 20, marginTop: 20 }}>Hello, user!</Text>
-            <Text style={{ fontSize: 30, fontWeight: "bold", marginTop: 20 }}>
+            <AnonReg style={{ fontSize: 20, marginTop: 20 }}>Hello, user!</AnonReg>
+            <AnonBold style={{ fontSize: 30, fontWeight: "bold", marginTop: 20 }}>
               A cool slogan goes here.
-            </Text>
+            </AnonBold>
           </View>
 
           <View
@@ -109,7 +113,7 @@ const HomeScreen = () => {
             }}
           >
             <TextInput
-              style={{ flex: 1, marginLeft: 10, paddingRight: 10 }}
+              style={{ flex: 1, marginLeft: 10, paddingRight: 10, fontFamily: "Anon" }}
               placeholder="Search for a recipe"
             />
 
@@ -147,13 +151,13 @@ const HomeScreen = () => {
                 style={styles.button}
               >
                 <Image source={item.image} style={styles.image} />
-                <Text style={styles.text}>{item.name}</Text>
+                <AnonReg style={styles.text}>{item.name}</AnonReg>
               </TouchableOpacity>
             ))}
           </View>
 
-          <View style={{ marginTop: 20, marginLeft: 5 }}>
-            <Text style={{ fontSize: 20, fontWeight: "bold" }}>Recipes</Text>
+          <View style={{ marginTop: 20, marginLeft: 5, fontWeight: 'bold' }}>
+            <AnonBold style={{ fontSize: 20}}>Recipes</AnonBold>
           </View>
         </>
       }
@@ -174,9 +178,9 @@ const HomeScreen = () => {
                 }}
               />
             </TouchableOpacity>
-            <Text style={{ textAlign: "center", marginTop: 5 }}>
+            <AnonReg style={{ textAlign: "center", marginTop: 5 }}>
               {item.name}
-            </Text>
+            </AnonReg>
           </View>
         </>
       )}

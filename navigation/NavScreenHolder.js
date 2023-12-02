@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState, useEffect} from "react";
 import { View, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import customColors from "../config/customColors";
+import * as Font from 'expo-font';
 
 // screen components
 import AboutUsScreen from "../screens/AboutUsScreen";
@@ -20,12 +21,29 @@ const AboutUsScreenName = "About Us";
 const Tab = createBottomTabNavigator();
 
 const NavScreenHolder = () => {
+    const [fontLoaded, setFontLoaded] = useState(false);
+
+  const loadFonts = async () => {
+    await Font.loadAsync({
+      'Anon': require('../assets/fonts/AnonymousPro-Regular.ttf'), // replace 'path-to-your-font' with the actual path
+    });
+
+    setFontLoaded(true);
+  };
+
+  useEffect(() => {
+    loadFonts();
+  }, []);
+
+  if (!fontLoaded) {
+    return <View />;
+  }
   return (
     <NavigationContainer>
       <Tab.Navigator
         initialRouteName={HomeScreenName}
         screenOptions={({ route }) => ({
-            headerShown: false,
+            headerShown: false, // hide the header
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
             if (route.name === HomeScreenName) {
@@ -47,6 +65,7 @@ const NavScreenHolder = () => {
           tabBarInactiveTintColor: "gray",
           tabBarLabelStyle: {
             fontSize: 10,
+            fontFamily: "Anon",
           },
           tabBarStyle: { height: 80 },
         })}

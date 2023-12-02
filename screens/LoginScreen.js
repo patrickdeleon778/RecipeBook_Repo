@@ -11,6 +11,7 @@ import customColors from "../config/customColors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
+import AnonReg from "../components/customFonts/AnonReg";
 
 const LoginScreen = () => {
   return (
@@ -23,16 +24,16 @@ const LoginScreen = () => {
       </View>
       <View style={styles.bottomHalf}>
         <View style={styles.bottomHalfContent}>
-          <Text style={styles.welcomeText}>Welcome</Text>
+          <AnonReg style={styles.welcomeText}>Welcome</AnonReg>
           <Text>
-            <Text style={styles.noAccountText}>Don't have an account? </Text>
+            <AnonReg style={styles.noAccountText}>Don't have an account? </AnonReg>
             <Text style={styles.registerText}>Register now</Text>
           </Text>
 
           <View style={{ marginTop: 50 }}>
-            <Text style={{ fontSize: 20, color: customColors.medium }}>
+            <AnonReg style={{ fontSize: 20, color: customColors.medium }}>
               Email
-            </Text>
+            </AnonReg>
 
             <View style={styles.inputContainer}>
               <TextInput
@@ -50,9 +51,9 @@ const LoginScreen = () => {
           </View>
 
           <View style={{ marginTop: 30 }}>
-            <Text style={{ fontSize: 20, color: customColors.medium }}>
+            <AnonReg style={{ fontSize: 20, color: customColors.medium }}>
               Password
-            </Text>
+            </AnonReg>
 
             <View style={styles.inputContainer}>
               <TextInput style={styles.input} />
@@ -66,7 +67,7 @@ const LoginScreen = () => {
               size={24}
               color={customColors.primary}
             />
-            <Text
+            <AnonReg
               style={{
                 marginLeft: 10,
                 fontSize: 12,
@@ -75,7 +76,7 @@ const LoginScreen = () => {
               }}
             >
               Remember me
-            </Text>
+            </AnonReg>
           </View>
 
           <View style={{ marginTop: 20 }}>
@@ -175,6 +176,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     color: customColors.white,
+    fontFamily: "Anon",
   },
 });
 

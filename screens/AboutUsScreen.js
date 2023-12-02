@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
   StyleSheet,
   Image,
 } from "react-native";
+
+import AnonReg from "../components/customFonts/AnonReg";
+
 import customColors from "../config/customColors";
 
 const AboutUsScreen = () => {
+
   return (
     <View style={styles.container}>
       <View style={styles.topHalf}>
@@ -18,8 +22,8 @@ const AboutUsScreen = () => {
       </View>
       <View style={styles.bottomHalf}>
         <View style={styles.bottomHalfContent}>
-          <Text style={styles.aboutUsText}>About Us</Text>
-          <Text style={styles.aboutUsBody}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi repellat eos laborum beatae laudantium enim, ducimus autem hic natus ipsum voluptatum! Reiciendis placeat quo illo culpa mollitia rem qui praesentium!Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi repellat eos laborum beatae laudantium enim, ducimus autem hic natus ipsum voluptatum! Reiciendis placeat quo illo culpa mollitia rem qui praesentium!</Text>
+          <AnonReg style={styles.aboutUsText}>About Us</AnonReg>
+          <AnonReg style={styles.aboutUsBody}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi repellat eos laborum beatae laudantium enim, ducimus autem hic natus ipsum voluptatum! Reiciendis placeat quo illo culpa mollitia rem qui praesentium!Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi repellat eos laborum beatae laudantium enim, ducimus autem hic natus ipsum voluptatum! Reiciendis placeat quo illo culpa mollitia rem qui praesentium!</AnonReg>
         </View>
       </View>
     </View>
@@ -58,6 +62,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: customColors.primary,
     textAlign: "center",
+    fontFamily: "Anon",
   },
   aboutUsBody: {
     fontSize: 16,

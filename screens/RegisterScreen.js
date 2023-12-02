@@ -11,6 +11,7 @@ import customColors from "../config/customColors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
+import AnonReg from "../components/customFonts/AnonReg";
 
 const RegisterScreen = () => {
   return (
@@ -23,7 +24,7 @@ const RegisterScreen = () => {
       </View>
       <View style={styles.bottomHalf}>
         <View style={styles.bottomHalfContent}>
-          <Text style={styles.registerText}>Register</Text>
+          <AnonReg style={styles.registerText}>Register</AnonReg>
 
           <View style={{ marginTop: 20 }}>
             <View style={styles.inputContainer}>
@@ -133,6 +134,7 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
     paddingRight: 40,
     paddingBottom: 5,
+    fontFamily: "Anon",
   },
   icon: {
     paddingBottom: 5,
@@ -158,6 +160,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     color: customColors.primary,
+    fontFamily: "Anon",
   },
 });
 

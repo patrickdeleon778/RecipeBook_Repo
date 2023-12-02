@@ -4,6 +4,8 @@ import customColors from "../config/customColors";
 import LoginAndRegiButtons from "../components/LoginAndRegiButtons";
 
 const LoginAndRegiScreen = () => {
+
+  
   return (
     <View style={styles.container}>
       <View style={styles.topHalf}>

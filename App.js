@@ -5,6 +5,7 @@ import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import AboutUsScreen from './screens/AboutUsScreen';
 import NavScreenHolder from './navigation/NavScreenHolder';
+import RecipeScreen from './screens/RecipeScreen';
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
     // <LoginScreen/>
     // <AboutUsScreen/>
     <NavScreenHolder/>
+    // <RecipeScreen/>
     // <RegisterScreen/>
     // <LoginAndRegiScreen/>
   );
