@@ -6,8 +6,9 @@ import {
   TouchableOpacity,
   StyleSheet,
   TextInput,
+  ScrollView,
 } from "react-native";
-import uuid from 'react-native-uuid';
+import uuid from "react-native-uuid";
 import * as ImagePicker from "expo-image-picker";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
@@ -33,15 +34,17 @@ const CreateRecipeScreen = () => {
     }
   };
 
-  const [ingredients, setIngredients] = useState([{id: uuid.v4(), name: "", quantity: "" }]);
+  const [ingredients, setIngredients] = useState([
+    { id: uuid.v4(), name: "", quantity: "" },
+  ]);
 
   const addIngredient = () => {
-    setIngredients([...ingredients, {id: uuid.v4(), name: "", quantity: "" }]);
+    setIngredients([...ingredients, { id: uuid.v4(), name: "", quantity: "" }]);
   };
 
   return (
     <View style={{ flex: 1 }}>
-      <View style={{ flex: 0.7 }}>
+      <View style={{ flex: 0.4 }}>
         {image ? (
           <Image
             source={{ uri: image }}
@@ -68,98 +71,107 @@ const CreateRecipeScreen = () => {
         </TouchableOpacity>
       </View>
 
-      <View
-        style={{
-          flex: 0.25,
-          padding: 30,
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <Ionicons
-          name="bookmark-outline"
-          size={40}
-          color={customColors.primary}
-        />
-        <TextInput
+      <ScrollView style={{ flex: 0.6 }}>
+        <View
           style={{
-            fontSize: 40,
-            fontWeight: "bold",
-            textAlign: "center",
-            // fontFamily: "Anon",
-            maxWidth: "60%",
+            padding: 30,
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
           }}
-          placeholder="Title"
-          multiline={true}
-        />
-        <FontAwesome5 name="share" size={40} color={customColors.primary} />
-      </View>
+        >
+          <Ionicons
+            name="bookmark-outline"
+            size={40}
+            color={customColors.primary}
+          />
+          <TextInput
+            style={{
+              fontSize: 40,
+              fontWeight: "bold",
+              textAlign: "center",
+              maxWidth: "60%",
+            }}
+            placeholder="Title"
+            multiline={true}
+          />
+          <FontAwesome5 name="share" size={40} color={customColors.primary} />
+        </View>
 
-      <View style={{ flex: 1, padding: 30 }}>
-        <AnonBold style={{ fontSize: 24 }}>Ingredient</AnonBold>
+        <View style={{ flex: 1, padding: 30 }}>
+          <AnonBold style={{ fontSize: 24 }}>Ingredient</AnonBold>
 
-        <View style={{ flex: 1, paddingLeft: 10 }}>
-          {ingredients.map((ingredient, index) => (
-            <View key={ingredient.id} style={{ flexDirection: "row", marginTop: 10 }}>
+          <View style={{ flex: 1, paddingLeft: 10 }}>
+            {ingredients.map((ingredient, index) => (
               <View
+                key={ingredient.id}
                 style={{
-                  width: 10,
-                  height: 10,
-                  backgroundColor: customColors.primary,
-                  borderRadius: 50,
-                  margin: 7,
+                  flexDirection: "row",
+                  marginTop: 10,
+                  justifyContent: "space-between",
                 }}
-              />
-              <TextInput
-                style={{ fontSize: 18, margin: 3 }}
-                placeholder="Quantity"
-                onChangeText={(text) => {
-                  let newIngredients = [...ingredients];
-                  newIngredients[index].quantity = text;
-                  setIngredients(newIngredients);
-                }}
-              />
-              <TextInput
-                style={{ fontSize: 14, margin: 5 }}
-                placeholder="Ingredient"
-                onChangeText={(text) => {
-                  let newIngredients = [...ingredients];
-                  newIngredients[index].name = text;
-                  setIngredients(newIngredients);
-                }}
-              />
-              <TouchableOpacity
-                onPress={() => {
+              >
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <View
+                    style={{
+                      width: 10,
+                      height: 10,
+                      backgroundColor: customColors.primary,
+                      borderRadius: 50,
+                      margin: 7,
+                    }}
+                  />
+                  <TextInput
+                    style={{ fontSize: 18, margin: 3 }}
+                    placeholder="Quantity"
+                    onChangeText={(text) => {
+                      let newIngredients = [...ingredients];
+                      newIngredients[index].quantity = text;
+                      setIngredients(newIngredients);
+                    }}
+                  />
+                  <TextInput
+                    style={{ fontSize: 14, margin: 5 }}
+                    placeholder="Ingredient"
+                    onChangeText={(text) => {
+                      let newIngredients = [...ingredients];
+                      newIngredients[index].name = text;
+                      setIngredients(newIngredients);
+                    }}
+                  />
+                </View>
+                <TouchableOpacity
+                  onPress={() => {
                     const newIngredients = ingredients.filter(
                       (item) => item.id !== ingredient.id
                     );
                     setIngredients(newIngredients);
                   }}
-              >
-                <MaterialIcons name="delete" size={24} color="black" />
-              </TouchableOpacity>
-            </View>
-          ))}
+                >
+                  <MaterialIcons name="delete" size={24} color="black" />
+                </TouchableOpacity>
+              </View>
+            ))}
 
-          <TouchableOpacity onPress={addIngredient}>
-            <Text>Add Ingredient</Text>
-          </TouchableOpacity>
+            <TouchableOpacity onPress={addIngredient}>
+              <Text>Add Ingredient</Text>
+            </TouchableOpacity>
 
-          <AnonBold style={{ fontSize: 24, marginTop: 20 }}>
-            Instructions
-          </AnonBold>
-          <AnonReg style={{ fontSize: 12, marginTop: 5, paddingLeft: 10 }}>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
-            repellat eos laborum beatae laudantium enim, ducimus autem hic natus
-            ipsum voluptatum! Reiciendis placeat quo illo culpa mollitia rem qui
-            praesentium!Lorem ipsum dolor sit amet, consectetur adipisicing
-            elit. Modi repellat eos laborum beatae laudantium enim, ducimus
-            autem hic natus ipsum voluptatum! Reiciendis placeat quo illo culpa
-            mollitia rem qui praesentium!
-          </AnonReg>
+            <AnonBold style={{ fontSize: 24, marginTop: 20 }}>
+              Instructions
+            </AnonBold>
+            <AnonReg style={{ fontSize: 12, marginTop: 5, paddingLeft: 10 }}>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
+              repellat eos laborum beatae laudantium enim, ducimus autem hic
+              natus ipsum voluptatum! Reiciendis placeat quo illo culpa mollitia
+              rem qui praesentium!Lorem ipsum dolor sit amet, consectetur
+              adipisicing elit. Modi repellat eos laborum beatae laudantium
+              enim, ducimus autem hic natus ipsum voluptatum! Reiciendis placeat
+              quo illo culpa mollitia rem qui praesentium!
+            </AnonReg>
+          </View>
         </View>
-      </View>
+      </ScrollView>
     </View>
   );
 };
