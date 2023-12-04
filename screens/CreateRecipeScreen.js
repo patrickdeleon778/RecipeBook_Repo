@@ -99,9 +99,19 @@ const CreateRecipeScreen = () => {
         </View>
 
         <View style={{ flex: 1, padding: 30 }}>
-          <AnonBold style={{ fontSize: 24 }}>Ingredient</AnonBold>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <AnonBold style={{ fontSize: 24 }}>Ingredient</AnonBold>
+            <TouchableOpacity onPress={addIngredient}>
+              <FontAwesome5
+                name="plus-circle"
+                size={20}
+                style={{ paddingLeft: 5 }}
+                color={customColors.primary}
+              />
+            </TouchableOpacity>
+          </View>
 
-          <View style={{ flex: 1, paddingLeft: 10 }}>
+          <View style={{ flex: 1 }}>
             {ingredients.map((ingredient, index) => (
               <View
                 key={ingredient.id}
@@ -122,7 +132,7 @@ const CreateRecipeScreen = () => {
                     }}
                   />
                   <TextInput
-                    style={{ fontSize: 18, margin: 3 }}
+                    style={{ fontSize: 18, margin: 3, width: 80 }}
                     placeholder="Quantity"
                     onChangeText={(text) => {
                       let newIngredients = [...ingredients];
@@ -131,7 +141,7 @@ const CreateRecipeScreen = () => {
                     }}
                   />
                   <TextInput
-                    style={{ fontSize: 14, margin: 5 }}
+                    style={{ fontSize: 14, margin: 5, width: 170 }}
                     placeholder="Ingredient"
                     onChangeText={(text) => {
                       let newIngredients = [...ingredients];
@@ -147,28 +157,28 @@ const CreateRecipeScreen = () => {
                     );
                     setIngredients(newIngredients);
                   }}
+                  style={{ paddingRight: 10 }}
                 >
                   <MaterialIcons name="delete" size={24} color="black" />
                 </TouchableOpacity>
               </View>
             ))}
 
-            <TouchableOpacity onPress={addIngredient}>
-              <Text>Add Ingredient</Text>
-            </TouchableOpacity>
+            <View>
+              <AnonBold style={{ fontSize: 24, marginTop: 20 }}>
+                Instructions
+              </AnonBold>
+              <TextInput
+    style={{ fontSize: 12, marginTop: 5, paddingLeft: 10 }}
+    placeholder="Enter instructions here..."
+    multiline={true}
+    numberOfLines={10} // Adjust as needed
+    onChangeText={(text) => {
+      // Handle the text change event
+    }}
+  />
+            </View>
 
-            <AnonBold style={{ fontSize: 24, marginTop: 20 }}>
-              Instructions
-            </AnonBold>
-            <AnonReg style={{ fontSize: 12, marginTop: 5, paddingLeft: 10 }}>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
-              repellat eos laborum beatae laudantium enim, ducimus autem hic
-              natus ipsum voluptatum! Reiciendis placeat quo illo culpa mollitia
-              rem qui praesentium!Lorem ipsum dolor sit amet, consectetur
-              adipisicing elit. Modi repellat eos laborum beatae laudantium
-              enim, ducimus autem hic natus ipsum voluptatum! Reiciendis placeat
-              quo illo culpa mollitia rem qui praesentium!
-            </AnonReg>
           </View>
         </View>
       </ScrollView>
