@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Alert } from 'react-native';
-import {ContactForm} from '../Components/ContactForm';
+import ContactForm from '../Components/ContactForm';
 
 const ContactScreen = () => {
   const [loading, setLoading] = useState(false);
@@ -9,12 +9,11 @@ const ContactScreen = () => {
     setLoading(true);
 
     try {
-      // Your emailjs logic here
-      // await emailjs.send(...);
+      
       Alert.alert('Success', 'Thank you! I will be in contact soon.');
     } catch (error) {
       console.error(error);
-      throw error; // Propagate the error to be caught in the ContactForm component
+      throw error; 
     } finally {
       setLoading(false);
     }

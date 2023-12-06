@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
-// import emailjs from '@emailjs/browser';
+
 
 const ContactForm = ({ onSubmit, loading }) => {
   const [formData, setFormData] = useState({
@@ -32,7 +32,7 @@ const ContactForm = ({ onSubmit, loading }) => {
 
   return (
     <View style={{ width: '80%' }}>
-      <Text style={{ fontSize: 24, marginBottom: 20 }}>Contact Me</Text>
+      <Text style={{fontSize: 30, marginBottom: 240, textAlign: 'center' }}>Contact Us</Text>
 
       <TextInput
         placeholder='Enter your name'
