@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   View,
@@ -10,6 +10,8 @@ import {
   StyleSheet,
   FlatList,
 } from "react-native";
+
+import { fetchRecipes } from "../services/getRecipeApi";
 
 import AnonReg from "../components/customFonts/AnonReg";
 import AnonBold from "../components/customFonts/AnonBold";
@@ -81,6 +83,12 @@ const HomeScreen = () => {
     },
   ]);
 
+  const [recipes, setRecipes] = useState([]);
+
+  useEffect(() => {
+    fetchRecipes().then((recipes) => setRecipes(recipes));
+  }, []);
+
   return (
     <FlatList
       contentContainerStyle={{ marginHorizontal: 20, paddingTop: 60 }}
@@ -94,8 +102,12 @@ const HomeScreen = () => {
           </View>
 
           <View>
-            <AnonReg style={{ fontSize: 20, marginTop: 20 }}>Hello, user!</AnonReg>
-            <AnonBold style={{ fontSize: 30, fontWeight: "bold", marginTop: 20 }}>
+            <AnonReg style={{ fontSize: 20, marginTop: 20 }}>
+              Hello, user!
+            </AnonReg>
+            <AnonBold
+              style={{ fontSize: 30, fontWeight: "bold", marginTop: 20 }}
+            >
               A cool slogan goes here.
             </AnonBold>
           </View>
@@ -113,7 +125,12 @@ const HomeScreen = () => {
             }}
           >
             <TextInput
-              style={{ flex: 1, marginLeft: 10, paddingRight: 10, fontFamily: "Anon" }}
+              style={{
+                flex: 1,
+                marginLeft: 10,
+                paddingRight: 10,
+                fontFamily: "Anon",
+              }}
               placeholder="Search for a recipe"
             />
 
@@ -156,8 +173,8 @@ const HomeScreen = () => {
             ))}
           </View>
 
-          <View style={{ marginTop: 20, marginLeft: 5, fontWeight: 'bold' }}>
-            <AnonBold style={{ fontSize: 20}}>Recipes</AnonBold>
+          <View style={{ marginTop: 20, marginLeft: 5, fontWeight: "bold" }}>
+            <AnonBold style={{ fontSize: 20 }}>Recipes</AnonBold>
           </View>
         </>
       }
@@ -167,7 +184,9 @@ const HomeScreen = () => {
       renderItem={({ item }) => (
         <>
           <View style={{ flex: 1, margin: 10 }}>
-            <TouchableOpacity onPress={() => console.log("Pressed:", item.name)}>
+            <TouchableOpacity
+              onPress={() => console.log("Pressed:", item.name)}
+            >
               <Image
                 source={item.image}
                 style={{
