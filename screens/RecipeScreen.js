@@ -7,7 +7,9 @@ import JAHFont from "../components/customFonts/JAHFont";
 import AnonBold from "../components/customFonts/AnonBold";
 import AnonReg from "../components/customFonts/AnonReg";
 
-const RecipeScreen = () => {
+const RecipeScreen = ({ route }) => {
+
+  const { recipe } = route.params;
 
     const [ingredients, setIngredients] = useState([
         { name: 'flour', quantity: '500lb' },

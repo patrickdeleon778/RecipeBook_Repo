@@ -21,8 +21,9 @@ import AnonBold from "../components/customFonts/AnonBold";
 
 import customColors from "../config/customColors";
 import { FontAwesome5 } from "@expo/vector-icons";
+import RecipeScreen from "./RecipeScreen";
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
   const cuisineTypes = [
     {
       id: uuid.v4(),
@@ -199,7 +200,10 @@ const HomeScreen = () => {
         <>
           <View style={{ flex: 1, margin: 10 }}>
             <TouchableOpacity
-              onPress={() => console.log("Pressed:", item.title)}
+              onPress={() => {
+                console.log('Button pressed');
+                navigation.navigate('Recipe', { recipe: item });
+              }}
             >
               <Image
                 source={{ uri: item.image }}
@@ -220,6 +224,8 @@ const HomeScreen = () => {
     />
   );
 };
+
+
 const styles = StyleSheet.create({
   button: {
     alignItems: "center",
