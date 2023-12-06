@@ -1,55 +1,31 @@
-import React from 'react';
-import { Form, Button, Row, Col } from 'react-bootstrap';
-import ContactUs from '../Components/ContactUs';
+import React, { useState } from 'react';
+import { View, Alert } from 'react-native';
+import {ContactForm} from '../Components/ContactForm';
 
-const ContactScreen = ({formData, loading, onSubmit, onChange}) => {
+const ContactScreen = () => {
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (formData) => {
+    setLoading(true);
+
+    try {
+      // Your emailjs logic here
+      // await emailjs.send(...);
+      Alert.alert('Success', 'Thank you! I will be in contact soon.');
+    } catch (error) {
+      console.error(error);
+      throw error; // Propagate the error to be caught in the ContactForm component
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <Form onSubmit={onSubmit} className='contact-form'>
-    <Form.Group controlId='formName'>
-      <Form.Label>Name</Form.Label>
-      <Form.Control
-        type='text'
-        placeholder='Enter your name'
-        name='name'
-        value={formData.name}
-        onChange={onChange}
-        style={{ width: '200%', fontSize: '20px', padding: '15px', marginBottom: '10px' }}
-        required
-      />
-    </Form.Group>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <ContactForm onSubmit={handleSubmit} loading={loading} />
+    </View>
+  );
+};
 
-    <Form.Group controlId='formEmail'>
-      <Form.Label>Email address</Form.Label>
-      <Form.Control
-        type='email'
-        placeholder='Enter your email'
-        name='email'
-        value={formData.email}
-        onChange={onChange}
-        style={{ width: '200%', fontSize: '20px', padding: '10px', marginBottom: '10px' }}
-        required
-      />
-    </Form.Group>
+export default ContactScreen;
 
-    <Form.Group controlId='formMessage'>
-      <Form.Label>Message</Form.Label>
-      <Form.Control
-        as='textarea'
-        rows={6}
-        placeholder='Enter your message'
-        name='message'
-        value={formData.message}
-        onChange={onChange}
-        style={{ width: '200%', fontSize: '20px', padding: '10px', marginBottom: '100px' }}
-        required
-      />
-    </Form.Group>
-
-    <Button variant='primary' type='submit'>
-      {loading ? 'Sending......' : 'Send'} Submit
-    </Button>
-  </Form>
-  )
-}
-
-export default ContactScreen
