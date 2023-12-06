@@ -75,7 +75,7 @@ const HomeScreen = ({ navigation }) => {
 
   const handleCuisinePress = async (cuisine) => {
     try {
-      const recipes = await fetchCuisine(cuisine.name); // Assuming fetchRecipes is correctly implemented
+      const recipes = await fetchCuisine(cuisine.name, searchQuery); // Assuming fetchRecipes is correctly implemented
       setSelectedCuisines(cuisine.name);
       setRecipeData(recipes);
     } catch (error) {

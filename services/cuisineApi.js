@@ -7,8 +7,13 @@ export const fetchCuisine = async (cuisine, query) => {
         apiKey: '12eff79c402c49fe89e486ceb64581b8',
         cuisine: cuisine,
         query: query,
+        includeIngredients: true,
+        instructionsRequired: true,
       },
     });
+
+    console.log('API Response:', response.data.results);
+
     return response.data.results;
   } catch (error) {
     console.error('Error fetching data: ', error);

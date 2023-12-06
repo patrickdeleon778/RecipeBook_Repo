@@ -10,6 +10,7 @@ import AnonReg from "../components/customFonts/AnonReg";
 const RecipeScreen = ({ route }) => {
 
   const { recipe } = route.params;
+  console.log(recipe);
 
     const [ingredients, setIngredients] = useState([
         { name: 'flour', quantity: '500lb' },
@@ -24,7 +25,7 @@ const RecipeScreen = ({ route }) => {
       <View style={{ flex: 0.7 }}>
         <Image
           style={{ width: "100%", height: "100%" }}
-          source={require("../assets/images/pizzaimage.webp")}
+          source={{ uri: recipe.image }}
         />
       </View>
 
@@ -44,7 +45,7 @@ const RecipeScreen = ({ route }) => {
         <JAHFont
           style={{ fontSize: 60, fontWeight: "bold", textAlign: "center" }}
         >
-          Title
+          {recipe.title}
         </JAHFont>
         <FontAwesome5 name="share" size={40} color={customColors.primary} />
       </View>
