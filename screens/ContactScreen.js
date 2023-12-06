@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Alert } from 'react-native';
-import ContactForm from '../Components/ContactForm';
+import ContactForm from '../components/ContactForm';
 
 const ContactScreen = () => {
   const [loading, setLoading] = useState(false);
