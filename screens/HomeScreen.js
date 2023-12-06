@@ -59,6 +59,19 @@ const HomeScreen = () => {
 
   const [recipeData, setRecipeData] = useState([]);
 
+  const [searchQuery, setSearchQuery] = useState('');
+
+
+  const handleSearch = async () => {
+    try {
+      const recipes = await fetchCuisine(selectedCuisines, searchQuery);
+      setRecipeData(recipes);
+    } catch (error) {
+      console.error("Error fetching recipes:", error);
+    }
+  };
+
+
   const handleCuisinePress = async (cuisine) => {
     try {
       const recipes = await fetchCuisine(cuisine.name); // Assuming fetchRecipes is correctly implemented
@@ -118,6 +131,8 @@ const HomeScreen = () => {
                 fontFamily: "Anon",
               }}
               placeholder="Search for a recipe"
+              onChangeText={text => setSearchQuery(text)}
+              onSubmitEditing={handleSearch}
             />
 
             <TouchableOpacity
@@ -129,7 +144,7 @@ const HomeScreen = () => {
                 justifyContent: "center",
                 borderRadius: 50,
               }}
-              onPress={() => console.log("Search button pressed")}
+              onPress={handleSearch}
             >
               <FontAwesome5
                 name="pizza-slice"
