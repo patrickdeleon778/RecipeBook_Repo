@@ -24,19 +24,40 @@ import { FontAwesome5 } from "@expo/vector-icons";
 
 const HomeScreen = () => {
   const cuisineTypes = [
-    {id: uuid.v4(), name: 'Italian', image: require("../assets/images/flags/italian-flag.png") },
-    {id: uuid.v4(), name: 'Chinese', image: require("../assets/images/flags/china-flag.png") },
-    {id: uuid.v4(), name: 'Indian', image: require("../assets/images/flags/india-flag.png") },
-    {id: uuid.v4(), name: 'French', image: require("../assets/images/flags/france-flag.png") },
-    {id: uuid.v4(), name: 'Mexican', image: require("../assets/images/flags/mexico-flag.jpg") },
-    {id: uuid.v4(), name: 'Japanese', image: require("../assets/images/flags/japan-flag.jpg") },
+    {
+      id: uuid.v4(),
+      name: "Italian",
+      image: require("../assets/images/flags/italian-flag.png"),
+    },
+    {
+      id: uuid.v4(),
+      name: "Chinese",
+      image: require("../assets/images/flags/china-flag.png"),
+    },
+    {
+      id: uuid.v4(),
+      name: "Indian",
+      image: require("../assets/images/flags/india-flag.png"),
+    },
+    {
+      id: uuid.v4(),
+      name: "French",
+      image: require("../assets/images/flags/france-flag.png"),
+    },
+    {
+      id: uuid.v4(),
+      name: "Mexican",
+      image: require("../assets/images/flags/mexico-flag.jpg"),
+    },
+    {
+      id: uuid.v4(),
+      name: "Japanese",
+      image: require("../assets/images/flags/japan-flag.jpg"),
+    },
   ];
-  const [foodCatData, setFoodCatData] = useState([]);
   const [selectedCuisines, setSelectedCuisines] = useState([]);
 
   const [recipeData, setRecipeData] = useState([]);
-
-  const [recipes, setRecipes] = useState([]);
 
   const handleCuisinePress = async (cuisine) => {
     try {
@@ -50,7 +71,6 @@ const HomeScreen = () => {
 
   useEffect(() => {
     fetchCuisine().then((recipes) => setSelectedCuisines(recipes));
-
   }, []);
 
   console.log(recipeData);
@@ -134,7 +154,19 @@ const HomeScreen = () => {
                 onPress={() => handleCuisinePress(cuisine)}
                 style={styles.button}
               >
-                <Image source={cuisine.image} style={styles.image} />
+                <Image
+                  source={cuisine.image}
+                  style={[
+                    styles.image,
+                    {
+                      borderWidth: selectedCuisines === cuisine.name ? 4 : 0,
+                      borderColor: customColors.primary,
+                    },
+                    selectedCuisines === cuisine.name && {
+                      backgroundColor: customColors.primary,
+                    },
+                  ]}
+                />
                 <AnonReg style={styles.text}>{cuisine.name}</AnonReg>
               </TouchableOpacity>
             ))}

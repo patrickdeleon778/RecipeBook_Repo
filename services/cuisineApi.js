@@ -4,7 +4,7 @@ export const fetchCuisine = async (cuisine) => {
   try {
     const response = await axios.get('https://api.spoonacular.com/recipes/complexSearch', {
       params: {
-        apiKey: '067e3bfbdd774bd4823a992bf1d1a820',
+        apiKey: 'd4b55fa8ba42409a97a2847865aef001',
         cuisine: cuisine, // Add the cuisine parameter
       },
     });
