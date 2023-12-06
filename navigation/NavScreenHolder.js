@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from "react";
-import { View, Text } from "react-native";
+import { View, Text, Platform } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
@@ -11,12 +11,14 @@ import AboutUsScreen from "../screens/AboutUsScreen";
 import HomeScreen from "../screens/HomeScreen";
 import FavoriteRecipes from "../screens/FavoriteRecipes";
 import RecipeScreen from "../screens/RecipeScreen";
+import CreateRecipeScreen from "../screens/CreateRecipeScreen";
 
 // screen names
 const HomeScreenName = "Home";
 const RecipeScreenName = "Recipe";
 const FavoriteRecipesScreenName = "Favorite Recipes";
 const AboutUsScreenName = "About Us";
+const CreateRecipeScreenName = "Create";
 
 const Tab = createBottomTabNavigator();
 
@@ -48,7 +50,7 @@ const NavScreenHolder = () => {
             let iconName;
             if (route.name === HomeScreenName) {
               iconName = focused ? "home" : "home-outline";
-            } else if (route.name === RecipeScreenName) {
+            } else if (route.name === CreateRecipeScreenName) {
               iconName = focused ? "pencil" : "pencil-outline";
             } else if (route.name === FavoriteRecipesScreenName) {
               iconName = focused ? "bookmark" : "bookmark-outline";
@@ -64,14 +66,17 @@ const NavScreenHolder = () => {
           tabBarActiveTintColor: customColors.primary,
           tabBarInactiveTintColor: "gray",
           tabBarLabelStyle: {
-            fontSize: 10,
+            fontSize: Platform.OS === 'android' ? 11 : 10,
             fontFamily: "Anon",
+            paddingBottom: Platform.OS === 'android' ? 10 : 0,
           },
-          tabBarStyle: { height: 80 },
+          tabBarStyle: { 
+            height: Platform.OS === 'android' ? 70 : 80,
+          },
         })}
       >
         <Tab.Screen name={HomeScreenName} component={HomeScreen} />
-        <Tab.Screen name={RecipeScreenName} component={RecipeScreen} />
+        <Tab.Screen name={CreateRecipeScreenName} component={CreateRecipeScreen} />
         <Tab.Screen
           name={FavoriteRecipesScreenName}
           component={FavoriteRecipes}
