@@ -77,7 +77,6 @@ const CreateRecipeScreen = () => {
             padding: 30,
             flexDirection: "row",
             justifyContent: "space-between",
-            alignItems: "center",
           }}
         >
           <Ionicons
@@ -90,7 +89,7 @@ const CreateRecipeScreen = () => {
               fontSize: 40,
               fontWeight: "bold",
               textAlign: "center",
-              maxWidth: "60%",
+              maxWidth: "80%",
             }}
             placeholder="Title"
             multiline={true}
@@ -169,16 +168,15 @@ const CreateRecipeScreen = () => {
                 Instructions
               </AnonBold>
               <TextInput
-    style={{ fontSize: 12, marginTop: 5, paddingLeft: 10 }}
-    placeholder="Enter instructions here..."
-    multiline={true}
-    numberOfLines={10} // Adjust as needed
-    onChangeText={(text) => {
-      // Handle the text change event
-    }}
-  />
+                style={{ fontSize: 12, marginTop: 5, paddingLeft: 10 }}
+                placeholder="Enter instructions here..."
+                multiline={true}
+                numberOfLines={10} // Adjust as needed
+                onChangeText={(text) => {
+                  // Handle the text change event
+                }}
+              />
             </View>
-
           </View>
         </View>
       </ScrollView>
