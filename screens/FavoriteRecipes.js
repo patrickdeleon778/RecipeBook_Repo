@@ -13,13 +13,24 @@ import AnonReg from "../components/customFonts/AnonReg";
 
 import { FontAwesome5 } from "@expo/vector-icons";
 import AnonBold from "../components/customFonts/AnonBold";
-import  RecipeContext  from "../context/RecipeContext";
+import RecipeContext from "../context/RecipeContext";
 
 const FavoriteRecipes = ({ navigation }) => {
-
   const { savedRecipes } = useContext(RecipeContext);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  console.log("Saved Recipes:", savedRecipes);
+  const filteredRecipes = savedRecipes.filter((recipe) => recipe.title.toLowerCase().includes(searchQuery.toLowerCase()));
+
+
+  // console.log("Saved Recipes:", savedRecipes);
+  // console.log('Saved Recipes title:', savedRecipes[0].title);
+
+  const handleSearch = () => {
+
+    const titles = savedRecipes.map((recipe) => recipe.title);
+    console.log(titles);
+
+  };
 
   return (
     <FlatList
@@ -39,8 +50,14 @@ const FavoriteRecipes = ({ navigation }) => {
             }}
           >
             <TextInput
-              style={{ flex: 1, marginLeft: 10, paddingRight: 10, fontFamily: "Anon" }}
+              style={{
+                flex: 1,
+                marginLeft: 10,
+                paddingRight: 10,
+                fontFamily: "Anon",
+              }}
               placeholder="Search favorite recipe"
+              onChangeText={(text) => setSearchQuery(text)}
             />
 
             <TouchableOpacity
@@ -52,7 +69,7 @@ const FavoriteRecipes = ({ navigation }) => {
                 justifyContent: "center",
                 borderRadius: 50,
               }}
-              onPress={() => console.log("Search button pressed")}
+              onPress={handleSearch}
             >
               <FontAwesome5
                 name="pizza-slice"
@@ -63,11 +80,13 @@ const FavoriteRecipes = ({ navigation }) => {
           </View>
 
           <View style={{ marginTop: 40, marginLeft: 5 }}>
-            <AnonBold style={{ fontSize: 20, fontWeight: "bold" }}>Favorite Recipes</AnonBold>
+            <AnonBold style={{ fontSize: 20, fontWeight: "bold" }}>
+              Favorite Recipes
+            </AnonBold>
           </View>
         </>
       }
-      data={savedRecipes}
+      data={filteredRecipes}
       numColumns={2}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => (
@@ -75,7 +94,7 @@ const FavoriteRecipes = ({ navigation }) => {
           <View style={{ flex: 1, margin: 10 }}>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('Recipe', { recipe: item });
+                navigation.navigate("Recipe", { recipe: item });
               }}
             >
               <Image

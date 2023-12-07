@@ -10,10 +10,12 @@ import { ScrollView } from "react-native-gesture-handler";
 import * as Font from "expo-font";
 import RecipeContext from "../context/RecipeContext";
 
-
 const RecipeScreen = ({ route }) => {
   const { recipe } = route.params;
-  const { savedRecipes, setSavedRecipes } = useContext(RecipeContext);
+  const { savedRecipes, setSavedRecipes, isSaved, setIsSaved } =
+    useContext(RecipeContext);
+
+  // const [isSaved, setIsSaved] = useState(false);
   // console.log(recipe);
 
   const [ingredients, setIngredients] = useState([]);
@@ -26,14 +28,23 @@ const RecipeScreen = ({ route }) => {
     const allIngredients = recipe.extendedIngredients || [];
     const allInstructions = recipe.instructions || "";
     const cleanedInstructions = allInstructions.replace(/<[^>]*>/g, "");
-  
+
     const recipeToSave = {
       ...recipe,
       extendedIngredients: allIngredients,
       instructions: cleanedInstructions,
     };
-  
-    setSavedRecipes((prevRecipes) => [...prevRecipes, recipeToSave]);
+
+    if (isSaved) {
+      setSavedRecipes((prevRecipes) =>
+        prevRecipes.filter((r) => r.id !== recipe.id)
+      );
+    } else {
+      setSavedRecipes((prevRecipes) => [...prevRecipes, recipeToSave]);
+    }
+
+    // Toggle the isSaved state
+    setIsSaved((prevIsSaved) => !prevIsSaved);
   };
 
   console.log(savedRecipes);
@@ -48,6 +59,13 @@ const RecipeScreen = ({ route }) => {
     setInstructions(cleanedInstructions);
   }, [recipe]);
 
+  useEffect(() => {
+    const isRecipeSaved = savedRecipes.some(
+      (savedRecipe) => savedRecipe.id === recipe.id
+    );
+    setIsSaved(isRecipeSaved);
+  }, [savedRecipes, recipe]);
+
   // console.log(recipe);
   // console.log(instructions);
 
@@ -55,7 +73,7 @@ const RecipeScreen = ({ route }) => {
 
   const loadFonts = async () => {
     await Font.loadAsync({
-      'JustA': require('../assets/fonts/JustAnotherHand-Regular.ttf'),
+      JustA: require("../assets/fonts/JustAnotherHand-Regular.ttf"),
     });
 
     setFontLoaded(true);
@@ -85,17 +103,16 @@ const RecipeScreen = ({ route }) => {
             padding: 30,
             flexDirection: "row",
             justifyContent: "space-between",
-            
           }}
         >
           <Ionicons
-            name="bookmark-outline"
+            name={isSaved ? "bookmark" : "bookmark-outline"}
             size={40}
             color={customColors.primary}
             onPress={handleSave}
           />
           <JAHFont
-            style={{ fontSize: 40, textAlign: "center", maxWidth: "80%", }}
+            style={{ fontSize: 40, textAlign: "center", maxWidth: "80%" }}
           >
             {recipe.title}
           </JAHFont>
