@@ -29,6 +29,7 @@ const NavScreenHolder = () => {
   const [fontLoaded, setFontLoaded] = useState(false);
   const [savedRecipes, setSavedRecipes] = useState([]);
   const [isSaved, setIsSaved] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const loadFonts = async () => {
     await Font.loadAsync({
@@ -46,7 +47,7 @@ const NavScreenHolder = () => {
     return <View />;
   }
   return (
-    <RecipeProvider value={{ savedRecipes, setSavedRecipes, isSaved, setIsSaved }}>
+    <RecipeProvider value={{ savedRecipes, setSavedRecipes, isSaved, setIsSaved, isLoading, setIsLoading }}>
       <NavigationContainer>
         <Tab.Navigator
           initialRouteName={HomeScreenName}
