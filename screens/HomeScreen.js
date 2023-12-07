@@ -13,8 +13,7 @@ import {
 
 import uuid from "react-native-uuid";
 
-import { fetchRecipes } from "../services/getRecipeApi";
-import { fetchCuisine } from "../services/cuisineApi";
+import { fetchCuisine, fetchRecipeDetails } from "../services/cuisineApi";
 
 import AnonReg from "../components/customFonts/AnonReg";
 import AnonBold from "../components/customFonts/AnonBold";
@@ -66,7 +65,11 @@ const HomeScreen = ({ navigation }) => {
   const handleSearch = async () => {
     try {
       const recipes = await fetchCuisine(selectedCuisines, searchQuery);
-      setRecipeData(recipes);
+
+      const detailedRecipes = await Promise.all(recipes.map(recipe => fetchRecipeDetails(recipe.id)));
+
+
+      setRecipeData(detailedRecipes);
     } catch (error) {
       console.error("Error fetching recipes:", error);
     }
@@ -75,9 +78,12 @@ const HomeScreen = ({ navigation }) => {
 
   const handleCuisinePress = async (cuisine) => {
     try {
-      const recipes = await fetchCuisine(cuisine.name, searchQuery); // Assuming fetchRecipes is correctly implemented
+      const recipes = await fetchCuisine(cuisine.name, searchQuery);
       setSelectedCuisines(cuisine.name);
-      setRecipeData(recipes);
+
+      const detailedRecipes = await Promise.all(recipes.map(recipe => fetchRecipeDetails(recipe.id)));
+
+      setRecipeData(detailedRecipes);
     } catch (error) {
       console.error("Error fetching recipes:", error);
     }
@@ -87,7 +93,10 @@ const HomeScreen = ({ navigation }) => {
     fetchCuisine().then((recipes) => setSelectedCuisines(recipes));
   }, []);
 
-  console.log(recipeData);
+  // console.log(recipeData);
+
+
+
 
   return (
     <FlatList

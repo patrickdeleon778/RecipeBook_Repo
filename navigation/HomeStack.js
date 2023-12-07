@@ -10,7 +10,11 @@ const RecipeScreenName = "Recipe";
 
 function HomeStack() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+        screenOptions={{
+            headerShown: false,
+        }}
+    >
       <Stack.Screen name={HomeScreenName} component={HomeScreen} />
       <Stack.Screen name={RecipeScreenName} component={RecipeScreen} />
     </Stack.Navigator>

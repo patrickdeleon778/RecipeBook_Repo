@@ -4,11 +4,11 @@ export const fetchCuisine = async (cuisine, query) => {
   try {
     const response = await axios.get('https://api.spoonacular.com/recipes/complexSearch', {
       params: {
-        apiKey: '12eff79c402c49fe89e486ceb64581b8',
+        apiKey: '95c1a34fcd6a4c76a6b4b516a9d5a832',
         cuisine: cuisine,
         query: query,
-        includeIngredients: true,
-        instructionsRequired: true,
+        // addRecipeInformation: true,
+        
       },
     });
 
@@ -22,6 +22,25 @@ export const fetchCuisine = async (cuisine, query) => {
 };
 
 
+export const fetchRecipeDetails = async (recipeId) => {
+  try {
+    const response = await axios.get(`https://api.spoonacular.com/recipes/${recipeId}/information`, {
+      params: {
+        apiKey: '95c1a34fcd6a4c76a6b4b516a9d5a832',
+        includeNutrition: true,
+      },
+    });
+
+    const recipeDetails = response.data;
+    return recipeDetails;
+  } catch (error) {
+    console.error('Error fetching recipe details: ', error);
+    throw error;
+  }
+};
+
+
 
 //email 2 api key: d4b55fa8ba42409a97a2847865aef001
 //email 3 api key: 12eff79c402c49fe89e486ceb64581b8
+//mauricio api key: 95c1a34fcd6a4c76a6b4b516a9d5a832
