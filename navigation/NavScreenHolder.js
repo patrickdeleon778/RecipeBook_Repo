@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import customColors from "../config/customColors";
 import * as Font from "expo-font";
+import { RecipeProvider } from "../context/RecipeContext";
 
 // screen components
 import AboutUsScreen from "../screens/AboutUsScreen";
@@ -26,6 +27,7 @@ const Tab = createBottomTabNavigator();
 
 const NavScreenHolder = () => {
   const [fontLoaded, setFontLoaded] = useState(false);
+  const [savedRecipes, setSavedRecipes] = useState([]);
 
   const loadFonts = async () => {
     await Font.loadAsync({
@@ -43,56 +45,58 @@ const NavScreenHolder = () => {
     return <View />;
   }
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        initialRouteName={HomeScreenName}
-        screenOptions={({ route }) => ({
-          headerShown: false, // hide the header
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
-            if (route.name === HomeStackName) {
-              iconName = focused ? "home" : "home-outline";
-            } else if (route.name === CreateRecipeScreenName) {
-              iconName = focused ? "pencil" : "pencil-outline";
-            } else if (route.name === FavoriteRecipesScreenName) {
-              iconName = focused ? "bookmark" : "bookmark-outline";
-            } else if (route.name === AboutUsScreenName) {
-              iconName = focused ? "menu" : "menu-outline";
-            }
-            return (
-              <View style={{ paddingTop: 10 }}>
-                <Ionicons name={iconName} size={size} color={color} />
-              </View>
-            );
-          },
-          tabBarActiveTintColor: customColors.primary,
-          tabBarInactiveTintColor: "gray",
-          tabBarLabelStyle: {
-            fontSize: Platform.OS === "android" ? 11 : 10,
-            fontFamily: "Anon",
-            paddingBottom: Platform.OS === "android" ? 10 : 0,
-          },
-          tabBarStyle: {
-            height: Platform.OS === "android" ? 70 : 80,
-          },
-        })}
-      >
-        <Tab.Screen
-          name={HomeStackName}
-          component={HomeStack}
-          options={{ tabBarLabel: HomeScreenName }} // Display "Home" in the tab bar
-        />
-        <Tab.Screen
-          name={CreateRecipeScreenName}
-          component={CreateRecipeScreen}
-        />
-        <Tab.Screen
-          name={FavoriteRecipesScreenName}
-          component={FavoriteRecipes}
-        />
-        <Tab.Screen name={AboutUsScreenName} component={AboutUsScreen} />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <RecipeProvider value={{ savedRecipes, setSavedRecipes }}>
+      <NavigationContainer>
+        <Tab.Navigator
+          initialRouteName={HomeScreenName}
+          screenOptions={({ route }) => ({
+            headerShown: false, // hide the header
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName;
+              if (route.name === HomeStackName) {
+                iconName = focused ? "home" : "home-outline";
+              } else if (route.name === CreateRecipeScreenName) {
+                iconName = focused ? "pencil" : "pencil-outline";
+              } else if (route.name === FavoriteRecipesScreenName) {
+                iconName = focused ? "bookmark" : "bookmark-outline";
+              } else if (route.name === AboutUsScreenName) {
+                iconName = focused ? "menu" : "menu-outline";
+              }
+              return (
+                <View style={{ paddingTop: 10 }}>
+                  <Ionicons name={iconName} size={size} color={color} />
+                </View>
+              );
+            },
+            tabBarActiveTintColor: customColors.primary,
+            tabBarInactiveTintColor: "gray",
+            tabBarLabelStyle: {
+              fontSize: Platform.OS === "android" ? 11 : 10,
+              fontFamily: "Anon",
+              paddingBottom: Platform.OS === "android" ? 10 : 0,
+            },
+            tabBarStyle: {
+              height: Platform.OS === "android" ? 70 : 80,
+            },
+          })}
+        >
+          <Tab.Screen
+            name={HomeStackName}
+            component={HomeStack}
+            options={{ tabBarLabel: HomeScreenName }} // Display "Home" in the tab bar
+          />
+          <Tab.Screen
+            name={CreateRecipeScreenName}
+            component={CreateRecipeScreen}
+          />
+          <Tab.Screen
+            name={FavoriteRecipesScreenName}
+            component={FavoriteRecipes}
+          />
+          <Tab.Screen name={AboutUsScreenName} component={AboutUsScreen} />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </RecipeProvider>
   );
 };
 

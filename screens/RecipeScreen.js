@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { View, Text, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
@@ -8,15 +8,35 @@ import AnonBold from "../components/customFonts/AnonBold";
 import AnonReg from "../components/customFonts/AnonReg";
 import { ScrollView } from "react-native-gesture-handler";
 import * as Font from "expo-font";
+import RecipeContext from "../context/RecipeContext";
 
 
 const RecipeScreen = ({ route }) => {
   const { recipe } = route.params;
+  const { savedRecipes, setSavedRecipes } = useContext(RecipeContext);
   // console.log(recipe);
 
   const [ingredients, setIngredients] = useState([]);
 
   const [instructions, setInstructions] = useState("");
+
+  // const [savedRecipes, setSavedRecipes] = useState([]);
+
+  const handleSave = () => {
+    const allIngredients = recipe.extendedIngredients || [];
+    const allInstructions = recipe.instructions || "";
+    const cleanedInstructions = allInstructions.replace(/<[^>]*>/g, "");
+  
+    const recipeToSave = {
+      ...recipe,
+      extendedIngredients: allIngredients,
+      instructions: cleanedInstructions,
+    };
+  
+    setSavedRecipes((prevRecipes) => [...prevRecipes, recipeToSave]);
+  };
+
+  console.log(savedRecipes);
 
   useEffect(() => {
     const allIngredients = recipe.extendedIngredients || [];
@@ -29,7 +49,7 @@ const RecipeScreen = ({ route }) => {
   }, [recipe]);
 
   // console.log(recipe);
-  console.log(instructions);
+  // console.log(instructions);
 
   const [fontLoaded, setFontLoaded] = useState(false);
 
@@ -72,6 +92,7 @@ const RecipeScreen = ({ route }) => {
             name="bookmark-outline"
             size={40}
             color={customColors.primary}
+            onPress={handleSave}
           />
           <JAHFont
             style={{ fontSize: 40, textAlign: "center", maxWidth: "80%", }}

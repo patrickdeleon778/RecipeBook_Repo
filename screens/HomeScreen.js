@@ -210,7 +210,6 @@ const HomeScreen = ({ navigation }) => {
           <View style={{ flex: 1, margin: 10 }}>
             <TouchableOpacity
               onPress={() => {
-                console.log('Button pressed');
                 navigation.navigate('Recipe', { recipe: item });
               }}
             >

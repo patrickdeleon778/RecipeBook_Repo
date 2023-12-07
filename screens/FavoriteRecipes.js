@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   View,
   Text,
@@ -13,50 +13,13 @@ import AnonReg from "../components/customFonts/AnonReg";
 
 import { FontAwesome5 } from "@expo/vector-icons";
 import AnonBold from "../components/customFonts/AnonBold";
+import  RecipeContext  from "../context/RecipeContext";
 
-const FavoriteRecipes = () => {
-  const [recipeData, setRecipeData] = useState([
-    {
-      id: 1,
-      name: "Meatloaf",
-      image: require("../assets/images/PQ2_Teddie.webp"),
-    },
-    {
-      id: 2,
-      name: "Chicken Alfredo",
-      image: require("../assets/images/PQ2_Teddie.webp"),
-    },
-    {
-      id: 3,
-      name: "Pizza",
-      image: require("../assets/images/PQ2_Teddie.webp"),
-    },
-    {
-      id: 4,
-      name: "Philly Cheesesteak",
-      image: require("../assets/images/PQ2_Teddie.webp"),
-    },
-    {
-      id: 5,
-      name: "Potato salad",
-      image: require("../assets/images/PQ2_Teddie.webp"),
-    },
-    {
-      id: 6,
-      name: "Potato cake",
-      image: require("../assets/images/PQ2_Teddie.webp"),
-    },
-    {
-      id: 7,
-      name: "Potato Pancake",
-      image: require("../assets/images/PQ2_Teddie.webp"),
-    },
-    {
-      id: 8,
-      name: "Potato Soup",
-      image: require("../assets/images/PQ2_Teddie.webp"),
-    },
-  ]);
+const FavoriteRecipes = ({ navigation }) => {
+
+  const { savedRecipes } = useContext(RecipeContext);
+
+  console.log("Saved Recipes:", savedRecipes);
 
   return (
     <FlatList
@@ -104,17 +67,19 @@ const FavoriteRecipes = () => {
           </View>
         </>
       }
-      data={recipeData}
+      data={savedRecipes}
       numColumns={2}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => (
         <>
           <View style={{ flex: 1, margin: 10 }}>
             <TouchableOpacity
-              onPress={() => console.log("Pressed:", item.name)}
+              onPress={() => {
+                navigation.navigate('Recipe', { recipe: item });
+              }}
             >
               <Image
-                source={item.image}
+                source={{ uri: item.image }}
                 style={{
                   width: "100%",
                   height: 200,
@@ -124,7 +89,7 @@ const FavoriteRecipes = () => {
               />
             </TouchableOpacity>
             <AnonReg style={{ textAlign: "center", marginTop: 5 }}>
-              {item.name}
+              {item.title}
             </AnonReg>
           </View>
         </>
