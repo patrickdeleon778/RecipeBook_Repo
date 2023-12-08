@@ -1,11 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Platform } from "react-native";
+import {
+  View,
+  Text,
+  Platform,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import customColors from "../config/customColors";
 import * as Font from "expo-font";
 import { RecipeProvider } from "../context/RecipeContext";
+import DrawerNav from "./DrawerNav";
+import SettingStack from "./SettingStack";
 
 // screen components
 import AboutUsScreen from "../screens/AboutUsScreen";
@@ -22,6 +30,7 @@ const FavoriteRecipesScreenName = "Favorite Recipes";
 const AboutUsScreenName = "About Us";
 const CreateRecipeScreenName = "Create";
 const HomeStackName = "HomeStack";
+const DrawerNavName = "Settings";
 
 const Tab = createBottomTabNavigator();
 
@@ -30,10 +39,11 @@ const NavScreenHolder = () => {
   const [savedRecipes, setSavedRecipes] = useState([]);
   const [isSaved, setIsSaved] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const loadFonts = async () => {
     await Font.loadAsync({
-      Anon: require("../assets/fonts/AnonymousPro-Regular.ttf"), // replace 'path-to-your-font' with the actual path
+      Anon: require("../assets/fonts/AnonymousPro-Regular.ttf"),
     });
 
     setFontLoaded(true);
@@ -47,7 +57,16 @@ const NavScreenHolder = () => {
     return <View />;
   }
   return (
-    <RecipeProvider value={{ savedRecipes, setSavedRecipes, isSaved, setIsSaved, isLoading, setIsLoading }}>
+    <RecipeProvider
+      value={{
+        savedRecipes,
+        setSavedRecipes,
+        isSaved,
+        setIsSaved,
+        isLoading,
+        setIsLoading,
+      }}
+    >
       <NavigationContainer>
         <Tab.Navigator
           initialRouteName={HomeScreenName}
@@ -61,7 +80,7 @@ const NavScreenHolder = () => {
                 iconName = focused ? "pencil" : "pencil-outline";
               } else if (route.name === FavoriteRecipesScreenName) {
                 iconName = focused ? "bookmark" : "bookmark-outline";
-              } else if (route.name === AboutUsScreenName) {
+              } else if (route.name === DrawerNavName) {
                 iconName = focused ? "menu" : "menu-outline";
               }
               return (
@@ -95,8 +114,9 @@ const NavScreenHolder = () => {
             name={FavoriteRecipesScreenName}
             component={FavoriteRecipes}
           />
-          <Tab.Screen name={AboutUsScreenName} component={AboutUsScreen} />
+            <Tab.Screen name={DrawerNavName} component={SettingStack} />
         </Tab.Navigator>
+        {isDrawerOpen && <SettingStack />}
       </NavigationContainer>
     </RecipeProvider>
   );
