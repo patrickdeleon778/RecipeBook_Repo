@@ -14,6 +14,7 @@ import FavoriteRecipes from "../screens/FavoriteRecipes";
 import RecipeScreen from "../screens/RecipeScreen";
 import CreateRecipeScreen from "../screens/CreateRecipeScreen";
 import HomeStack from "./HomeStack";
+import DrawerStack from "./DrawerStack";
 
 // screen names
 const HomeScreenName = "Home";
@@ -22,6 +23,7 @@ const FavoriteRecipesScreenName = "Favorite Recipes";
 const AboutUsScreenName = "About Us";
 const CreateRecipeScreenName = "Create";
 const HomeStackName = "HomeStack";
+const DrawerStackName = "Settings";
 
 const Tab = createBottomTabNavigator();
 
@@ -46,6 +48,58 @@ const NavScreenHolder = () => {
   if (!fontLoaded) {
     return <View />;
   }
+
+  const MainTabNavigator = () => {
+    return (
+      <Tab.Navigator
+        initialRouteName={HomeStackName}
+        screenOptions={({ route }) => ({
+          headerShown: false,
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+            if (route.name === HomeStackName) {
+              iconName = focused ? "home" : "home-outline";
+            } else if (route.name === CreateRecipeScreenName) {
+              iconName = focused ? "pencil" : "pencil-outline";
+            } else if (route.name === FavoriteRecipesScreenName) {
+              iconName = focused ? "bookmark" : "bookmark-outline";
+            }
+            return (
+              <View style={{ paddingTop: 10 }}>
+                <Ionicons name={iconName} size={size} color={color} />
+              </View>
+            );
+          },
+          tabBarActiveTintColor: customColors.primary,
+          tabBarInactiveTintColor: "gray",
+          tabBarLabelStyle: {
+            fontSize: Platform.OS === "android" ? 11 : 10,
+            fontFamily: "Anon",
+            paddingBottom: Platform.OS === "android" ? 10 : 0,
+          },
+          tabBarStyle: {
+            height: Platform.OS === "android" ? 70 : 80,
+          },
+        })}
+      >
+        <Tab.Screen name={HomeStackName} component={HomeStack} />
+        <Tab.Screen name={CreateRecipeScreenName} component={CreateRecipeScreen} />
+        <Tab.Screen name={FavoriteRecipesScreenName} component={FavoriteRecipes} />
+      </Tab.Navigator>
+    );
+  };
+  
+  const MainStackNavigator = () => {
+    return (
+      <Stack.Navigator headerMode="none">
+        <Stack.Screen name="Main" component={MainTabNavigator} />
+        <Stack.Screen name="Drawer" component={DrawerStack} />
+      </Stack.Navigator>
+    );
+  };
+
+
+
   return (
     <RecipeProvider value={{ savedRecipes, setSavedRecipes, isSaved, setIsSaved, isLoading, setIsLoading }}>
       <NavigationContainer>
@@ -61,7 +115,7 @@ const NavScreenHolder = () => {
                 iconName = focused ? "pencil" : "pencil-outline";
               } else if (route.name === FavoriteRecipesScreenName) {
                 iconName = focused ? "bookmark" : "bookmark-outline";
-              } else if (route.name === AboutUsScreenName) {
+              } else if (route.name === DrawerStackName) {
                 iconName = focused ? "menu" : "menu-outline";
               }
               return (
@@ -95,7 +149,10 @@ const NavScreenHolder = () => {
             name={FavoriteRecipesScreenName}
             component={FavoriteRecipes}
           />
-          <Tab.Screen name={AboutUsScreenName} component={AboutUsScreen} />
+          <Tab.Screen 
+            name={DrawerStackName} 
+            component={DrawerStack}
+          />
         </Tab.Navigator>
       </NavigationContainer>
     </RecipeProvider>
