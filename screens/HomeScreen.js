@@ -20,8 +20,12 @@ import AnonBold from "../components/customFonts/AnonBold";
 
 import customColors from "../config/customColors";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 // import RecipeScreen from "./RecipeScreen";
 import RecipeContext from "../context/RecipeContext";
+
+import { useNavigation } from "@react-navigation/native";
+import { DrawerActions } from "@react-navigation/routers";
 
 const HomeScreen = ({ navigation }) => {
   const [selectedCuisines, setSelectedCuisines] = useState([]);
@@ -31,6 +35,8 @@ const HomeScreen = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const { isLoading, setIsLoading } = useContext(RecipeContext);
+
+  const navigate = useNavigation();
 
   const cuisineTypes = [
     {
@@ -142,11 +148,17 @@ const HomeScreen = ({ navigation }) => {
       contentContainerStyle={{ marginHorizontal: 20, paddingTop: 60 }}
       ListHeaderComponent={
         <>
-          <View>
+          <View flexDirection={'row'} justifyContent='space-between'>
             <Image
               source={require("../assets/images/PQ2_Teddie.webp")}
               style={{ height: 75, width: 75, borderRadius: 100 }}
             />
+
+            <TouchableOpacity
+              onPress={() => navigate.dispatch(DrawerActions.openDrawer())}
+            >
+              <Ionicons name={'menu'} size={40} />
+            </TouchableOpacity>
           </View>
 
           <View>
@@ -202,7 +214,7 @@ const HomeScreen = ({ navigation }) => {
               />
             </TouchableOpacity>
           </View>
-          
+
           <View
             style={{
               marginTop: 20,
@@ -249,8 +261,11 @@ const HomeScreen = ({ navigation }) => {
       renderItem={({ item }) => (
         <>
           {isLoading ? (
-            <View style={{ flex: 1, margin: 10}}>
-              <ActivityIndicator size="large" style={{width: '100%', height: 200, borderRadius: 40}}/>
+            <View style={{ flex: 1, margin: 10 }}>
+              <ActivityIndicator
+                size="large"
+                style={{ width: "100%", height: 200, borderRadius: 40 }}
+              />
             </View>
           ) : (
             <>
@@ -276,27 +291,6 @@ const HomeScreen = ({ navigation }) => {
               </View>
             </>
           )}
-
-          {/* <View style={{ flex: 1, margin: 10 }}>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate('Recipe', { recipe: item });
-              }}
-            >
-              <Image
-                source={{ uri: item.image }}
-                style={{
-                  width: "100%",
-                  height: 200,
-                  backgroundColor: customColors.light,
-                  borderRadius: 40,
-                }}
-              />
-            </TouchableOpacity>
-            <AnonReg style={{ textAlign: "center", marginTop: 5 }}>
-              {item.title}
-            </AnonReg>
-          </View> */}
         </>
       )}
     />

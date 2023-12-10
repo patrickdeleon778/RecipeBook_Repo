@@ -12,8 +12,6 @@ import { Ionicons } from "@expo/vector-icons";
 import customColors from "../config/customColors";
 import * as Font from "expo-font";
 import { RecipeProvider } from "../context/RecipeContext";
-import DrawerNav from "./DrawerNav";
-import SettingStack from "./SettingStack";
 
 // screen components
 import AboutUsScreen from "../screens/AboutUsScreen";
@@ -80,7 +78,7 @@ const NavScreenHolder = () => {
                 iconName = focused ? "pencil" : "pencil-outline";
               } else if (route.name === FavoriteRecipesScreenName) {
                 iconName = focused ? "bookmark" : "bookmark-outline";
-              } else if (route.name === DrawerNavName) {
+              } else if (route.name === AboutUsScreenName) {
                 iconName = focused ? "menu" : "menu-outline";
               }
               return (
@@ -114,9 +112,8 @@ const NavScreenHolder = () => {
             name={FavoriteRecipesScreenName}
             component={FavoriteRecipes}
           />
-            <Tab.Screen name={DrawerNavName} component={SettingStack} />
+            <Tab.Screen name={AboutUsScreenName} component={AboutUsScreen} />
         </Tab.Navigator>
-        {isDrawerOpen && <SettingStack />}
       </NavigationContainer>
     </RecipeProvider>
   );
