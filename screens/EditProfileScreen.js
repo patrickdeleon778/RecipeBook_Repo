@@ -12,11 +12,18 @@ import * as ImagePicker from "expo-image-picker";
 import AnonReg from "../components/customFonts/AnonReg";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 
 import customColors from "../config/customColors";
 
+import { useNavigation } from "@react-navigation/native";
+import { DrawerActions } from "@react-navigation/routers";
+
+
 const EditProfileScreen = () => {
   const [image, setImage] = useState(null);
+
+  const navigate = useNavigation();
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -34,6 +41,12 @@ const EditProfileScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.topHalf}>
+        <TouchableOpacity
+          style={styles.menuIcon}
+          onPress={() => navigate.dispatch(DrawerActions.openDrawer())}
+        >
+          <Ionicons name={"menu"} size={40} />
+        </TouchableOpacity>
         {image ? (
           <Image source={{ uri: image }} style={styles.logo} />
         ) : (
@@ -146,6 +159,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: customColors.primary,
+  },
+  menuIcon: {
+    position: 'absolute',
+    top: 60,
+    right: 20,
+    zIndex: 1,
   },
   topHalf: {
     flex: 0.4,

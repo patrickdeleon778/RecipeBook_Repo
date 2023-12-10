@@ -9,7 +9,9 @@ const Drawer = createDrawerNavigator();
 function DrawerNavTest() {
   return (
     <Drawer.Navigator
-      
+    screenOptions={{
+        headerShown: false,
+    }}
     >
       <Drawer.Screen name="Home" component={HomeScreen} />
       <Drawer.Screen name="About Us" component={AboutUsScreen} />
