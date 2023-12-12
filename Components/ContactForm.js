@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
-
+import customColors from "../config/customColors";
 
 const ContactForm = ({ onSubmit, loading }) => {
   const [formData, setFormData] = useState({
@@ -32,9 +32,9 @@ const ContactForm = ({ onSubmit, loading }) => {
 
   return (
     <View style={{ width: '80%' }}>
-      <Text style={{fontSize: 30, marginBottom: 240, textAlign: 'center' }}>Contact Us</Text>
-
-      <TextInput
+      <Text style={{fontSize: 30, marginBottom: 20, textAlign: 'center' }}>Contact Us</Text>
+    <View style={{marginBottom: 20}}>
+<TextInput
         placeholder='Enter your name'
         value={formData.name}
         onChangeText={(text) => handleChange('name', text)}
@@ -71,6 +71,10 @@ const ContactForm = ({ onSubmit, loading }) => {
           {loading ? 'Sending......' : 'Send'}
         </Text>
       </TouchableOpacity>
+
+
+    </View>
+      
     </View>
   );
 };
