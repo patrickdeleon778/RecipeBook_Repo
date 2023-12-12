@@ -31,21 +31,26 @@ const ContactForm = ({ onSubmit, loading }) => {
   };
 
   return (
-    <View style={{ width: '80%' }}>
-      <Text style={{fontSize: 30, marginBottom: 20, textAlign: 'center' }}>Contact Us</Text>
-    <View style={{marginBottom: 20}}>
+    <View style={{ width: '80%', 
+    borderRadius: 10,
+    overflow: 'hidden',
+    backgroundColor: '#fff',
+    borderWidth: 2, 
+    borderColor: 'black'}}>
+      <Text style={{fontSize: 30, marginBottom: 20,marginTop: 40, textAlign: 'center' }}>Contact Us</Text>
+    <View style={{ justifyContent: 'center',marginBottom: 20}}>
 <TextInput
         placeholder='Enter your name'
         value={formData.name}
         onChangeText={(text) => handleChange('name', text)}
-        style={{ fontSize: 20, padding: 15, marginBottom: 10, borderWidth: 1 }}
+        style={{ fontSize: 20, padding: 15, marginBottom: 10, borderWidth: 1, width: '50%', height: 50, alignSelf: 'center' }}
       />
 
       <TextInput
         placeholder='Enter your email'
         value={formData.email}
         onChangeText={(text) => handleChange('email', text)}
-        style={{ fontSize: 20, padding: 15, marginBottom: 10, borderWidth: 1 }}
+        style={{ fontSize: 20, padding: 15, marginBottom: 10, borderWidth: 1, width: '50%', height: 50, alignSelf: 'center' }}
       />
 
       <TextInput
@@ -54,7 +59,7 @@ const ContactForm = ({ onSubmit, loading }) => {
         onChangeText={(text) => handleChange('message', text)}
         multiline
         numberOfLines={6}
-        style={{ fontSize: 20, padding: 15, marginBottom: 20, borderWidth: 1 }}
+        style={{ fontSize: 20, padding: 15, marginBottom: 30, borderWidth: 1, width: '50%', height: 150, alignSelf: 'center' }}
       />
 
       <TouchableOpacity
@@ -64,7 +69,11 @@ const ContactForm = ({ onSubmit, loading }) => {
           backgroundColor: loading ? 'gray' : 'blue',
           padding: 15,
           alignItems: 'center',
+          alignSelf: 'center',
           borderRadius: 5,
+           width: '50%',
+           marginBottom: 30,
+           height: 50
         }}
       >
         <Text style={{ color: 'white', fontSize: 20 }}>
