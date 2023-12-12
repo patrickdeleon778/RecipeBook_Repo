@@ -1,20 +1,27 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-} from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 
 import AnonReg from "../components/customFonts/AnonReg";
 
 import customColors from "../config/customColors";
 
+import { Ionicons } from "@expo/vector-icons";
+
+import { useNavigation } from "@react-navigation/native";
+import { DrawerActions } from "@react-navigation/routers";
+
 const AboutUsScreen = () => {
+  const navigate = useNavigation();
 
   return (
     <View style={styles.container}>
       <View style={styles.topHalf}>
+        <TouchableOpacity
+          style={styles.menuIcon}
+          onPress={() => navigate.dispatch(DrawerActions.openDrawer())}
+        >
+          <Ionicons name={"menu"} size={40} />
+        </TouchableOpacity>
         <Image
           style={styles.logo}
           source={require("../assets/images/dishLogo.png")}
@@ -23,7 +30,15 @@ const AboutUsScreen = () => {
       <View style={styles.bottomHalf}>
         <View style={styles.bottomHalfContent}>
           <AnonReg style={styles.aboutUsText}>About Us</AnonReg>
-          <AnonReg style={styles.aboutUsBody}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi repellat eos laborum beatae laudantium enim, ducimus autem hic natus ipsum voluptatum! Reiciendis placeat quo illo culpa mollitia rem qui praesentium!Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi repellat eos laborum beatae laudantium enim, ducimus autem hic natus ipsum voluptatum! Reiciendis placeat quo illo culpa mollitia rem qui praesentium!</AnonReg>
+          <AnonReg style={styles.aboutUsBody}>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
+            repellat eos laborum beatae laudantium enim, ducimus autem hic natus
+            ipsum voluptatum! Reiciendis placeat quo illo culpa mollitia rem qui
+            praesentium!Lorem ipsum dolor sit amet, consectetur adipisicing
+            elit. Modi repellat eos laborum beatae laudantium enim, ducimus
+            autem hic natus ipsum voluptatum! Reiciendis placeat quo illo culpa
+            mollitia rem qui praesentium!
+          </AnonReg>
         </View>
       </View>
     </View>
@@ -34,6 +49,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: customColors.primary,
+  },
+  menuIcon: {
+    position: 'absolute',
+    top: 60,
+    right: 20,
+    zIndex: 1,
   },
   topHalf: {
     flex: 0.4,
@@ -69,8 +90,7 @@ const styles = StyleSheet.create({
     color: customColors.medium,
     textAlign: "center",
     marginTop: 20,
-  }
-  
+  },
 });
 
 export default AboutUsScreen;

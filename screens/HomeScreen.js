@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { StatusBar } from "expo-status-bar";
+import React, { useState, useEffect, useContext } from "react";
 import {
   View,
   Text,
@@ -9,93 +8,166 @@ import {
   TouchableOpacity,
   StyleSheet,
   FlatList,
+  ActivityIndicator,
 } from "react-native";
+
+import uuid from "react-native-uuid";
+
+import { fetchCuisine, fetchRecipeDetails } from "../services/cuisineApi";
 
 import AnonReg from "../components/customFonts/AnonReg";
 import AnonBold from "../components/customFonts/AnonBold";
 
 import customColors from "../config/customColors";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
+// import RecipeScreen from "./RecipeScreen";
+import RecipeContext from "../context/RecipeContext";
 
-const HomeScreen = () => {
-  const [foodCatData, setFoodCatData] = useState([
-    {
-      id: 1,
-      name: "Chicken",
-      image: require("../assets/images/PQ2_Teddie.webp"),
-    },
-    {
-      id: 2,
-      name: "Seafood",
-      image: require("../assets/images/PQ2_Teddie.webp"),
-    },
-    { id: 3, name: "Beef", image: require("../assets/images/PQ2_Teddie.webp") },
-    { id: 4, name: "Pork", image: require("../assets/images/PQ2_Teddie.webp") },
-    {
-      id: 5,
-      name: "Veggie",
-      image: require("../assets/images/PQ2_Teddie.webp"),
-    },
-  ]);
+import { useNavigation } from "@react-navigation/native";
+import { DrawerActions } from "@react-navigation/routers";
 
-  const [recipeData, setRecipeData] = useState([
+const HomeScreen = ({ navigation }) => {
+  const [selectedCuisines, setSelectedCuisines] = useState([]);
+
+  const [recipeData, setRecipeData] = useState([]);
+
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const { isLoading, setIsLoading } = useContext(RecipeContext);
+
+  const navigate = useNavigation();
+
+  const cuisineTypes = [
     {
-      id: 1,
-      name: "Meatloaf",
-      image: require("../assets/images/PQ2_Teddie.webp"),
+      id: uuid.v4(),
+      name: "African",
+      image: require("../assets/images/flags/africa-flag.png"),
     },
     {
-      id: 2,
-      name: "Chicken Alfredo",
-      image: require("../assets/images/PQ2_Teddie.webp"),
+      id: uuid.v4(),
+      name: "American",
+      image: require("../assets/images/flags/murica.webp"),
     },
     {
-      id: 3,
-      name: "Pizza",
-      image: require("../assets/images/PQ2_Teddie.webp"),
+      id: uuid.v4(),
+      name: "Chinese",
+      image: require("../assets/images/flags/china-flag.png"),
     },
     {
-      id: 4,
-      name: "Philly Cheesesteak",
-      image: require("../assets/images/PQ2_Teddie.webp"),
+      id: uuid.v4(),
+      name: "French",
+      image: require("../assets/images/flags/france-flag.png"),
     },
     {
-      id: 5,
-      name: "Potato salad",
-      image: require("../assets/images/PQ2_Teddie.webp"),
+      id: uuid.v4(),
+      name: "German",
+      image: require("../assets/images/flags/german-flag.webp"),
     },
     {
-      id: 6,
-      name: "Potato cake",
-      image: require("../assets/images/PQ2_Teddie.webp"),
+      id: uuid.v4(),
+      name: "Indian",
+      image: require("../assets/images/flags/india-flag.png"),
     },
     {
-      id: 7,
-      name: "Potato Pancake",
-      image: require("../assets/images/PQ2_Teddie.webp"),
+      id: uuid.v4(),
+      name: "Italian",
+      image: require("../assets/images/flags/italian-flag.png"),
     },
     {
-      id: 8,
-      name: "Potato Soup",
-      image: require("../assets/images/PQ2_Teddie.webp"),
+      id: uuid.v4(),
+      name: "Japanese",
+      image: require("../assets/images/flags/japan-flag.jpg"),
     },
-  ]);
+    {
+      id: uuid.v4(),
+      name: "Korean",
+      image: require("../assets/images/flags/korea-flag.jpeg"),
+    },
+    {
+      id: uuid.v4(),
+      name: "Mexican",
+      image: require("../assets/images/flags/mexico-flag.jpg"),
+    },
+    {
+      id: uuid.v4(),
+      name: "Thai",
+      image: require("../assets/images/flags/thai-flag.png"),
+    },
+  ];
+
+  const handleSearch = async () => {
+    try {
+      setIsLoading(true);
+      const recipes = await fetchCuisine(selectedCuisines, searchQuery);
+
+      const detailedRecipes = await Promise.all(
+        recipes.map((recipe) => fetchRecipeDetails(recipe.id))
+      );
+
+      setRecipeData(detailedRecipes);
+    } catch (error) {
+      console.error("Error fetching recipes:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  console.log(isLoading);
+
+  const handleCuisinePress = async (cuisine) => {
+    try {
+      setIsLoading(true);
+      const recipes = await fetchCuisine(
+        cuisine.name,
+        searchQuery,
+        setIsLoading
+      );
+      setSelectedCuisines(cuisine.name);
+
+      const detailedRecipes = await Promise.all(
+        recipes.map((recipe) => fetchRecipeDetails(recipe.id))
+      );
+
+      setRecipeData(detailedRecipes);
+    } catch (error) {
+      console.error("Error fetching recipes:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchCuisine().then((recipes) => setSelectedCuisines(recipes));
+  }, []);
+
+  // console.log(recipeData);
 
   return (
     <FlatList
       contentContainerStyle={{ marginHorizontal: 20, paddingTop: 60 }}
       ListHeaderComponent={
         <>
-          <View>
+          <View flexDirection={'row'} justifyContent='space-between'>
             <Image
               source={require("../assets/images/PQ2_Teddie.webp")}
               style={{ height: 75, width: 75, borderRadius: 100 }}
             />
+
+            <TouchableOpacity
+              onPress={() => navigate.dispatch(DrawerActions.openDrawer())}
+            >
+              <Ionicons name={'menu'} size={40} />
+            </TouchableOpacity>
           </View>
 
           <View>
-            <AnonReg style={{ fontSize: 20, marginTop: 20 }}>Hello, user!</AnonReg>
-            <AnonBold style={{ fontSize: 30, fontWeight: "bold", marginTop: 20 }}>
+            <AnonReg style={{ fontSize: 20, marginTop: 20 }}>
+              Hello, user!
+            </AnonReg>
+            <AnonBold
+              style={{ fontSize: 30, fontWeight: "bold", marginTop: 20 }}
+            >
               A cool slogan goes here.
             </AnonBold>
           </View>
@@ -113,8 +185,15 @@ const HomeScreen = () => {
             }}
           >
             <TextInput
-              style={{ flex: 1, marginLeft: 10, paddingRight: 10, fontFamily: "Anon" }}
+              style={{
+                flex: 1,
+                marginLeft: 10,
+                paddingRight: 10,
+                fontFamily: "Anon",
+              }}
               placeholder="Search for a recipe"
+              onChangeText={(text) => setSearchQuery(text)}
+              onSubmitEditing={handleSearch}
             />
 
             <TouchableOpacity
@@ -126,7 +205,7 @@ const HomeScreen = () => {
                 justifyContent: "center",
                 borderRadius: 50,
               }}
-              onPress={() => console.log("Search button pressed")}
+              onPress={handleSearch}
             >
               <FontAwesome5
                 name="pizza-slice"
@@ -144,20 +223,35 @@ const HomeScreen = () => {
               justifyContent: "space-around",
             }}
           >
-            {foodCatData.map((item) => (
-              <TouchableOpacity
-                key={item.id}
-                onPress={() => console.log(item.name + " pressed")}
-                style={styles.button}
-              >
-                <Image source={item.image} style={styles.image} />
-                <AnonReg style={styles.text}>{item.name}</AnonReg>
-              </TouchableOpacity>
-            ))}
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              {cuisineTypes.map((cuisine) => (
+                <TouchableOpacity
+                  key={cuisine.id}
+                  title={cuisine}
+                  onPress={() => handleCuisinePress(cuisine)}
+                  style={[styles.button, { width: 50, margin: 10 }]}
+                >
+                  <Image
+                    source={cuisine.image}
+                    style={[
+                      styles.image,
+                      {
+                        borderWidth: selectedCuisines === cuisine.name ? 4 : 0,
+                        borderColor: customColors.primary,
+                      },
+                      selectedCuisines === cuisine.name && {
+                        backgroundColor: customColors.primary,
+                      },
+                    ]}
+                  />
+                  <AnonReg style={styles.text}>{cuisine.name}</AnonReg>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
           </View>
 
-          <View style={{ marginTop: 20, marginLeft: 5, fontWeight: 'bold' }}>
-            <AnonBold style={{ fontSize: 20}}>Recipes</AnonBold>
+          <View style={{ marginTop: 20, marginLeft: 5, fontWeight: "bold" }}>
+            <AnonBold style={{ fontSize: 20 }}>Recipes</AnonBold>
           </View>
         </>
       }
@@ -166,27 +260,43 @@ const HomeScreen = () => {
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => (
         <>
-          <View style={{ flex: 1, margin: 10 }}>
-            <TouchableOpacity onPress={() => console.log("Pressed:", item.name)}>
-              <Image
-                source={item.image}
-                style={{
-                  width: "100%",
-                  height: 200,
-                  backgroundColor: customColors.light,
-                  borderRadius: 40,
-                }}
+          {isLoading ? (
+            <View style={{ flex: 1, margin: 10 }}>
+              <ActivityIndicator
+                size="large"
+                style={{ width: "100%", height: 200, borderRadius: 40 }}
               />
-            </TouchableOpacity>
-            <AnonReg style={{ textAlign: "center", marginTop: 5 }}>
-              {item.name}
-            </AnonReg>
-          </View>
+            </View>
+          ) : (
+            <>
+              <View style={{ flex: 1, margin: 10 }}>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("Recipe", { recipe: item });
+                  }}
+                >
+                  <Image
+                    source={{ uri: item.image }}
+                    style={{
+                      width: "100%",
+                      height: 200,
+                      backgroundColor: customColors.light,
+                      borderRadius: 40,
+                    }}
+                  />
+                </TouchableOpacity>
+                <AnonReg style={{ textAlign: "center", marginTop: 5 }}>
+                  {item.title}
+                </AnonReg>
+              </View>
+            </>
+          )}
         </>
       )}
     />
   );
 };
+
 const styles = StyleSheet.create({
   button: {
     alignItems: "center",
@@ -200,7 +310,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#666",
-    fontSize: 16,
+    fontSize: 11,
   },
 });
 
