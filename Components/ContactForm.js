@@ -66,7 +66,7 @@ const ContactForm = ({ onSubmit, loading }) => {
         onPress={handleSubmit}
         disabled={loading}
         style={{
-          backgroundColor: loading ? 'gray' : 'blue',
+          backgroundColor: loading ? 'gray' : '#59983C',
           padding: 15,
           alignItems: 'center',
           alignSelf: 'center',
