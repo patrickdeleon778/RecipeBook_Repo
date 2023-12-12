@@ -1,26 +1,39 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import LogoImage from "../components/LogoImage";
+import React, { useState } from 'react';
+import { View, TextInput, Button, StyleSheet } from 'react-native';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 
 const LoginScreen = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post('http://your-backend-url/user/login', { email, password });
+      await AsyncStorage.setItem('token', response.data.token);
+      navigation.navigate('Home'); // Replace 'Home' with your home screen name
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <LogoImage style={styles.logo} />
+      <TextInput placeholder="Email" value={email} onChangeText={setEmail} />
+      <TextInput placeholder="Password" value={password} onChangeText={setPassword} secureTextEntry />
+      <Button title="Login" onPress={handleLogin} />
     </View>
   );
 };
 
-export default LoginScreen;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    justifyContent: 'center',
+    padding: 20,
   },
-  logo: {
-    width: 100,
-    height: 100,
-    borderRadius: 100,
-  },
+  // Add more styles as needed
 });
+
+export default LoginScreen;

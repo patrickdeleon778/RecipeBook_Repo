@@ -53,7 +53,12 @@ const RecipeListScreen = ({ navigation }) => {
         <View style={styles.infoContainer}>
           <Text style={styles.title}>{item.title}</Text>
           <Text>Preparation time: {item.readyInMinutes} minutes</Text>
-        <Text>Ingredients: {item.extendedIngredients?.map(ingredient => ingredient.name).join(', ')}</Text>
+          {item.extendedIngredients && item.extendedIngredients.length > 0 ? (
+      <Text>{item.extendedIngredients.map(ingredient => ingredient.name).join(', ')}</Text>
+    ) : (
+      <Text>No ingredients listed.</Text>
+    )}
+        {/* <Text>Ingredients: {item.extendedIngredients?.map(ingredient => ingredient.name).join(', ')}</Text> */}
         </View>
       </View>
     </TouchableOpacity>
