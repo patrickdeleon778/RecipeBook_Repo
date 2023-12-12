@@ -17,12 +17,17 @@ const LoginScreen = () => {
       console.error(error);
     }
   };
+  const handleGuestLogin = () => {
+    // Navigate to your home screen or main app screen
+    // Disable or hide features like saving recipes
+  };
 
   return (
     <View style={styles.container}>
       <TextInput placeholder="Email" value={email} onChangeText={setEmail} />
       <TextInput placeholder="Password" value={password} onChangeText={setPassword} secureTextEntry />
       <Button title="Login" onPress={handleLogin} />
+      <Button title="Enter without account" onPress={handleGuestLogin} />
     </View>
   );
 };

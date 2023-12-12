@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import RecipeListScreen from './screens/RecipeListScreen';
 import RecipeDetailScreen from './screens/RecipeDetailScreen';
 import { AuthProvider } from './context/AuthContext';
+import LoginScreen from './screens/LoginScreen';
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -13,7 +14,7 @@ export default function App() {
       
       <Stack.Navigator>
       <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
+       
         <Stack.Screen name="Recipes" component={RecipeListScreen} />
         <Stack.Screen name="RecipeDetail" component={RecipeDetailScreen} />
       </Stack.Navigator>
