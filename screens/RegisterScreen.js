@@ -9,14 +9,15 @@ const RegisterScreen = () => {
 
   const handleRegister = async () => {
     try {
-      await axios.post('http://your-backend-url/user/register', {
+      const response = await axios.post('http://192.168.0.18:5000/user/register', {
         username,
         email,
         password
       });
-      // Handle registration success (e.g., navigate to login screen)
+      // Handle successful registration (e.g., navigate to login screen)
     } catch (error) {
-      console.error(error);
+      console.error('Error during registration: ', error);
+      // Optionally, show an error message to the user
     }
   };
 
