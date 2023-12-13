@@ -14,10 +14,12 @@ const RegisterScreen = () => {
         email,
         password
       });
-      // Handle successful registration (e.g., navigate to login screen)
+      // Handle successful registration
+      alert('Registration successful! Please log in.'); // Replace with a more sophisticated approach
+      // Optionally, navigate to login screen
     } catch (error) {
       console.error('Error during registration: ', error);
-      // Optionally, show an error message to the user
+      alert('Registration failed. Please try again.'); // Replace with a more sophisticated approach
     }
   };
 
