@@ -112,7 +112,7 @@ const NavScreenHolder = () => {
             name={FavoriteRecipesScreenName}
             component={FavoriteRecipes}
           />
-            <Tab.Screen name={AboutUsScreenName} component={AboutUsScreen} />
+            {/* <Tab.Screen name={AboutUsScreenName} component={AboutUsScreen} /> */}
         </Tab.Navigator>
       </NavigationContainer>
     </RecipeProvider>

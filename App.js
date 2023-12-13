@@ -8,6 +8,7 @@ import NavScreenHolder from './navigation/NavScreenHolder';
 import RecipeScreen from './screens/RecipeScreen';
 import EditProfileScreen from './screens/EditProfileScreen';
 import CreateRecipeScreen from './screens/CreateRecipeScreen';
+import ContactScreen from './screens/ContactScreen';
 
 export default function App() {
   return (
@@ -19,11 +20,13 @@ export default function App() {
     // <AboutUsScreen/>
     // <EditProfileScreen/>
     // <CreateRecipeScreen/>
+    // <ContactScreen/>
     <NavScreenHolder/>
     // <RecipeScreen/>
     // <RegisterScreen/>
     // <LoginAndRegiScreen/>
   );
+ 
 }
 
 const styles = StyleSheet.create({
