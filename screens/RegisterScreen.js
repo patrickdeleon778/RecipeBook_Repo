@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from 'axios';
 import {
   View,
   Text,
@@ -13,7 +14,47 @@ import { Feather } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import AnonReg from "../components/customFonts/AnonReg";
 
+
 const RegisterScreen = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+
+  const handleRegister = async () => {
+    // Email validation check
+    const emailRegex = /\S+@\S+\.\S+/;
+    if (!emailRegex.test(email)) {
+      alert('Please enter a valid email address');
+      return;
+    }
+  
+    // Password match check
+    if (password !== confirmPassword) {
+      alert('Passwords do not match');
+      return;
+    }
+    
+    try {
+      // Axios POST request
+      const response = await axios.post('http://192.168.0.18:5000/user/register', {
+        username: name,
+        email,
+        password
+      });
+  
+      // Handle successful registration
+      console.log('Registration successful', response.data);
+      // You can navigate to the login screen or main app screen here
+    } catch (error) {
+      // Updated error handling
+      console.error('Error during registration: ', error.response?.data);
+      const errorMessage = error.response?.data?.message || 'Unknown error';
+      alert('Registration failed: ' + errorMessage);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.topHalf}>
@@ -34,6 +75,8 @@ const RegisterScreen = () => {
                 autoCapitalize="none"
                 placeholder="Name"
                 placeholderTextColor={customColors.light}
+                value={name}
+                onChangeText={setName}
               />
             </View>
           </View>
@@ -46,6 +89,9 @@ const RegisterScreen = () => {
                 autoCapitalize="none"
                 placeholder="Email"
                 placeholderTextColor={customColors.light}
+                value={email}
+                onChangeText={setEmail}
+
               />
             </View>
           </View>
@@ -55,9 +101,12 @@ const RegisterScreen = () => {
             <MaterialCommunityIcons style={styles.icon} name="lock" size={30} color={customColors.light} />
               <TextInput
                 style={styles.input}
+                secureTextEntry
                 autoCapitalize="none"
                 placeholder="Password"
                 placeholderTextColor={customColors.light}
+                value={password}
+                onChangeText={setPassword}
               />
             </View>
           </View>
@@ -67,9 +116,12 @@ const RegisterScreen = () => {
             <MaterialCommunityIcons style={styles.icon} name="lock" size={30} color={customColors.light} />
               <TextInput
                 style={styles.input}
+                secureTextEntry
                 autoCapitalize="none"
                 placeholder="Re-enter Password"
                 placeholderTextColor={customColors.light}
+                value={confirmPassword}
+                onChangeText={setConfirmPassword}
               />
             </View>
           </View>
@@ -82,7 +134,7 @@ const RegisterScreen = () => {
                   backgroundColor: customColors.white,
                 },
               ]}
-              onPress={() => console.log("Register in Register page pressed")}
+              onPress={handleRegister}
             >
               <Text style={styles.buttonText}>Register</Text>
             </TouchableOpacity>

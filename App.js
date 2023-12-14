@@ -9,22 +9,30 @@ import RecipeScreen from './screens/RecipeScreen';
 import EditProfileScreen from './screens/EditProfileScreen';
 import CreateRecipeScreen from './screens/CreateRecipeScreen';
 import ContactScreen from './screens/ContactScreen';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+import HomeScreen from './screens/HomeScreen';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    // <View style={styles.container}>
-    //   <Text>Open up App.js to start working on your app!</Text>
-    //   <StatusBar style="auto" />
-    // </View>
-    // <LoginScreen/>
-    // <AboutUsScreen/>
-    // <EditProfileScreen/>
-    // <CreateRecipeScreen/>
-    // <ContactScreen/>
-    <NavScreenHolder/>
-    // <RecipeScreen/>
-    // <RegisterScreen/>
-    // <LoginAndRegiScreen/>
+
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Login">
+      <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Register" component={RegisterScreen} />
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="AboutUs" component={AboutUsScreen} />
+        <Stack.Screen name="EditProfile" component={EditProfileScreen} />
+        <Stack.Screen name="CreateRecipe" component={CreateRecipeScreen} />
+        <Stack.Screen name="Contact" component={ContactScreen} />
+        <Stack.Screen name="Recipe" component={RecipeScreen} />
+        <Stack.Screen name="LoginAndRegi" component={LoginAndRegiScreen} />
+    </Stack.Navigator>
+    </NavigationContainer>
+    
+   
   );
  
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -12,8 +12,31 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import AnonReg from "../components/customFonts/AnonReg";
+import axios from 'axios';
+
+
 
 const LoginScreen = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post('http://192.168.0.18:5000/user/login', {
+        email,
+        password
+      });
+  
+      console.log('Login successful', response.data);
+      // Handle login success, e.g., navigate to the main app screen
+      // Save the token if your app requires it
+    } catch (error) {
+      console.error('Error during login: ', error.response?.data || error);
+      alert('Login failed: ' + (error.response?.data?.message || 'Unknown error'));
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.topHalf}>
@@ -40,6 +63,9 @@ const LoginScreen = () => {
                 style={styles.input}
                 keyboardType="email-address"
                 autoCapitalize="none"
+                value={email}
+                onChangeText={setEmail}
+                placeholder="Email"
               />
               <Feather
                 name="check"
@@ -56,7 +82,12 @@ const LoginScreen = () => {
             </AnonReg>
 
             <View style={styles.inputContainer}>
-              <TextInput style={styles.input} />
+              <TextInput style={styles.input}
+  secureTextEntry
+  autoCapitalize="none"
+  value={password}
+  onChangeText={setPassword}
+  placeholder="Password" />
               <Feather name="eye" size={30} color="green" style={styles.icon} />
             </View>
           </View>
@@ -80,17 +111,12 @@ const LoginScreen = () => {
           </View>
 
           <View style={{ marginTop: 20 }}>
-            <TouchableOpacity
-              style={[
-                styles.button,
-                {
-                  backgroundColor: customColors.primary,
-                },
-              ]}
-              onPress={() => console.log("Login in Login page pressed")}
-            >
-              <Text style={styles.buttonText}>Login</Text>
-            </TouchableOpacity>
+          <TouchableOpacity
+  style={[styles.button, { backgroundColor: customColors.primary }]}
+  onPress={handleLogin}
+>
+  <Text style={styles.buttonText}>Login</Text>
+</TouchableOpacity>
           </View>
         </View>
       </View>
