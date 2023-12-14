@@ -20,8 +20,8 @@ export default function App() {
     // <AboutUsScreen/>
     // <EditProfileScreen/>
     // <CreateRecipeScreen/>
-    // <ContactScreen/>
-    <NavScreenHolder/>
+    <ContactScreen/>
+    // <NavScreenHolder/>
     // <RecipeScreen/>
     // <RegisterScreen/>
     // <LoginAndRegiScreen/>

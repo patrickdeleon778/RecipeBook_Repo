@@ -8,19 +8,20 @@ import { DrawerActions } from "@react-navigation/routers";
 
 
 
-const ContactScreen = () => {
+const ContactScreen = ({onSubmit}) => {
   const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigation();
+  // const navigate = useNavigation();
 
   const handleSubmit = async (formData) => {
     setLoading(true);
 
     try {
       
-      Alert.alert('Success', 'Thank you! I will be in contact soon.');
+      alert('Success', 'Thank you! I will be in contact soon.');
     } catch (error) {
       console.error(error);
+      alert('Error', 'Something went wrong. Please try again.');
       throw error; 
     } finally {
       setLoading(false);
