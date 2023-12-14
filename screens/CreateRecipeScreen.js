@@ -20,6 +20,12 @@ import AnonReg from "../components/customFonts/AnonReg";
 
 const CreateRecipeScreen = () => {
   const [image, setImage] = useState(null);
+  const [newTitle, setNewTitle] = useState("");
+  const [instructions, setInstructions] = useState("");
+
+  const [ingredients, setIngredients] = useState([
+    { id: uuid.v4(), name: "", quantity: "" },
+  ]);
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -33,10 +39,6 @@ const CreateRecipeScreen = () => {
       setImage(result.assets[0].uri);
     }
   };
-
-  const [ingredients, setIngredients] = useState([
-    { id: uuid.v4(), name: "", quantity: "" },
-  ]);
 
   const addIngredient = () => {
     setIngredients([...ingredients, { id: uuid.v4(), name: "", quantity: "" }]);
@@ -93,6 +95,7 @@ const CreateRecipeScreen = () => {
             }}
             placeholder="Title"
             multiline={true}
+            onChangeText={(text) => setNewTitle(text)}
           />
           <FontAwesome5 name="share" size={40} color={customColors.primary} />
         </View>
@@ -173,9 +176,30 @@ const CreateRecipeScreen = () => {
                 multiline={true}
                 numberOfLines={10} // Adjust as needed
                 onChangeText={(text) => {
-                  // Handle the text change event
+                  setInstructions(text);
                 }}
               />
+            </View>
+
+            <View style={{ marginTop: 20 }}>
+              <TouchableOpacity
+                style={[
+                  styles.createButton,
+                  {
+                    backgroundColor: customColors.primary,
+                  },
+                ]}
+                onPress={() => {
+                  console.log("Image: ", image);
+                  console.log("Title: ", newTitle);
+                  console.log("Instructions: ", instructions);
+                  console.log("Ingredients: ", ingredients);
+                }}
+              >
+                <AnonReg style={{ color: customColors.white, fontSize: 24 }}>
+                  Create Recipe
+                </AnonReg>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -217,7 +241,7 @@ const styles = StyleSheet.create({
     alignSelf: "center", // Center the button horizontally
     backgroundColor: customColors.white,
   },
-  updateButton: {
+  createButton: {
     width: "70%",
     height: 60,
     borderRadius: 50,
