@@ -31,13 +31,12 @@ const AboutUsScreen = () => {
         <View style={styles.bottomHalfContent}>
           <AnonReg style={styles.aboutUsText}>About Us</AnonReg>
           <AnonReg style={styles.aboutUsBody}>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
-            repellat eos laborum beatae laudantium enim, ducimus autem hic natus
-            ipsum voluptatum! Reiciendis placeat quo illo culpa mollitia rem qui
-            praesentium!Lorem ipsum dolor sit amet, consectetur adipisicing
-            elit. Modi repellat eos laborum beatae laudantium enim, ducimus
-            autem hic natus ipsum voluptatum! Reiciendis placeat quo illo culpa
-            mollitia rem qui praesentium!
+            We're a passionate group of food enthusiasts brought together by our
+            love for cooking, experimenting with flavors, and sharing delicious
+            recipes. We believe that good food has the power to bring
+            people together. Our mission is to simplify the cooking experience,
+            foster creativity in the kitchen, and allow members to share their
+            culinary adventures.
           </AnonReg>
         </View>
       </View>
@@ -51,7 +50,7 @@ const styles = StyleSheet.create({
     backgroundColor: customColors.primary,
   },
   menuIcon: {
-    position: 'absolute',
+    position: "absolute",
     top: 60,
     right: 20,
     zIndex: 1,
