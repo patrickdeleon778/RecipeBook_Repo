@@ -31,12 +31,18 @@ const LoginScreen = () => {
       console.log('Login successful', response.data);
       // Handle login success, e.g., navigate to the main app screen
       // Save the token if your app requires it
+      navigation.navigate('Home');
     } catch (error) {
       console.error('Error during login: ', error.response?.data || error);
       alert('Login failed: ' + (error.response?.data?.message || 'Unknown error'));
     }
   };
-
+  const handleEnterWithoutAccount = () => {
+    navigation.navigate('Home'); // Navigate to the main screen without logging in
+  };
+  const handleGoRegisterNow = () => {
+    navigation.navigate('Register'); // Navigate to the main screen without logging in
+  };
   return (
     <View style={styles.container}>
       <View style={styles.topHalf}>
@@ -50,7 +56,13 @@ const LoginScreen = () => {
           <AnonReg style={styles.welcomeText}>Welcome</AnonReg>
           <Text>
             <AnonReg style={styles.noAccountText}>Don't have an account? </AnonReg>
-            <Text style={styles.registerText}>Register now</Text>
+            
+            <TouchableOpacity
+  style={styles.registerText}
+  onPress={handleGoRegisterNow}
+>
+  <Text >Register now</Text>
+</TouchableOpacity>
           </Text>
 
           <View style={{ marginTop: 50 }}>
@@ -117,6 +129,12 @@ const LoginScreen = () => {
 >
   <Text style={styles.buttonText}>Login</Text>
 </TouchableOpacity>
+<TouchableOpacity
+      onPress={handleEnterWithoutAccount}
+      style={[styles.button, { backgroundColor: customColors.primary }]}
+    >
+      <Text>Enter without account</Text>
+    </TouchableOpacity>
           </View>
         </View>
       </View>

@@ -16,10 +16,14 @@ import HomeScreen from './screens/HomeScreen';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const [isGuest, setIsGuest] = useState(false);
+  
   return (
 
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
+      <Stack.Navigator initialRouteName={isUserLoggedIn ? "Home" : "Login"}>
       <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />

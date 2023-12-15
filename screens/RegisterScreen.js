@@ -45,6 +45,7 @@ const RegisterScreen = () => {
       });
   
       // Handle successful registration
+      navigation.navigate('Login');
       console.log('Registration successful', response.data);
       // You can navigate to the login screen or main app screen here
     } catch (error) {
