@@ -14,12 +14,13 @@ import { FontAwesome } from "@expo/vector-icons";
 import AnonReg from "../components/customFonts/AnonReg";
 import axios from 'axios';
 
+import { useNavigation } from '@react-navigation/native';
 
-
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  navigation = useNavigation();
 
   const handleLogin = async () => {
     try {
@@ -31,14 +32,14 @@ const LoginScreen = () => {
       console.log('Login successful', response.data);
       // Handle login success, e.g., navigate to the main app screen
       // Save the token if your app requires it
-      navigation.navigate('Home');
+      navigation.navigate('NavScreenHolder');
     } catch (error) {
       console.error('Error during login: ', error.response?.data || error);
       alert('Login failed: ' + (error.response?.data?.message || 'Unknown error'));
     }
   };
   const handleEnterWithoutAccount = () => {
-    navigation.navigate('Home'); // Navigate to the main screen without logging in
+    navigation.navigate('NavScreenHolder'); // Navigate to the main screen without logging in
   };
   const handleGoRegisterNow = () => {
     navigation.navigate('Register'); // Navigate to the main screen without logging in

@@ -13,20 +13,18 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import HomeScreen from './screens/HomeScreen';
 
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-  const [isGuest, setIsGuest] = useState(false);
-  
   return (
 
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={isUserLoggedIn ? "Home" : "Login"}>
+      <Stack.Navigator initialRouteName="Login">
       <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
+      
+        <Stack.Screen name="NavScreenHolder" component={NavScreenHolder} />
         <Stack.Screen name="AboutUs" component={AboutUsScreen} />
         <Stack.Screen name="EditProfile" component={EditProfileScreen} />
         <Stack.Screen name="CreateRecipe" component={CreateRecipeScreen} />
