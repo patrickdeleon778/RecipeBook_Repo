@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, alert } from "react-native";
 import customColors from "../config/customColors";
 
 const ContactForm = ({ onSubmit, loading }) => {
@@ -26,7 +26,7 @@ const ContactForm = ({ onSubmit, loading }) => {
       });
     } catch (error) {
       console.error(error);
-      Alert.alert("Error", "Something went wrong. Please try again.");
+     alert("Error", "Something went wrong. Please try again.");
     }
   };
 

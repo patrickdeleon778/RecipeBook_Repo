@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Alert, StyleSheet, TouchableOpacity } from 'react-native';
+import { View,StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import ContactForm from '../components/ContactForm';
 import customColors from "../config/customColors";
 import { useNavigation } from '@react-navigation/native';
@@ -10,23 +10,26 @@ import { DrawerActions } from "@react-navigation/routers";
 
 const ContactScreen = ({onSubmit}) => {
   const [loading, setLoading] = useState(false);
-
   // const navigate = useNavigation();
+
+  
 
   const handleSubmit = async (formData) => {
     setLoading(true);
 
     try {
       
-      alert('Success', 'Thank you! I will be in contact soon.');
+      alert('Success','Thank you! I will be in contact soon.');
+
     } catch (error) {
       console.error(error);
-      alert('Error', 'Something went wrong. Please try again.');
+      alert({title: 'Error',message:'Something went wrong. Please try again.'});
       throw error; 
     } finally {
       setLoading(false);
     }
   };
+
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
