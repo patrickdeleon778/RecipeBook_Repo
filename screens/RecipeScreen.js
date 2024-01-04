@@ -12,8 +12,7 @@ import RecipeContext from "../context/RecipeContext";
 
 const RecipeScreen = ({ route }) => {
   const { recipe } = route.params;
-  const { savedRecipes, setSavedRecipes, isSaved, setIsSaved } =
-    useContext(RecipeContext);
+  const { savedRecipes, setSavedRecipes, isSaved, setIsSaved } = useContext(RecipeContext);
 
   // const [isSaved, setIsSaved] = useState(false);
   // console.log(recipe);

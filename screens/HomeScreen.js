@@ -28,6 +28,7 @@ import { useNavigation } from "@react-navigation/native";
 import { DrawerActions } from "@react-navigation/routers";
 
 const HomeScreen = ({ navigation }) => {
+  
   const [selectedCuisines, setSelectedCuisines] = useState([]);
 
   const [recipeData, setRecipeData] = useState([]);
