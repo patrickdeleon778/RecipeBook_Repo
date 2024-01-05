@@ -26,8 +26,10 @@ import RecipeContext from "../context/RecipeContext";
 
 import { useNavigation } from "@react-navigation/native";
 import { DrawerActions } from "@react-navigation/routers";
-
+import { useUser } from '../context/UserContext';
 const HomeScreen = ({ navigation }) => {
+
+  const { user } = useUser();
   
   const [selectedCuisines, setSelectedCuisines] = useState([]);
 
@@ -164,7 +166,7 @@ const HomeScreen = ({ navigation }) => {
 
           <View>
             <AnonReg style={{ fontSize: 20, marginTop: 20 }}>
-              Hello, user!
+            Hello, {user?.username || 'user'}!
             </AnonReg>
             <AnonBold
               style={{ fontSize: 30, fontWeight: "bold", marginTop: 20 }}

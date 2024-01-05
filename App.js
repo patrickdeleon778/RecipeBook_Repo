@@ -12,13 +12,13 @@ import ContactScreen from './screens/ContactScreen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import HomeScreen from './screens/HomeScreen';
-
+import { UserProvider } from './context/UserContext';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-
+<UserProvider>
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
       <Stack.Screen name="Login" component={LoginScreen} />
@@ -33,7 +33,7 @@ export default function App() {
         <Stack.Screen name="LoginAndRegi" component={LoginAndRegiScreen} />
     </Stack.Navigator>
     </NavigationContainer>
-    
+    </UserProvider>
    
   );
  
