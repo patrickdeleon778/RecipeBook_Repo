@@ -2,13 +2,16 @@ import React, { useState } from 'react';
 import { View,StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import ContactForm from '../components/ContactForm';
 import customColors from "../config/customColors";
-import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from '@react-navigation/native';
 import { DrawerActions } from "@react-navigation/routers";
 
 
 
+
 const ContactScreen = ({onSubmit}) => {
+  const navigate = useNavigation();
+
   const [loading, setLoading] = useState(false);
   // const navigate = useNavigation();
 
@@ -32,15 +35,27 @@ const ContactScreen = ({onSubmit}) => {
 
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <TouchableOpacity
+   
+    <View style={styles.container}>
+    
+      <View style={styles.topHalf}>
+        <TouchableOpacity
           style={styles.menuIcon}
           onPress={() => navigate.dispatch(DrawerActions.openDrawer())}
         >
           <Ionicons name={"menu"} size={40} />
         </TouchableOpacity>
-      <ContactForm onSubmit={handleSubmit} loading={loading} />
+        
+      </View>
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <ContactForm onSubmit={handleSubmit} loading={loading} />
+      </View>
+      
+       
     </View>
+     
+      
+    
   );
 };
 
