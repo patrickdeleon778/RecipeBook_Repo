@@ -25,6 +25,15 @@ const EditProfileScreen = () => {
 
   const navigate = useNavigation();
 
+  const openDrawer = () => {
+    navigate.dispatch(DrawerActions.openDrawer());
+  };
+
+  const navigateToHomeScreen = () => {
+    // Replace 'AnotherScreen' with the actual name of the screen you want to navigate to
+    navigate.navigate("HomeScreen");
+  };
+
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,

@@ -12,6 +12,15 @@ import { DrawerActions } from "@react-navigation/routers";
 const ContactScreen = ({onSubmit}) => {
   const navigate = useNavigation();
 
+  const openDrawer = () => {
+    navigate.dispatch(DrawerActions.openDrawer());
+  };
+
+  const navigateToHomeScreen = () => {
+    // Replace 'AnotherScreen' with the actual name of the screen you want to navigate to
+    navigate.navigate("HomeScreen");
+  };
+
   const [loading, setLoading] = useState(false);
   // const navigate = useNavigation();
 
