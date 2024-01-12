@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
-
 import AnonReg from "../components/customFonts/AnonReg";
-
 import customColors from "../config/customColors";
-
 import { Ionicons } from "@expo/vector-icons";
-
 import { useNavigation } from "@react-navigation/native";
 import { DrawerActions } from "@react-navigation/routers";
 
