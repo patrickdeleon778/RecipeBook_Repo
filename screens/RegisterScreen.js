@@ -38,7 +38,7 @@ const RegisterScreen = () => {
     
     try {
       // Axios POST request
-      const response = await axios.post('http://192.168.0.18:5000/user/register', {
+      const response = await axios.post('https://recipeappbackend.azurewebsites.net/user/register', {
         username: name,
         email,
         password
