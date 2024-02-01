@@ -1,29 +1,21 @@
-import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  Button,
-  TouchableOpacity,
-  TextInput,
-} from "react-native";
+import React, { useState } from "react";
+import { View, StyleSheet, Image, TouchableOpacity, TextInput, Alert, Text } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import AnonReg from "../components/customFonts/AnonReg";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { FontAwesome } from "@expo/vector-icons";
-import { Ionicons } from "@expo/vector-icons";
-
 import customColors from "../config/customColors";
-
 import { useNavigation } from "@react-navigation/native";
 import { DrawerActions } from "@react-navigation/routers";
-
+import AnonReg from "../components/customFonts/AnonReg";
+import { Ionicons } from "@expo/vector-icons";
+import axios from 'axios';
 
 const EditProfileScreen = () => {
   const [image, setImage] = useState(null);
+  const [newName, setNewName] = useState('');
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmNewPassword, setConfirmNewPassword] = useState('');
 
-  const navigate = useNavigation();
+  const navigation = useNavigation();
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -34,27 +26,59 @@ const EditProfileScreen = () => {
     });
 
     if (!result.canceled) {
-      setImage(result.assets[0].uri);
+      setImage(result.uri);
     }
   };
 
+  const handleUpdate = async () => {
+    if (newPassword !== confirmNewPassword) {
+      Alert.alert('Error', 'New passwords do not match');
+      return;
+    }
+
+    if (newPassword && currentPassword === '') {
+      Alert.alert('Error', 'Please enter the current password');
+      return;
+    }
+
+    try {
+      const userId = "your_user_id_here"; // Debes obtener este ID de tu estado global o almacenamiento persistente
+
+      const updateData = {
+        userId,
+        newName, // Solo envía newName si se ha cambiado el nombre
+        currentPassword, // Solo envía las contraseñas si se está cambiando la contraseña
+        newPassword,
+      };
+
+      // Filtra los campos no utilizados
+      Object.keys(updateData).forEach(key => updateData[key] === '' && delete updateData[key]);
+
+      const response = await axios.post('https://recipeappbackend.azurewebsites.net/user/update', updateData);
+
+      if (response.data) {
+        Alert.alert('Success', response.data.message);
+        // Actualizar el estado global del usuario si es necesario
+      }
+    } catch (error) {
+      console.log(error);
+      if (error.response) {
+        Alert.alert('Error', error.response.data.message);
+      } else {
+        Alert.alert('Error', 'Failed to update profile');
+      }
+    }
+  };
   return (
     <View style={styles.container}>
       <View style={styles.topHalf}>
         <TouchableOpacity
           style={styles.menuIcon}
-          onPress={() => navigate.dispatch(DrawerActions.openDrawer())}
+          onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
         >
-          <Ionicons name={"menu"} size={40} />
+          <Ionicons name={"menu"} size={40} color="black" />
         </TouchableOpacity>
-        {image ? (
-          <Image source={{ uri: image }} style={styles.logo} />
-        ) : (
-          <Image
-            source={require("../assets/images/dishLogo.png")}
-            style={styles.logo}
-          />
-        )}
+        <Image source={image ? { uri: image } : require("../assets/images/dishLogo.png")} style={styles.logo} />
       </View>
       <View style={styles.bottomHalf}>
         <View style={styles.bottomHalfContent}>
@@ -64,91 +88,51 @@ const EditProfileScreen = () => {
             </AnonReg>
           </TouchableOpacity>
 
-          <View style={{ marginTop: 10 }}>
-            <View style={{ marginTop: 20 }}>
-              <View style={styles.inputContainer}>
-                <MaterialCommunityIcons
-                  style={styles.icon}
-                  name="account"
-                  size={30}
-                  color={customColors.primary}
-                />
-                <TextInput
-                  style={styles.input}
-                  autoCapitalize="none"
-                  placeholder="Name"
-                  placeholderTextColor={customColors.primary}
-                />
-              </View>
-            </View>
+          {/* Inputs para editar el perfil */}
+          <Text style={styles.label}>Change name:</Text>
+          <TextInput
+            style={styles.input}
+            autoCapitalize="none"
+            value={newName}
+            onChangeText={setNewName}
+            placeholder="Enter new name"
+            placeholderTextColor={customColors.primary}
+          />
+          <TouchableOpacity style={styles.button} onPress={handleNameChange}>
+            <Text style={styles.buttonText}>Confirm name change</Text>
+          </TouchableOpacity>
 
-            <View style={{ marginTop: 15 }}>
-              <View style={styles.inputContainer}>
-                <FontAwesome
-                  style={[styles.icon, { paddingLeft: 4 }]}
-                  name="user-secret"
-                  size={30}
-                  color={customColors.primary}
-                />
-                <TextInput
-                  style={styles.input}
-                  autoCapitalize="none"
-                  placeholder="Username"
-                  placeholderTextColor={customColors.primary}
-                />
-              </View>
-            </View>
-
-            <View style={{ marginTop: 15 }}>
-              <View style={styles.inputContainer}>
-                <MaterialCommunityIcons
-                  style={styles.icon}
-                  name="at"
-                  size={30}
-                  color={customColors.primary}
-                />
-                <TextInput
-                  style={styles.input}
-                  autoCapitalize="none"
-                  placeholder="Email"
-                  placeholderTextColor={customColors.primary}
-                />
-              </View>
-            </View>
-
-            <View style={{ marginTop: 15 }}>
-              <View style={styles.inputContainer}>
-                <MaterialCommunityIcons
-                  style={styles.icon}
-                  name="lock"
-                  size={30}
-                  color={customColors.primary}
-                />
-                <TextInput
-                  style={styles.input}
-                  autoCapitalize="none"
-                  placeholder="Password"
-                  placeholderTextColor={customColors.primary}
-                />
-              </View>
-            </View>
-
-            <View style={{ marginTop: 20 }}>
-              <TouchableOpacity
-                style={[
-                  styles.updateButton,
-                  {
-                    backgroundColor: customColors.primary,
-                  },
-                ]}
-                onPress={() => console.log("Update pressed")}
-              >
-                <AnonReg style={{ color: customColors.white, fontSize: 24 }}>
-                  Update
-                </AnonReg>
-              </TouchableOpacity>
-            </View>
-          </View>
+          <Text style={styles.label}>Change password:</Text>
+          <TextInput
+            style={styles.input}
+            autoCapitalize="none"
+            secureTextEntry
+            value={currentPassword}
+            onChangeText={setCurrentPassword}
+            placeholder="Enter current password"
+            placeholderTextColor={customColors.primary}
+          />
+          <TextInput
+            style={styles.input}
+            autoCapitalize="none"
+            secureTextEntry
+            value={newPassword}
+            onChangeText={setNewPassword}
+            placeholder="Enter new password"
+            placeholderTextColor={customColors.primary}
+          />
+          <TextInput
+            style={styles.input}
+            autoCapitalize="none"
+            secureTextEntry
+            value={confirmNewPassword}
+            onChangeText={setConfirmNewPassword}
+            placeholder="Confirm new password"
+            placeholderTextColor={customColors.primary}
+          />
+          <TouchableOpacity style={styles.button} onPress={handlePasswordChange}>
+            <Text style={styles.buttonText}>Confirm password change</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -168,8 +152,8 @@ const styles = StyleSheet.create({
   },
   topHalf: {
     flex: 0.4,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   bottomHalf: {
     flex: 0.6,
@@ -192,26 +176,27 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
   },
   imageButton: {
-    width: "50%", // Set the width to 50%
+    width: '50%', // Set the width to 50%
     height: 35,
     borderRadius: 50,
-    justifyContent: "center",
-    alignItems: "center",
-    alignSelf: "center", // Center the button horizontally
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center', // Center the button horizontally
     backgroundColor: customColors.primary,
   },
   updateButton: {
-    width: "70%",
+    width: '70%',
     height: 60,
     borderRadius: 50,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     margin: 20,
-    alignSelf: "center",
+    alignSelf: 'center',
+    backgroundColor: customColors.primary, // You can change the color if needed
   },
   inputContainer: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     borderBottomWidth: 1,
     borderBottomColor: customColors.primary,
     marginVertical: 10,
@@ -224,8 +209,42 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
     paddingRight: 40,
     paddingBottom: 5,
-    fontFamily: "Anon",
+    fontFamily: 'Anon',
+  },
+  label: {
+    fontSize: 16,
+    marginBottom: 5,
+    marginTop: 15,
+    fontWeight: 'bold',
+    color: customColors.dark,
+  },
+  button: {
+    backgroundColor: customColors.secondary,
+    padding: 15,
+    borderRadius: 25,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+  buttonText: {
+    color: customColors.white,
+    fontSize: 18,
+    fontWeight: '600',
+  },
+  label: {
+    fontSize: 16,
+    marginBottom: 5,
+    marginTop: 15,
+    fontWeight: 'bold',
+    color: customColors.dark,
+  },
+  button: {
+    backgroundColor: customColors.secondary,
+    padding: 15,
+    borderRadius: 25,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
   },
 });
-
 export default EditProfileScreen;
