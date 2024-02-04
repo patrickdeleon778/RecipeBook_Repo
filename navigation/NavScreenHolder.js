@@ -16,9 +16,10 @@ import { RecipeProvider } from "../context/RecipeContext";
 // screen components
 // import AboutUsScreen from "../screens/AboutUsScreen";
 import HomeScreen from "../screens/HomeScreen";
-import CreateRecipeScreen from "../screens/CreateRecipeScreen";
+import CreateRecipe from "../screens/CreateRecipeScreen";
 import FavoriteRecipes from "../screens/FavoriteRecipes";
 import RecipeScreen from "../screens/RecipeScreen";
+import ContactScreen from "../screens/ContactScreen";
 import HomeStack from "./HomeStack";
 import DrawerNavTest from "./DrawerNavTest";
 
@@ -27,9 +28,9 @@ import DrawerNavTest from "./DrawerNavTest";
 const HomeScreenName = "Home";
 const CreateRecipeScreenName = "Create";
 const FavoriteRecipesScreenName = "Favorite Recipes";
-const RecipeScreenName = "Recipe";
-
-const HomeStackName = "HomeStack";
+const RecipeName = "Recipe";
+const ContactScreenName = "Contact Us";
+const HomeStackScreen = "HomeStack";
 const DrawerNavTestName = "Settings";
 
 const Tab = createBottomTabNavigator();
@@ -71,28 +72,25 @@ const NavScreenHolder = () => {
     >
       <NavigationContainer>
         <Tab.Navigator
-          initialRouteName={HomeScreenName}
+          initialRouteName={HomeStackScreen}
           screenOptions={({ route }) => ({
             headerShown: false, // hide the header
             tabBarIcon: ({ focused, color, size }) => {
               let iconName;
-              if (route.name === HomeStackName) {
+              if (route.name === HomeStackScreen) {
                 iconName = focused ? "home" : "home-outline";
               }   else if (route.name === CreateRecipeScreenName) {
                 iconName = focused ? "pencil" : "pencil-outline";
               }  
               else if (route.name === FavoriteRecipesScreenName) {
                 iconName = focused ? "bookmark" : "bookmark-outline";
-              } else if (route.name === RecipeScreenName) {
+              } else if (route.name === RecipeScreen) {
+                iconName = focused ? "bookmark" : "bookmark-outline";
+              } else if (route.name === ContactScreenName) {
                 iconName = focused ? "bookmark" : "bookmark-outline";
               } else if (route.name === DrawerNavTestName) {
                 iconName = focused ? "bookmark" : "bookmark-outline";
               } 
-
-
-
-
-
 
 
               return (
@@ -114,14 +112,14 @@ const NavScreenHolder = () => {
           })}
         >
           <Tab.Screen
-            name={HomeStackName}
+            name={HomeStackScreen}
             component={HomeStack}
             options={{ tabBarLabel: HomeScreenName }} // Display "Home" in the tab bar
           />
           
            <Tab.Screen
             name={CreateRecipeScreenName}
-            component={CreateRecipeScreen}
+            component={CreateRecipe}
           />
 
           <Tab.Screen

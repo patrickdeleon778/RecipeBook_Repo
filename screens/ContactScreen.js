@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { DrawerActions } from "@react-navigation/routers";
 
 
+
 const ContactScreen = () => {
   const navigate = useNavigation();
 
@@ -14,9 +15,9 @@ const ContactScreen = () => {
   };
 
   const navigateToHomeScreen = () => {
-   
-    navigate.navigate("HomeScreen");
+    navigate.navigate("Home", { screen: "Settings" });
   };
+  
 
   const [loading, setLoading] = useState(false);
  

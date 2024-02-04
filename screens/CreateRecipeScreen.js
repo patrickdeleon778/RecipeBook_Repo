@@ -14,13 +14,19 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import customColors from "../config/customColors";
-import JAHFont from "../components/customFonts/JAHFont";
 import AnonBold from "../components/customFonts/AnonBold";
 import AnonReg from "../components/customFonts/AnonReg";
 
+
+
+
+
 const CreateRecipeScreen = () => {
+
+ 
   const [image, setImage] = useState(null);
 
+ 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -45,6 +51,7 @@ const CreateRecipeScreen = () => {
   return (
     <View style={{ flex: 1 }}>
       <View style={{ flex: 0.4 }}>
+      
         {image ? (
           <Image
             source={{ uri: image }}
@@ -69,6 +76,7 @@ const CreateRecipeScreen = () => {
         >
           <AnonReg style={{ color: customColors.black }}>Recipe Image</AnonReg>
         </TouchableOpacity>
+       
       </View>
 
       <ScrollView style={{ flex: 0.6 }}>
@@ -94,7 +102,10 @@ const CreateRecipeScreen = () => {
             placeholder="Title"
             multiline={true}
           />
-          <FontAwesome5 name="share" size={40} color={customColors.primary} />
+
+        
+            <FontAwesome5 name="share" size={40} color={customColors.primary} />
+          
         </View>
 
         <View style={{ flex: 1, padding: 30 }}>
