@@ -1,28 +1,18 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  Image,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity } from "react-native";
 import customColors from "../config/customColors";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Feather } from "@expo/vector-icons";
-import { FontAwesome } from "@expo/vector-icons";
+import { Feather, FontAwesome } from "@expo/vector-icons"; // Import FontAwesome here
 import AnonReg from "../components/customFonts/AnonReg";
 import axios from 'axios';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useUser } from '../context/UserContext';
 import { useNavigation } from '@react-navigation/native';
 
-const LoginScreen = ({ navigation }) => {
+const LoginScreen = () => {
+  const navigation = useNavigation(); 
   const { setUser } = useUser();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  navigation = useNavigation();
 
   const handleLogin = async () => {
     try {
@@ -30,25 +20,28 @@ const LoginScreen = ({ navigation }) => {
         email,
         password
       });
-    
+  
       console.log('Login successful', response.data);
       const { token, user } = response.data;
-    
-      // Handle login success
-      setUser(user); // Set the user details
-      // Store the token for future requests if necessary
   
+      // Log to confirm the structure of the user object
+      console.log('Logged in user:', user);
+  
+      // Store user data and token in AsyncStorage
+      await AsyncStorage.setItem('user', JSON.stringify(user));
+      await AsyncStorage.setItem('token', token);
+  
+      // Update user state
+      setUser(user);
+  
+      // Navigate to the main app screen
       navigation.navigate('NavScreenHolder');
     } catch (error) {
-      if (error.response) {
-        console.error('Error during login: ', error.response.data);
-        alert('Login failed: ' + error.response.data.message);
-      } else {
-        console.error('Error during login: ', error);
-        alert('Login failed: Unknown error');
-      }
+      console.error('Error during login: ', error);
+      alert('Login failed: ' + (error.response ? error.response.data.message : 'Unknown error'));
     }
   };
+
   const handleEnterWithoutAccount = () => {
     navigation.navigate('NavScreenHolder'); // Navigate to the main screen without logging in
   };

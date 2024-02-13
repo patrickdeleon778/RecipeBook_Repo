@@ -30,34 +30,21 @@ const EditProfileScreen = () => {
     }
   };
 
-  const handleUpdate = async () => {
-    if (newPassword !== confirmNewPassword) {
-      Alert.alert('Error', 'New passwords do not match');
-      return;
-    }
-
-    if (newPassword && currentPassword === '') {
-      Alert.alert('Error', 'Please enter the current password');
+  const handleNameChange = async () => {
+    if (!newName) {
+      Alert.alert('Error', 'Please enter a new name');
       return;
     }
 
     try {
       const userId = "your_user_id_here"; // Debes obtener este ID de tu estado global o almacenamiento persistente
-
-      const updateData = {
+      const response = await axios.post('https://recipeappbackend.azurewebsites.net/user/update', {
         userId,
-        newName, // Solo envía newName si se ha cambiado el nombre
-        currentPassword, // Solo envía las contraseñas si se está cambiando la contraseña
-        newPassword,
-      };
-
-      // Filtra los campos no utilizados
-      Object.keys(updateData).forEach(key => updateData[key] === '' && delete updateData[key]);
-
-      const response = await axios.post('https://recipeappbackend.azurewebsites.net/user/update', updateData);
+        newName,
+      });
 
       if (response.data) {
-        Alert.alert('Success', response.data.message);
+        Alert.alert('Success', 'Name changed successfully');
         // Actualizar el estado global del usuario si es necesario
       }
     } catch (error) {
@@ -65,10 +52,39 @@ const EditProfileScreen = () => {
       if (error.response) {
         Alert.alert('Error', error.response.data.message);
       } else {
-        Alert.alert('Error', 'Failed to update profile');
+        Alert.alert('Error', 'Failed to change name');
       }
     }
   };
+
+  const handlePasswordChange = async () => {
+    if (!currentPassword || !newPassword || newPassword !== confirmNewPassword) {
+      Alert.alert('Error', 'Please check your password fields');
+      return;
+    }
+
+    try {
+      const userId = "your_user_id_here"; // Debes obtener este ID de tu estado global o almacenamiento persistente
+      const response = await axios.post('https://recipeappbackend.azurewebsites.net/user/update', {
+        userId,
+        currentPassword,
+        newPassword,
+      });
+
+      if (response.data) {
+        Alert.alert('Success', 'Password changed successfully');
+        // Actualizar el estado global del usuario si es necesario
+      }
+    } catch (error) {
+      console.log(error);
+      if (error.response) {
+        Alert.alert('Error', error.response.data.message);
+      } else {
+        Alert.alert('Error', 'Failed to change password');
+      }
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.topHalf}>

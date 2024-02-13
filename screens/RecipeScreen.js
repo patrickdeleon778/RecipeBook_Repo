@@ -9,42 +9,49 @@ import AnonReg from "../components/customFonts/AnonReg";
 import { ScrollView } from "react-native-gesture-handler";
 import * as Font from "expo-font";
 import RecipeContext from "../context/RecipeContext";
+import axios from 'axios';
+import { useUser } from '../context/UserContext'; // Adjust the path as necessary
 
 const RecipeScreen = ({ route }) => {
   const { recipe } = route.params;
-  const { savedRecipes, setSavedRecipes, isSaved, setIsSaved } = useContext(RecipeContext);
-
-  // const [isSaved, setIsSaved] = useState(false);
-  // console.log(recipe);
-
+  const { user } = useUser();
+  console.log("Current user:", user); 
+  const { savedRecipes, addFavorite, removeFavorite, isSaved, setIsSaved } = useContext(RecipeContext); // savedRecipes added here
+   
   const [ingredients, setIngredients] = useState([]);
-
   const [instructions, setInstructions] = useState("");
-
-  // const [savedRecipes, setSavedRecipes] = useState([]);
-
-  const handleSave = () => {
-    const allIngredients = recipe.extendedIngredients || [];
-    const allInstructions = recipe.instructions || "";
-    const cleanedInstructions = allInstructions.replace(/<[^>]*>/g, "");
-
-    const recipeToSave = {
-      ...recipe,
-      extendedIngredients: allIngredients,
-      instructions: cleanedInstructions,
-    };
+  console.log('Current user object:', user);
+  console.log('User ID:', user._id);
+  console.log('User email:', user.email);
+  const handleSave = async () => {
+    console.log('Save button clicked'); // Debug log
+    const recipeId = recipe.id; // Or recipe._id or another identifier used by your backend
 
     if (isSaved) {
-      setSavedRecipes((prevRecipes) =>
-        prevRecipes.filter((r) => r.id !== recipe.id)
-      );
+      console.log('Removing recipe from saved list'); // Debug log
+      removeFavorite(user._id, recipeId)  // Ensure you're using user._id
+        .then(() => {
+          setIsSaved(false); // Update UI after successful removal
+          // Maybe call getFavorites() to refresh the favorites list in the context
+        })
+        .catch(error => {
+          console.error('Error removing favorite:', error);
+          // Handle error (show error message, etc.)
+        });
     } else {
-      setSavedRecipes((prevRecipes) => [...prevRecipes, recipeToSave]);
+      console.log('Adding recipe to saved list'); // Debug log
+      addFavorite(user._id, recipeId)  // Ensure you're using user._id
+        .then(() => {
+          setIsSaved(true); // Update UI after successful addition
+          // Maybe call getFavorites() to refresh the favorites list in the context
+        })
+        .catch(error => {
+          console.error('Error adding favorite:', error);
+          // Handle error (show error message, etc.)
+        });
     }
-
-    // Toggle the isSaved state
-    setIsSaved((prevIsSaved) => !prevIsSaved);
   };
+
 
   console.log(savedRecipes);
 

@@ -13,30 +13,30 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import HomeScreen from './screens/HomeScreen';
 import { UserProvider } from './context/UserContext';
+import { RecipeProvider } from './context/RecipeContext'; // Import RecipeProvider
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-<UserProvider>
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
-      <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
-      
-        <Stack.Screen name="NavScreenHolder" component={NavScreenHolder} />
-        <Stack.Screen name="AboutUs" component={AboutUsScreen} />
-        <Stack.Screen name="EditProfile" component={EditProfileScreen} />
-        <Stack.Screen name="CreateRecipe" component={CreateRecipeScreen} />
-        <Stack.Screen name="Contact" component={ContactScreen} />
-        <Stack.Screen name="Recipe" component={RecipeScreen} />
-        <Stack.Screen name="LoginAndRegi" component={LoginAndRegiScreen} />
-    </Stack.Navigator>
-    </NavigationContainer>
+    <UserProvider>
+      <RecipeProvider> {/* Wrap with RecipeProvider */}
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Login">
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Register" component={RegisterScreen} />
+            <Stack.Screen name="NavScreenHolder" component={NavScreenHolder} />
+            <Stack.Screen name="AboutUs" component={AboutUsScreen} />
+            <Stack.Screen name="EditProfile" component={EditProfileScreen} />
+            <Stack.Screen name="CreateRecipe" component={CreateRecipeScreen} />
+            <Stack.Screen name="Contact" component={ContactScreen} />
+            <Stack.Screen name="Recipe" component={RecipeScreen} />
+            <Stack.Screen name="LoginAndRegi" component={LoginAndRegiScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </RecipeProvider> {/* Wrap with RecipeProvider */}
     </UserProvider>
-   
   );
- 
 }
 
 const styles = StyleSheet.create({
@@ -46,4 +46,3 @@ const styles = StyleSheet.create({
       justifyContent: 'center'
   }
 })
-
