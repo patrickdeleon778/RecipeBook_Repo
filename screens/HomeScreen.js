@@ -298,6 +298,10 @@ const HomeScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: customColors.primary,
+  },
   button: {
     alignItems: "center",
     margin: 5,

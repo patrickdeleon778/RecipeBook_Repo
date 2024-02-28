@@ -73,9 +73,10 @@ const EditProfileScreen = () => {
             </AnonReg>
           </TouchableOpacity>
 
-          <View style={{ marginTop: 10 }}>
-            <View style={{ marginTop: 20 }}>
+         
+            <View style={styles.form}>
               <View style={styles.inputContainer}>
+              
                 <MaterialCommunityIcons
                   style={styles.icon}
                   name="account"
@@ -87,11 +88,12 @@ const EditProfileScreen = () => {
                   autoCapitalize="none"
                   placeholder="Name"
                   placeholderTextColor={customColors.primary}
+                  width={200}
                 />
               </View>
             </View>
 
-            <View style={{ marginTop: 15 }}>
+            <View style={styles.form}>
               <View style={styles.inputContainer}>
                 <FontAwesome
                   style={[styles.icon, { paddingLeft: 4 }]}
@@ -104,11 +106,12 @@ const EditProfileScreen = () => {
                   autoCapitalize="none"
                   placeholder="Username"
                   placeholderTextColor={customColors.primary}
+                  width={200}
                 />
               </View>
             </View>
 
-            <View style={{ marginTop: 15 }}>
+            <View style={styles.form}>
               <View style={styles.inputContainer}>
                 <MaterialCommunityIcons
                   style={styles.icon}
@@ -121,11 +124,12 @@ const EditProfileScreen = () => {
                   autoCapitalize="none"
                   placeholder="Email"
                   placeholderTextColor={customColors.primary}
+                  width={200}
                 />
               </View>
             </View>
 
-            <View style={{ marginTop: 15 }}>
+            <View style={styles.form}>
               <View style={styles.inputContainer}>
                 <MaterialCommunityIcons
                   style={styles.icon}
@@ -138,11 +142,12 @@ const EditProfileScreen = () => {
                   autoCapitalize="none"
                   placeholder="Password"
                   placeholderTextColor={customColors.primary}
+                  width={200}
                 />
               </View>
             </View>
 
-            <View style={{ marginTop: 20 }}>
+            
               <TouchableOpacity
                 style={[
                   styles.updateButton,
@@ -156,8 +161,8 @@ const EditProfileScreen = () => {
                   Update
                 </AnonReg>
               </TouchableOpacity>
-            </View>
-          </View>
+          
+          
         </View>
       </View>
     </View>
@@ -192,14 +197,14 @@ const styles = StyleSheet.create({
     marginVertical: 30,
   },
   logo: {
-    borderRadius: 200,
-    width: 250,
-    height: 250,
-    marginTop: 50,
+    borderRadius: 160,
+    width: 160,
+    height: 160,
+    marginBottom: 60,
+    marginTop: 20,
+
   },
-  icon: {
-    paddingBottom: 5,
-  },
+ 
   imageButton: {
     width: "50%", // Set the width to 50%
     height: 35,
@@ -208,6 +213,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "center", // Center the button horizontally
     backgroundColor: customColors.primary,
+    marginBottom: 20
   },
   updateButton: {
     width: "70%",
@@ -215,8 +221,8 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     justifyContent: "center",
     alignItems: "center",
-    margin: 20,
     alignSelf: "center",
+    marginTop: 20
   },
   inputContainer: {
     flexDirection: "row",
