@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import {
   View,
-  Text,
   StyleSheet,
   Image,
-  Button,
   TouchableOpacity,
   TextInput,
 } from "react-native";
@@ -21,9 +19,11 @@ import { DrawerActions } from "@react-navigation/routers";
 
 
 const EditProfileScreen = () => {
+  const navigate = useNavigation();
+  const [loading, setLoading] = useState(false);
   const [image, setImage] = useState(null);
 
-  const navigate = useNavigation();
+  
 
   const openDrawer = () => {
     navigate.dispatch(DrawerActions.openDrawer());
@@ -65,6 +65,7 @@ const EditProfileScreen = () => {
           />
         )}
       </View>
+
       <View style={styles.bottomHalf}>
         <View style={styles.bottomHalfContent}>
           <TouchableOpacity style={styles.imageButton} onPress={pickImage}>

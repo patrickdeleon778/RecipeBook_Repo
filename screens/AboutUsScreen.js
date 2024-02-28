@@ -77,10 +77,11 @@ const styles = StyleSheet.create({
     marginVertical: 60,
   },
   logo: {
-    borderRadius: 200,
-    width: 250,
-    height: 250,
-    marginTop: 50,
+    borderRadius: 160,
+    width: 160,
+    height: 160,
+    marginBottom: 60,
+    marginTop: 20,
   },
   aboutUsText: {
     fontSize: 40,
