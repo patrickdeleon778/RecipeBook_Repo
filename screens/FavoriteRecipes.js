@@ -117,6 +117,7 @@ const FavoriteRecipes = ({ navigation }) => {
   );
 };
 const styles = StyleSheet.create({
+  
   button: {
     alignItems: "center",
     margin: 5,

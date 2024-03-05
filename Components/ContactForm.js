@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, alert } from "react-native";
-import customColors from "../config/customColors";
+
 
 const ContactForm = ({ onSubmit, loading }) => {
   const [formData, setFormData] = useState({

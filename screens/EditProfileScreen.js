@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   View,
   StyleSheet,
@@ -19,17 +19,17 @@ import { DrawerActions } from "@react-navigation/routers";
 
 
 const EditProfileScreen = () => {
-  const navigate = useNavigation();
-  const [loading, setLoading] = useState(false);
+const navigate = useNavigation();
+const [loading, setLoading] = useState(false);
   const [image, setImage] = useState(null);
 
-  
 
-  const openDrawer = () => {
+
+const openDrawer = () => {
     navigate.dispatch(DrawerActions.openDrawer());
   };
 
-  const navigateToHomeScreen = () => {
+const navigateToHomeScreen = () => {
     // Replace 'AnotherScreen' with the actual name of the screen you want to navigate to
     navigate.navigate("HomeScreen");
   };
@@ -46,6 +46,11 @@ const EditProfileScreen = () => {
       setImage(result.assets[0].uri);
     }
   };
+
+
+ 
+
+
 
   return (
     <View style={styles.container}>
@@ -66,7 +71,7 @@ const EditProfileScreen = () => {
         )}
       </View>
 
-      <View style={styles.bottomHalf}>
+      <View style={styles.bottomHalf}>  
         <View style={styles.bottomHalfContent}>
           <TouchableOpacity style={styles.imageButton} onPress={pickImage}>
             <AnonReg style={{ color: customColors.white }}>
@@ -75,9 +80,9 @@ const EditProfileScreen = () => {
           </TouchableOpacity>
 
          
-            <View style={styles.form}>
+         <View style={styles.form}>
               <View style={styles.inputContainer}>
-              
+        
                 <MaterialCommunityIcons
                   style={styles.icon}
                   name="account"
@@ -89,11 +94,11 @@ const EditProfileScreen = () => {
                   autoCapitalize="none"
                   placeholder="Name"
                   placeholderTextColor={customColors.primary}
-                  width={200}
+                 width={200}
                 />
               </View>
-            </View>
-
+          </View>
+            
             <View style={styles.form}>
               <View style={styles.inputContainer}>
                 <FontAwesome
@@ -107,12 +112,12 @@ const EditProfileScreen = () => {
                   autoCapitalize="none"
                   placeholder="Username"
                   placeholderTextColor={customColors.primary}
-                  width={200}
+                 width={200}
                 />
               </View>
-            </View>
-
-            <View style={styles.form}>
+           </View>
+           
+              <View style={styles.form}>
               <View style={styles.inputContainer}>
                 <MaterialCommunityIcons
                   style={styles.icon}
@@ -125,14 +130,14 @@ const EditProfileScreen = () => {
                   autoCapitalize="none"
                   placeholder="Email"
                   placeholderTextColor={customColors.primary}
-                  width={200}
+                width={200}
                 />
               </View>
             </View>
-
-            <View style={styles.form}>
+            
+          <View style={styles.form}>
               <View style={styles.inputContainer}>
-                <MaterialCommunityIcons
+                 <MaterialCommunityIcons
                   style={styles.icon}
                   name="lock"
                   size={30}
@@ -147,9 +152,9 @@ const EditProfileScreen = () => {
                 />
               </View>
             </View>
+              
 
-            
-              <TouchableOpacity
+               <TouchableOpacity
                 style={[
                   styles.updateButton,
                   {
@@ -161,14 +166,19 @@ const EditProfileScreen = () => {
                 <AnonReg style={{ color: customColors.white, fontSize: 24 }}>
                   Update
                 </AnonReg>
-              </TouchableOpacity>
+                </TouchableOpacity>
+              
+         </View>
           
-          
-        </View>
-      </View>
+               </View>
+       
     </View>
   );
+
 };
+
+  
+
 
 const styles = StyleSheet.create({
   container: {

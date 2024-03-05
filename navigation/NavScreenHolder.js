@@ -28,14 +28,14 @@ import DrawerNavTest from "./DrawerNavTest";
 const HomeScreenName = "Home";
 const CreateRecipeScreenName = "Create";
 const FavoriteRecipesScreenName = "Favorite Recipes";
-const RecipeName = "Recipe";
+const RecipeScreenName = "Recipe";
 const ContactScreenName = "Contact Us";
 const HomeStackScreen = "HomeStack";
 const DrawerNavTestName = "Settings";
 
 const Tab = createBottomTabNavigator();
 
-const NavScreenHolder = () => {
+const NavScreenHolder = (navigation) => {
   const [fontLoaded, setFontLoaded] = useState(false);
   const [savedRecipes, setSavedRecipes] = useState([]);
   const [isSaved, setIsSaved] = useState(false);
@@ -79,12 +79,13 @@ const NavScreenHolder = () => {
               let iconName;
               if (route.name === HomeStackScreen) {
                 iconName = focused ? "home" : "home-outline";
-              }   else if (route.name === CreateRecipeScreenName) {
+              }   
+              else if (route.name === CreateRecipeScreenName) {
                 iconName = focused ? "pencil" : "pencil-outline";
               }  
               else if (route.name === FavoriteRecipesScreenName) {
                 iconName = focused ? "bookmark" : "bookmark-outline";
-              } else if (route.name === RecipeScreen) {
+              } else if (route.name === RecipeScreenName) {
                 iconName = focused ? "bookmark" : "bookmark-outline";
               } else if (route.name === ContactScreenName) {
                 iconName = focused ? "bookmark" : "bookmark-outline";
@@ -94,9 +95,18 @@ const NavScreenHolder = () => {
 
 
               return (
-                <View style={{ paddingTop: 10 }}>
+                //Navigate to Home
+                <TouchableOpacity onPress= {() => {
+                  if (route.name === HomeStackScreen) {
+                    navigation.navigate(HomeStackScreen);
+                  }
+
+                }}>
+                  <View style={{ paddingTop: 10 }}>
                   <Ionicons name={iconName} size={size} color={color} />
-                </View>
+                  </View>
+                </TouchableOpacity>
+               //------------------------------------------------------------
               );
             },
             tabBarActiveTintColor: customColors.primary,
@@ -114,17 +124,19 @@ const NavScreenHolder = () => {
           <Tab.Screen
             name={HomeStackScreen}
             component={HomeStack}
-            options={{ tabBarLabel: HomeScreenName }} // Display "Home" in the tab bar
+            options={{ tabBarLabel: HomeScreenName }} 
           />
           
            <Tab.Screen
             name={CreateRecipeScreenName}
             component={CreateRecipe}
+            options={{ tabBarLabel: "Create" }} 
           />
 
           <Tab.Screen
             name={FavoriteRecipesScreenName}
             component={FavoriteRecipes}
+            options={{ tabBarLabel: "Favorite Recipes" }} 
           />
 
         </Tab.Navigator>
