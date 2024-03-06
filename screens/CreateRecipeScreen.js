@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   View,
-  Text,
   Image,
   TouchableOpacity,
   StyleSheet,
@@ -16,16 +15,21 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import customColors from "../config/customColors";
 import AnonBold from "../components/customFonts/AnonBold";
 import AnonReg from "../components/customFonts/AnonReg";
+import { useNavigation } from '@react-navigation/native';
+import { DrawerActions} from '@react-navigation/native';
+import NavScreenHolder from '@react-navigation/native';
 
 
 
-
-
-const CreateRecipeScreen = () => {
-
- 
+const CreateRecipeScreen = ({navigation}) => {
+  const navigate = useNavigation();
+  const [loading, setLoading] = useState(false);
   const [image, setImage] = useState(null);
 
+
+  const openDrawer = () => {
+    navigation.dispatch(DrawerActions.openDrawer());
+  };
  
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -49,9 +53,20 @@ const CreateRecipeScreen = () => {
   };
 
   return (
+   
+    
     <View style={{ flex: 1 }}>
       <View style={{ flex: 0.4 }}>
-      
+ 
+        <TouchableOpacity
+         style={styles.menuIcon}
+         onPress={() => navigate.dispatch(DrawerActions.openDrawer())}
+        >
+          <Ionicons name={"menu"} size={20} />
+        </TouchableOpacity>
+        
+    
+       
         {image ? (
           <Image
             source={{ uri: image }}
@@ -191,6 +206,7 @@ const CreateRecipeScreen = () => {
           </View>
         </View>
       </ScrollView>
+      {/* <NavScreenHolder navigation={navigation} /> */}
     </View>
   );
 };
@@ -199,6 +215,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: customColors.primary,
+  },
+  menuIcon: {
+    position: 'absolute',
+    top: 60,
+    right: 20,
+    zIndex: 1,
+  
   },
   topHalf: {
     flex: 0.4,

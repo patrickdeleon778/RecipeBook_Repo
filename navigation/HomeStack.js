@@ -3,14 +3,16 @@ import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "../screens/HomeScreen";
 import RecipeScreen from "../screens/RecipeScreen";
 import DrawerNavTest from "./DrawerNavTest";
-import { NavigationContainer } from "@react-navigation/native";
 import CreateRecipeScreen from "../screens/CreateRecipeScreen";
+
 
 const Stack = createStackNavigator();
 
 const HomeScreenName = "Home";
 const RecipeScreenName = "Recipe";
 const DrawerNavTestName = "Settings";
+
+
 
 
 function HomeStack() {
@@ -24,6 +26,8 @@ function HomeStack() {
       <Stack.Screen name={DrawerNavTestName} component={DrawerNavTest} />
       <Stack.Screen name={HomeScreenName} component={HomeScreen} />
       <Stack.Screen name={RecipeScreenName} component={RecipeScreen} />
+      
+     
       
       
       

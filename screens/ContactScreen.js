@@ -16,9 +16,9 @@ const ContactScreen = () => {
     navigate.dispatch(DrawerActions.openDrawer());
   };
 
-  const navigateToHomeScreen = () => {
-    navigate.navigate("Home", { screen: "Settings" });
-  };
+  // const navigateToHomeScreen = () => {
+  //   navigate.navigate("Home", { screen: "Settings" });
+  // };
   
 
  

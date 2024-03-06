@@ -8,14 +8,17 @@ import {
   StyleSheet,
   FlatList,
 } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import customColors from "../config/customColors";
 import AnonReg from "../components/customFonts/AnonReg";
-
+import { useNavigation } from '@react-navigation/native';
+import { DrawerActions } from "@react-navigation/routers";
 import { FontAwesome5 } from "@expo/vector-icons";
 import AnonBold from "../components/customFonts/AnonBold";
 import RecipeContext from "../context/RecipeContext";
 
 const FavoriteRecipes = ({ navigation }) => {
+  const navigate = useNavigation();
   const { savedRecipes } = useContext(RecipeContext);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -32,11 +35,29 @@ const FavoriteRecipes = ({ navigation }) => {
 
   };
 
+  const openDrawer = () => {
+    navigate.dispatch(DrawerActions.openDrawer());
+  };
+
   return (
+    <View style={{ flex: 1 }} >
+<TouchableOpacity
+    style={styles.menuIcon}
+    onPress={() => navigate.dispatch(DrawerActions.openDrawer())}
+   >
+     <Ionicons name={"menu"} size={40} />
+   </TouchableOpacity>
+
+    
+
+    
+  
     <FlatList
       contentContainerStyle={{ marginHorizontal: 20, paddingTop: 60 }}
       ListHeaderComponent={
         <>
+     
+        
           <View
             style={{
               flexDirection: "row",
@@ -47,18 +68,24 @@ const FavoriteRecipes = ({ navigation }) => {
               borderRadius: 40,
               marginTop: 30,
               padding: 5,
+              position: "relative",
+              
             }}
           >
+          
             <TextInput
               style={{
                 flex: 1,
                 marginLeft: 10,
                 paddingRight: 10,
+                
                 fontFamily: "Anon",
               }}
               placeholder="Search favorite recipe"
               onChangeText={(text) => setSearchQuery(text)}
             />
+
+            
 
             <TouchableOpacity
               style={{
@@ -68,6 +95,7 @@ const FavoriteRecipes = ({ navigation }) => {
                 alignItems: "center",
                 justifyContent: "center",
                 borderRadius: 50,
+                
               }}
               onPress={handleSearch}
             >
@@ -79,7 +107,7 @@ const FavoriteRecipes = ({ navigation }) => {
             </TouchableOpacity>
           </View>
 
-          <View style={{ marginTop: 40, marginLeft: 5 }}>
+          <View style={{ marginTop: 20 }}>
             <AnonBold style={{ fontSize: 20, fontWeight: "bold" }}>
               Favorite Recipes
             </AnonBold>
@@ -114,6 +142,7 @@ const FavoriteRecipes = ({ navigation }) => {
         </>
       )}
     />
+    </View>
   );
 };
 const styles = StyleSheet.create({
@@ -121,6 +150,14 @@ const styles = StyleSheet.create({
   button: {
     alignItems: "center",
     margin: 5,
+  },
+  menuIcon: {
+    position: 'absolute',
+    top: 60,
+    paddingBottom: 50,
+    right: 20,
+    zIndex: 1,
+  
   },
   image: {
     width: 50,

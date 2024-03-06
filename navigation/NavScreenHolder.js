@@ -23,7 +23,6 @@ import ContactScreen from "../screens/ContactScreen";
 import HomeStack from "./HomeStack";
 import DrawerNavTest from "./DrawerNavTest";
 
-
 // screen names
 const HomeScreenName = "Home";
 const CreateRecipeScreenName = "Create";
@@ -33,9 +32,10 @@ const ContactScreenName = "Contact Us";
 const HomeStackScreen = "HomeStack";
 const DrawerNavTestName = "Settings";
 
+
 const Tab = createBottomTabNavigator();
 
-const NavScreenHolder = (navigation) => {
+const NavScreenHolder = ({navigation}) => {
   const [fontLoaded, setFontLoaded] = useState(false);
   const [savedRecipes, setSavedRecipes] = useState([]);
   const [isSaved, setIsSaved] = useState(false);
@@ -79,11 +79,9 @@ const NavScreenHolder = (navigation) => {
               let iconName;
               if (route.name === HomeStackScreen) {
                 iconName = focused ? "home" : "home-outline";
-              }   
-              else if (route.name === CreateRecipeScreenName) {
+              } else if (route.name === CreateRecipeScreenName) {
                 iconName = focused ? "pencil" : "pencil-outline";
-              }  
-              else if (route.name === FavoriteRecipesScreenName) {
+              } else if (route.name === FavoriteRecipesScreenName) {
                 iconName = focused ? "bookmark" : "bookmark-outline";
               } else if (route.name === RecipeScreenName) {
                 iconName = focused ? "bookmark" : "bookmark-outline";
@@ -91,22 +89,22 @@ const NavScreenHolder = (navigation) => {
                 iconName = focused ? "bookmark" : "bookmark-outline";
               } else if (route.name === DrawerNavTestName) {
                 iconName = focused ? "bookmark" : "bookmark-outline";
-              } 
-
+              }
 
               return (
-                //Navigate to Home
-                <TouchableOpacity onPress= {() => {
-                  if (route.name === HomeStackScreen) {
-                    navigation.navigate(HomeStackScreen);
-                  }
-
-                }}>
+                //Navigate to Home------------------------------------------
+                <TouchableOpacity
+                  onPress={() => {
+                    if (route.name === HomeStackScreen) {
+                      navigation.navigate(HomeStackScreen);
+                    }
+                  }}
+                >
                   <View style={{ paddingTop: 10 }}>
-                  <Ionicons name={iconName} size={size} color={color} />
+                    <Ionicons name={iconName} size={size} color={color} />
                   </View>
                 </TouchableOpacity>
-               //------------------------------------------------------------
+                //------------------------------------------------------------
               );
             },
             tabBarActiveTintColor: customColors.primary,
@@ -121,24 +119,24 @@ const NavScreenHolder = (navigation) => {
             },
           })}
         >
+          
           <Tab.Screen
             name={HomeStackScreen}
             component={HomeStack}
-            options={{ tabBarLabel: HomeScreenName }} 
+            options={{ tabBarLabel: HomeScreenName }}
           />
-          
-           <Tab.Screen
+
+          <Tab.Screen
             name={CreateRecipeScreenName}
             component={CreateRecipe}
-            options={{ tabBarLabel: "Create" }} 
+            options={{ tabBarLabel: "Create" }}
           />
 
           <Tab.Screen
             name={FavoriteRecipesScreenName}
             component={FavoriteRecipes}
-            options={{ tabBarLabel: "Favorite Recipes" }} 
+            options={{ tabBarLabel: "Favorite Recipes" }}
           />
-
         </Tab.Navigator>
       </NavigationContainer>
     </RecipeProvider>
