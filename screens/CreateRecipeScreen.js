@@ -60,9 +60,9 @@ const CreateRecipeScreen = ({navigation}) => {
  
         <TouchableOpacity
          style={styles.menuIcon}
-         onPress={() => navigate.dispatch(DrawerActions.openDrawer())}
+         onPress={() => navigation.openDrawer()}
         >
-          <Ionicons name={"menu"} size={20} />
+          <Ionicons name={"menu"} size={40} />
         </TouchableOpacity>
         
     

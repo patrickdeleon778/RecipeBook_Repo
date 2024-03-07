@@ -15,7 +15,7 @@ const DrawerNavTestName = "Settings";
 
 
 
-function HomeStack() {
+function HomeStack()  {
   return (
   
  <Stack.Navigator

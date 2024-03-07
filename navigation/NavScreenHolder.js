@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+ import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -32,10 +32,9 @@ const ContactScreenName = "Contact Us";
 const HomeStackScreen = "HomeStack";
 const DrawerNavTestName = "Settings";
 
-
 const Tab = createBottomTabNavigator();
 
-const NavScreenHolder = ({navigation}) => {
+const NavScreenHolder = ({ navigation }) => {
   const [fontLoaded, setFontLoaded] = useState(false);
   const [savedRecipes, setSavedRecipes] = useState([]);
   const [isSaved, setIsSaved] = useState(false);
@@ -67,7 +66,7 @@ const NavScreenHolder = ({navigation}) => {
         isLoading,
         setIsLoading,
         isDrawerOpen,
-        setIsDrawerOpen
+        setIsDrawerOpen,
       }}
     >
       <NavigationContainer>
@@ -95,15 +94,18 @@ const NavScreenHolder = ({navigation}) => {
                 //Navigate to Home------------------------------------------
                 <TouchableOpacity
                   onPress={() => {
-                    if (route.name === HomeStackScreen) {
-                      navigation.navigate(HomeStackScreen);
-                    }
+                    // if (route.name === HomeStackScreen) {
+                      navigation.navigate("HomeStackScreen");
+                    // }
                   }}
                 >
                   <View style={{ paddingTop: 10 }}>
-                    <Ionicons name={iconName} size={size} color={color} />
-                  </View>
+                    
+
+                      <Ionicons name={iconName} size={size} color={color} />
+                    </View>
                 </TouchableOpacity>
+
                 //------------------------------------------------------------
               );
             },
@@ -119,11 +121,10 @@ const NavScreenHolder = ({navigation}) => {
             },
           })}
         >
-          
           <Tab.Screen
             name={HomeStackScreen}
             component={HomeStack}
-            options={{ tabBarLabel: HomeScreenName }}
+            options={{ tabBarLabel: () => null }} 
           />
 
           <Tab.Screen

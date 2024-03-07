@@ -4,13 +4,17 @@ import AboutUsScreen from "../screens/AboutUsScreen";
 import EditProfileScreen from "../screens/EditProfileScreen";
 import HomeScreen from "../screens/HomeScreen";
 import ContactScreen from "../screens/ContactScreen";
+import { NavigationContainer } from "@react-navigation/native";
 
 
 const Drawer = createDrawerNavigator();
 
 function DrawerNavTest() {
   return (
-    <Drawer.Navigator
+   
+      <Drawer.Navigator
+       drawerPosition="right"
+   
     screenOptions={{
         headerShown: false,
     }}
@@ -21,7 +25,8 @@ function DrawerNavTest() {
       <Drawer.Screen name="Contact Us" component={ContactScreen} />
       
     </Drawer.Navigator>
-  );
-}
+   
+   );
+}  
 
 export default DrawerNavTest;

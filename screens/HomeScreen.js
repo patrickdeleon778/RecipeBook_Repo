@@ -149,16 +149,33 @@ const HomeScreen = ({ navigation }) => {
       ListHeaderComponent={
         <>
           <View flexDirection={"row"} justifyContent="space-between">
-            <Image
-              source={require("../assets/images/PQ2_Teddie.webp")}
-              style={{ height: 75, width: 75, borderRadius: 100 }}
-            />
+          <View style={styles.topHalf}>
+        <TouchableOpacity
+          style={styles.menuIcon}
+          onPress={() => navigation.openDrawer()}
+        >
+          <Ionicons name={"menu"} size={40} />
+        </TouchableOpacity>
+        <Image
+          style={styles.logo}
+          source={require("../assets/images/dishLogo.png")}
+        />
+      </View>
 
-            <TouchableOpacity
+
+            {/* <Image
+            style={styles.logo}
+              source={require("../assets/images/dishLogo.png")}
+              // style={{ height: 75, width: 75, borderRadius: 100 }}
+            /> */}
+
+            {/* <TouchableOpacity
+            
               onPress={() => navigate.dispatch(DrawerActions.openDrawer())}
+              
             >
-              <Ionicons name={"menu"} size={40} />
-            </TouchableOpacity>
+              <Ionicons name={"menu"} size={40}/>
+            </TouchableOpacity> */}
           </View>
 
           <View>
@@ -299,6 +316,19 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: customColors.primary,
     flex: 1,
+  },
+  menuIcon: {
+    position: 'absolute',
+    top: 60,
+    right: 20,
+    zIndex: 1,
+  },
+  logo: {
+    borderRadius: 160,
+    width: 160,
+    height: 160,
+    marginBottom: 60,
+    marginTop: 20,
   },
   button: {
     alignItems: "center",
