@@ -1,19 +1,21 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Image, TouchableOpacity, TextInput, Alert, Text } from "react-native";
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Button,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import customColors from "../config/customColors";
 import { useNavigation } from "@react-navigation/native";
 import { DrawerActions } from "@react-navigation/routers";
-import AnonReg from "../components/customFonts/AnonReg";
-import { Ionicons } from "@expo/vector-icons";
-import axios from 'axios';
+
 
 const EditProfileScreen = () => {
   const [image, setImage] = useState(null);
-  const [newName, setNewName] = useState('');
-  const [currentPassword, setCurrentPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmNewPassword, setConfirmNewPassword] = useState('');
 
   const navigation = useNavigation();
 
@@ -90,11 +92,18 @@ const EditProfileScreen = () => {
       <View style={styles.topHalf}>
         <TouchableOpacity
           style={styles.menuIcon}
-          onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
+          onPress={() => navigate.dispatch(DrawerActions.openDrawer())}
         >
-          <Ionicons name={"menu"} size={40} color="black" />
+          <Ionicons name={"menu"} size={40} />
         </TouchableOpacity>
-        <Image source={image ? { uri: image } : require("../assets/images/dishLogo.png")} style={styles.logo} />
+        {image ? (
+          <Image source={{ uri: image }} style={styles.logo} />
+        ) : (
+          <Image
+            source={require("../assets/images/dishLogo.png")}
+            style={styles.logo}
+          />
+        )}
       </View>
       <View style={styles.bottomHalf}>
         <View style={styles.bottomHalfContent}>
@@ -104,51 +113,91 @@ const EditProfileScreen = () => {
             </AnonReg>
           </TouchableOpacity>
 
-          {/* Inputs para editar el perfil */}
-          <Text style={styles.label}>Change name:</Text>
-          <TextInput
-            style={styles.input}
-            autoCapitalize="none"
-            value={newName}
-            onChangeText={setNewName}
-            placeholder="Enter new name"
-            placeholderTextColor={customColors.primary}
-          />
-          <TouchableOpacity style={styles.button} onPress={handleNameChange}>
-            <Text style={styles.buttonText}>Confirm name change</Text>
-          </TouchableOpacity>
+          <View style={{ marginTop: 10 }}>
+            <View style={{ marginTop: 20 }}>
+              <View style={styles.inputContainer}>
+                <MaterialCommunityIcons
+                  style={styles.icon}
+                  name="account"
+                  size={30}
+                  color={customColors.primary}
+                />
+                <TextInput
+                  style={styles.input}
+                  autoCapitalize="none"
+                  placeholder="Name"
+                  placeholderTextColor={customColors.primary}
+                />
+              </View>
+            </View>
 
-          <Text style={styles.label}>Change password:</Text>
-          <TextInput
-            style={styles.input}
-            autoCapitalize="none"
-            secureTextEntry
-            value={currentPassword}
-            onChangeText={setCurrentPassword}
-            placeholder="Enter current password"
-            placeholderTextColor={customColors.primary}
-          />
-          <TextInput
-            style={styles.input}
-            autoCapitalize="none"
-            secureTextEntry
-            value={newPassword}
-            onChangeText={setNewPassword}
-            placeholder="Enter new password"
-            placeholderTextColor={customColors.primary}
-          />
-          <TextInput
-            style={styles.input}
-            autoCapitalize="none"
-            secureTextEntry
-            value={confirmNewPassword}
-            onChangeText={setConfirmNewPassword}
-            placeholder="Confirm new password"
-            placeholderTextColor={customColors.primary}
-          />
-          <TouchableOpacity style={styles.button} onPress={handlePasswordChange}>
-            <Text style={styles.buttonText}>Confirm password change</Text>
-          </TouchableOpacity>
+            <View style={{ marginTop: 15 }}>
+              <View style={styles.inputContainer}>
+                <FontAwesome
+                  style={[styles.icon, { paddingLeft: 4 }]}
+                  name="user-secret"
+                  size={30}
+                  color={customColors.primary}
+                />
+                <TextInput
+                  style={styles.input}
+                  autoCapitalize="none"
+                  placeholder="Username"
+                  placeholderTextColor={customColors.primary}
+                />
+              </View>
+            </View>
+
+            <View style={{ marginTop: 15 }}>
+              <View style={styles.inputContainer}>
+                <MaterialCommunityIcons
+                  style={styles.icon}
+                  name="at"
+                  size={30}
+                  color={customColors.primary}
+                />
+                <TextInput
+                  style={styles.input}
+                  autoCapitalize="none"
+                  placeholder="Email"
+                  placeholderTextColor={customColors.primary}
+                />
+              </View>
+            </View>
+
+            <View style={{ marginTop: 15 }}>
+              <View style={styles.inputContainer}>
+                <MaterialCommunityIcons
+                  style={styles.icon}
+                  name="lock"
+                  size={30}
+                  color={customColors.primary}
+                />
+                <TextInput
+                  style={styles.input}
+                  autoCapitalize="none"
+                  placeholder="Password"
+                  placeholderTextColor={customColors.primary}
+                />
+              </View>
+            </View>
+
+            <View style={{ marginTop: 20 }}>
+              <TouchableOpacity
+                style={[
+                  styles.updateButton,
+                  {
+                    backgroundColor: customColors.primary,
+                  },
+                ]}
+                onPress={() => console.log("Update pressed")}
+              >
+                <AnonReg style={{ color: customColors.white, fontSize: 24 }}>
+                  Update
+                </AnonReg>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
       </View>
     </View>
@@ -161,7 +210,7 @@ const styles = StyleSheet.create({
     backgroundColor: customColors.primary,
   },
   menuIcon: {
-    position: 'absolute',
+    position: "absolute",
     top: 60,
     right: 20,
     zIndex: 1,
@@ -192,12 +241,12 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
   },
   imageButton: {
-    width: '50%', // Set the width to 50%
+    width: "50%", // Set the width to 50%
     height: 35,
     borderRadius: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignSelf: 'center', // Center the button horizontally
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center", // Center the button horizontally
     backgroundColor: customColors.primary,
   },
   updateButton: {
