@@ -7,7 +7,7 @@ export const fetchCuisine = async (cuisine, query) => {
   try {
     const response = await axios.get('https://api.spoonacular.com/recipes/complexSearch', {
       params: {
-        apiKey: '12eff79c402c49fe89e486ceb64581b8',
+        apiKey: 'd4b55fa8ba42409a97a2847865aef001',
         cuisine: cuisine,
         query: query,
       },
@@ -28,7 +28,7 @@ export const fetchRecipeDetails = async (recipeId) => {
   try {
     const response = await axios.get(`https://api.spoonacular.com/recipes/${recipeId}/information`, {
       params: {
-        apiKey: '12eff79c402c49fe89e486ceb64581b8',
+        apiKey: 'd4b55fa8ba42409a97a2847865aef001',
         includeNutrition: true,
       },
     });
