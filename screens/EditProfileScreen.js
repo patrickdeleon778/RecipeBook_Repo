@@ -7,6 +7,9 @@ import {
   Button,
   TouchableOpacity,
   TextInput,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import AnonReg from "../components/customFonts/AnonReg";
@@ -19,9 +22,14 @@ import customColors from "../config/customColors";
 import { useNavigation } from "@react-navigation/native";
 import { DrawerActions } from "@react-navigation/routers";
 
-
 const EditProfileScreen = () => {
   const [image, setImage] = useState(null);
+  const [newName, setNewName] = useState("");
+  const [newUsername, setNewUsername] = useState("");
+  const [newEmail, setNewEmail] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+
+  const handleChange = () => {};
 
   const navigate = useNavigation();
 
@@ -39,119 +47,140 @@ const EditProfileScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.topHalf}>
-        <TouchableOpacity
-          style={styles.menuIcon}
-          onPress={() => navigate.dispatch(DrawerActions.openDrawer())}
-        >
-          <Ionicons name={"menu"} size={40} />
-        </TouchableOpacity>
-        {image ? (
-          <Image source={{ uri: image }} style={styles.logo} />
-        ) : (
-          <Image
-            source={require("../assets/images/dishLogo.png")}
-            style={styles.logo}
-          />
-        )}
-      </View>
-      <View style={styles.bottomHalf}>
-        <View style={styles.bottomHalfContent}>
-          <TouchableOpacity style={styles.imageButton} onPress={pickImage}>
-            <AnonReg style={{ color: customColors.white }}>
-              Upload Image
-            </AnonReg>
-          </TouchableOpacity>
-
-          <View style={{ marginTop: 10 }}>
-            <View style={{ marginTop: 20 }}>
-              <View style={styles.inputContainer}>
-                <MaterialCommunityIcons
-                  style={styles.icon}
-                  name="account"
-                  size={30}
-                  color={customColors.primary}
-                />
-                <TextInput
-                  style={styles.input}
-                  autoCapitalize="none"
-                  placeholder="Name"
-                  placeholderTextColor={customColors.primary}
-                />
-              </View>
-            </View>
-
-            <View style={{ marginTop: 15 }}>
-              <View style={styles.inputContainer}>
-                <FontAwesome
-                  style={[styles.icon, { paddingLeft: 4 }]}
-                  name="user-secret"
-                  size={30}
-                  color={customColors.primary}
-                />
-                <TextInput
-                  style={styles.input}
-                  autoCapitalize="none"
-                  placeholder="Username"
-                  placeholderTextColor={customColors.primary}
-                />
-              </View>
-            </View>
-
-            <View style={{ marginTop: 15 }}>
-              <View style={styles.inputContainer}>
-                <MaterialCommunityIcons
-                  style={styles.icon}
-                  name="at"
-                  size={30}
-                  color={customColors.primary}
-                />
-                <TextInput
-                  style={styles.input}
-                  autoCapitalize="none"
-                  placeholder="Email"
-                  placeholderTextColor={customColors.primary}
-                />
-              </View>
-            </View>
-
-            <View style={{ marginTop: 15 }}>
-              <View style={styles.inputContainer}>
-                <MaterialCommunityIcons
-                  style={styles.icon}
-                  name="lock"
-                  size={30}
-                  color={customColors.primary}
-                />
-                <TextInput
-                  style={styles.input}
-                  autoCapitalize="none"
-                  placeholder="Password"
-                  placeholderTextColor={customColors.primary}
-                />
-              </View>
-            </View>
-
-            <View style={{ marginTop: 20 }}>
-              <TouchableOpacity
-                style={[
-                  styles.updateButton,
-                  {
-                    backgroundColor: customColors.primary,
-                  },
-                ]}
-                onPress={() => console.log("Update pressed")}
-              >
-                <AnonReg style={{ color: customColors.white, fontSize: 24 }}>
-                  Update
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+    >
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        keyboardShouldPersistTaps="handled"
+      >
+        <View style={styles.container}>
+          <View style={styles.topHalf}>
+            <TouchableOpacity
+              style={styles.menuIcon}
+              onPress={() => navigate.dispatch(DrawerActions.openDrawer())}
+            >
+              <Ionicons name={"menu"} size={40} />
+            </TouchableOpacity>
+            {image ? (
+              <Image source={{ uri: image }} style={styles.logo} />
+            ) : (
+              <Image
+                source={require("../assets/images/dishLogo.png")}
+                style={styles.logo}
+              />
+            )}
+          </View>
+          <View style={styles.bottomHalf}>
+            <View style={styles.bottomHalfContent}>
+              <TouchableOpacity style={styles.imageButton} onPress={pickImage}>
+                <AnonReg style={{ color: customColors.white }}>
+                  Upload Image
                 </AnonReg>
               </TouchableOpacity>
+
+              <View style={{ marginTop: 10 }}>
+                <View style={{ marginTop: 20 }}>
+                  <View style={styles.inputContainer}>
+                    <MaterialCommunityIcons
+                      style={styles.icon}
+                      name="account"
+                      size={30}
+                      color={customColors.primary}
+                    />
+                    <TextInput
+                      style={styles.input}
+                      autoCapitalize="none"
+                      placeholder="Name"
+                      placeholderTextColor={customColors.primary}
+                      onChangeText={(text) => setNewName(text)}
+                    />
+                  </View>
+                </View>
+
+                <View style={{ marginTop: 15 }}>
+                  <View style={styles.inputContainer}>
+                    <FontAwesome
+                      style={[styles.icon, { paddingLeft: 4 }]}
+                      name="user-secret"
+                      size={30}
+                      color={customColors.primary}
+                    />
+                    <TextInput
+                      style={styles.input}
+                      autoCapitalize="none"
+                      placeholder="Username"
+                      placeholderTextColor={customColors.primary}
+                      onChangeText={(text) => setNewUsername(text)}
+                    />
+                  </View>
+                </View>
+
+                <View style={{ marginTop: 15 }}>
+                  <View style={styles.inputContainer}>
+                    <MaterialCommunityIcons
+                      style={styles.icon}
+                      name="at"
+                      size={30}
+                      color={customColors.primary}
+                    />
+                    <TextInput
+                      style={styles.input}
+                      autoCapitalize="none"
+                      placeholder="Email"
+                      placeholderTextColor={customColors.primary}
+                      onChangeText={(text) => setNewEmail(text)}
+                    />
+                  </View>
+                </View>
+
+                <View style={{ marginTop: 15 }}>
+                  <View style={styles.inputContainer}>
+                    <MaterialCommunityIcons
+                      style={styles.icon}
+                      name="lock"
+                      size={30}
+                      color={customColors.primary}
+                    />
+                    <TextInput
+                      style={styles.input}
+                      autoCapitalize="none"
+                      placeholder="Password"
+                      placeholderTextColor={customColors.primary}
+                      onChangeText={(text) => setNewPassword(text)}
+                    />
+                  </View>
+                </View>
+
+                <View style={{ marginTop: 20 }}>
+                  <TouchableOpacity
+                    style={[
+                      styles.updateButton,
+                      {
+                        backgroundColor: customColors.primary,
+                      },
+                    ]}
+                    onPress={() => {
+                      console.log("Name: ", newName);
+                      console.log("Username: ", newUsername);
+                      console.log("Email: ", newEmail);
+                      console.log("Password: ", newPassword);
+                      console.log("New Image URI: ", image);
+                    }}
+                  >
+                    <AnonReg
+                      style={{ color: customColors.white, fontSize: 24 }}
+                    >
+                      Update
+                    </AnonReg>
+                  </TouchableOpacity>
+                </View>
+              </View>
             </View>
           </View>
         </View>
-      </View>
-    </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
@@ -161,7 +190,7 @@ const styles = StyleSheet.create({
     backgroundColor: customColors.primary,
   },
   menuIcon: {
-    position: 'absolute',
+    position: "absolute",
     top: 60,
     right: 20,
     zIndex: 1,
@@ -192,12 +221,12 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
   },
   imageButton: {
-    width: "50%", // Set the width to 50%
+    width: "50%",
     height: 35,
     borderRadius: 50,
     justifyContent: "center",
     alignItems: "center",
-    alignSelf: "center", // Center the button horizontally
+    alignSelf: "center",
     backgroundColor: customColors.primary,
   },
   updateButton: {
