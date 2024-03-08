@@ -25,18 +25,6 @@
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "240ea9ac-9cf9-4d8f-8211-7a0441ea4c3e"
-      }
-    },
-    "owner": "fattyratpat",
-    "runtimeVersion": {
-      "policy": "appVersion"
-    },
-    "updates": {
-      "url": "https://u.expo.dev/240ea9ac-9cf9-4d8f-8211-7a0441ea4c3e"
     }
   }
 }

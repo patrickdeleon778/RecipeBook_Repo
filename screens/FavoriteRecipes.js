@@ -9,15 +9,20 @@ import {
   FlatList,
   Alert,
 } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import axios from 'axios';
 import customColors from "../config/customColors";
 import AnonReg from "../components/customFonts/AnonReg";
+import { useNavigation } from '@react-navigation/native';
+import { DrawerActions } from "@react-navigation/routers";
 import { FontAwesome5 } from "@expo/vector-icons";
 import AnonBold from "../components/customFonts/AnonBold";
 import RecipeContext from "../context/RecipeContext";
 import { useUser } from '../context/UserContext';
 
 const FavoriteRecipes = ({ navigation }) => {
+  const navigate = useNavigation();
+  const { savedRecipes } = useContext(RecipeContext);
   const { user } = useUser(); // Get the current user
   const { getFavorites } = useContext(RecipeContext); // Get the getFavorites function from context
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
@@ -39,7 +44,23 @@ const FavoriteRecipes = ({ navigation }) => {
     console.log(titles);
   };
 
+  const openDrawer = () => {
+    navigate.dispatch(DrawerActions.openDrawer());
+  };
+
   return (
+    <View style={{ flex: 1 }} >
+<TouchableOpacity
+    style={styles.menuIcon}
+    onPress={() => navigate.dispatch(DrawerActions.openDrawer())}
+   >
+     <Ionicons name={"menu"} size={40} />
+   </TouchableOpacity>
+
+    
+
+    
+  
     <FlatList
       contentContainerStyle={{ marginHorizontal: 20, paddingTop: 60 }}
       ListHeaderComponent={
@@ -50,10 +71,26 @@ const FavoriteRecipes = ({ navigation }) => {
               placeholder="Search favorite recipe"
               onChangeText={setSearchQuery}
             />
-            <TouchableOpacity style={styles.button} onPress={handleSearch}>
-              <FontAwesome5 name="search" size={28} color={customColors.medium} />
+
+            <TouchableOpacity
+              style={{
+                backgroundColor: customColors.white,
+                width: 50,
+                height: 50,
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: 50,
+              }}
+              onPress={handleSearch}
+            >
+              <FontAwesome5
+                name="pizza-slice"
+                size={28}
+                color={customColors.medium}
+              />
             </TouchableOpacity>
           </View>
+
           <View style={{ marginTop: 40, marginLeft: 5 }}>
             <AnonBold style={{ fontSize: 20, fontWeight: "bold" }}>
               Favorite Recipes
@@ -75,28 +112,26 @@ const FavoriteRecipes = ({ navigation }) => {
         </View>
       )}
     />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  
   searchContainer: {
     flexDirection: "row",
     alignItems: "center",
-    borderWidth: 1,
-    borderColor: "#E2E8F0",
-    backgroundColor: customColors.light,
-    borderRadius: 40,
-    marginTop: 30,
-    padding: 5
+    margin: 5,
   },
-  input: {
-    flex: 1,
-    marginLeft: 10,
-    paddingRight: 10,
-    fontFamily: "Anon"
+  menuIcon: {
+    position: 'absolute',
+    top: 60,
+    paddingBottom: 50,
+    right: 20,
+    zIndex: 1,
+  
   },
-  button: {
-    backgroundColor: customColors.white,
+  image: {
     width: 50,
     height: 50,
     alignItems: "center",

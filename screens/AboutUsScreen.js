@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
-
 import AnonReg from "../components/customFonts/AnonReg";
-
 import customColors from "../config/customColors";
-
 import { Ionicons } from "@expo/vector-icons";
-
 import { useNavigation } from "@react-navigation/native";
 import { DrawerActions } from "@react-navigation/routers";
 
 const AboutUsScreen = () => {
   const navigate = useNavigation();
+
+  // const openDrawer = () => {
+  //   navigate.dispatch(DrawerActions.openDrawer());
+  // };
+
+  const navigateToHomeScreen = () => {
+    // Replace 'AnotherScreen' with the actual name of the screen you want to navigate to
+    navigate.navigate("HomeScreen");
+  };
 
   return (
     <View style={styles.container}>
@@ -31,13 +36,12 @@ const AboutUsScreen = () => {
         <View style={styles.bottomHalfContent}>
           <AnonReg style={styles.aboutUsText}>About Us</AnonReg>
           <AnonReg style={styles.aboutUsBody}>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi
-            repellat eos laborum beatae laudantium enim, ducimus autem hic natus
-            ipsum voluptatum! Reiciendis placeat quo illo culpa mollitia rem qui
-            praesentium!Lorem ipsum dolor sit amet, consectetur adipisicing
-            elit. Modi repellat eos laborum beatae laudantium enim, ducimus
-            autem hic natus ipsum voluptatum! Reiciendis placeat quo illo culpa
-            mollitia rem qui praesentium!
+            We're a passionate group of food enthusiasts brought together by our
+            love for cooking, experimenting with flavors, and sharing delicious
+            recipes. We believe that good food has the power to bring
+            people together. Our mission is to simplify the cooking experience,
+            foster creativity in the kitchen, and allow members to share their
+            culinary adventures.
           </AnonReg>
         </View>
       </View>
@@ -51,7 +55,7 @@ const styles = StyleSheet.create({
     backgroundColor: customColors.primary,
   },
   menuIcon: {
-    position: 'absolute',
+    position: "absolute",
     top: 60,
     right: 20,
     zIndex: 1,
@@ -73,10 +77,11 @@ const styles = StyleSheet.create({
     marginVertical: 60,
   },
   logo: {
-    borderRadius: 200,
-    width: 250,
-    height: 250,
-    marginTop: 50,
+    borderRadius: 160,
+    width: 160,
+    height: 160,
+    marginBottom: 60,
+    marginTop: 20,
   },
   aboutUsText: {
     fontSize: 40,

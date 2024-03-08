@@ -144,24 +144,37 @@ const HomeScreen = ({ navigation }) => {
     fetchCuisine().then((recipes) => setSelectedCuisines(recipes));
   }, []);
 
-  // console.log(recipeData);
+ 
 
   return (
-    <FlatList
-      contentContainerStyle={{ marginHorizontal: 20, paddingTop: 60 }}
+    <ScrollView style={{ backgroundColor: customColors.primary }}>
+      
+      <View style={{backgroundColor: customColors.primary}}>
+
+      
+          <FlatList
+      contentContainerStyle={{ marginHorizontal: 20, paddingTop: 60, }} 
+
       ListHeaderComponent={
         <>
-          <View flexDirection={'row'} justifyContent='space-between'>
-            <Image
-              source={require("../assets/images/PQ2_Teddie.webp")}
-              style={{ height: 75, width: 75, borderRadius: 100 }}
-            />
-
-            <TouchableOpacity
-              onPress={() => navigate.dispatch(DrawerActions.openDrawer())}
-            >
-              <Ionicons name={'menu'} size={40} />
-            </TouchableOpacity>
+          <View flexDirection={"row"} justifyContent="space-between">
+          <View style={styles.topHalf}>
+        <TouchableOpacity
+          style={styles.menuIcon}
+          onPress={() => navigation.openDrawer()}
+        >
+          <Ionicons name={"menu"} size={40} />
+        </TouchableOpacity>
+        <View style={styles.logoContainer}>
+           <Image
+          style={styles.logo}
+          source={require("../assets/images/dishLogo.png")}
+        />
+        </View>
+         
+      </View>
+       
+        
           </View>
 
           <View>
@@ -169,9 +182,9 @@ const HomeScreen = ({ navigation }) => {
             Hello, {user?.username || 'user'}!
             </AnonReg>
             <AnonBold
-              style={{ fontSize: 30, fontWeight: "bold", marginTop: 20 }}
+              style={{ fontSize: 50, fontWeight: "bold", marginTop: 20 }}
             >
-              A cool slogan goes here.
+             
             </AnonBold>
           </View>
 
@@ -201,7 +214,6 @@ const HomeScreen = ({ navigation }) => {
 
             <TouchableOpacity
               style={{
-                backgroundColor: customColors.white,
                 width: 50,
                 height: 50,
                 alignItems: "center",
@@ -240,10 +252,10 @@ const HomeScreen = ({ navigation }) => {
                       styles.image,
                       {
                         borderWidth: selectedCuisines === cuisine.name ? 4 : 0,
-                        borderColor: customColors.primary,
+                 
                       },
                       selectedCuisines === cuisine.name && {
-                        backgroundColor: customColors.primary,
+                      
                       },
                     ]}
                   />
@@ -283,7 +295,7 @@ const HomeScreen = ({ navigation }) => {
                     style={{
                       width: "100%",
                       height: 200,
-                      backgroundColor: customColors.light,
+                     
                       borderRadius: 40,
                     }}
                   />
@@ -297,10 +309,40 @@ const HomeScreen = ({ navigation }) => {
         </>
       )}
     />
+      </View>
+    </ScrollView>
+    
+  
+
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  
+  menuIcon: {
+    position: 'absolute',
+    top: 60,
+    right: 20,
+    zIndex: 1,
+  },
+  logoContainer: {
+    alignItems: "center",
+    marginTop: 30,
+  
+   
+  },
+ 
+
+  logo: {
+    borderRadius: 160,
+    width: 200, 
+  height: 200, 
+  marginBottom: 60,
+  marginTop: 20,
+  },
   button: {
     alignItems: "center",
     margin: 5,
@@ -309,10 +351,10 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 50,
-    backgroundColor: customColors.light,
+    
   },
   text: {
-    color: "#666",
+    color: "Black",
     fontSize: 11,
   },
 });

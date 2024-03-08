@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   View,
-  Text,
   Image,
   TouchableOpacity,
   StyleSheet,
@@ -14,11 +13,17 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import customColors from "../config/customColors";
-import JAHFont from "../components/customFonts/JAHFont";
 import AnonBold from "../components/customFonts/AnonBold";
 import AnonReg from "../components/customFonts/AnonReg";
+import { useNavigation } from '@react-navigation/native';
+import { DrawerActions} from '@react-navigation/native';
+import NavScreenHolder from '@react-navigation/native';
+
+
 
 const CreateRecipeScreen = () => {
+  const navigate = useNavigation();
+  const [loading, setLoading] = useState(false);
   const [image, setImage] = useState(null);
   const [newTitle, setNewTitle] = useState("");
   const [instructions, setInstructions] = useState("");
@@ -27,6 +32,11 @@ const CreateRecipeScreen = () => {
     { id: uuid.v4(), name: "", quantity: "" },
   ]);
 
+
+  // const openDrawer = () => {
+  //   navigation.dispatch(DrawerActions.openDrawer());
+  // };
+ 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -45,8 +55,20 @@ const CreateRecipeScreen = () => {
   };
 
   return (
+   
+    
     <View style={{ flex: 1 }}>
       <View style={{ flex: 0.4 }}>
+ 
+        <TouchableOpacity
+         style={styles.menuIcon}
+         onPress={() => navigate.dispatch(DrawerActions.openDrawer())}
+        >
+          <Ionicons name={"menu"} size={40} />
+        </TouchableOpacity>
+        
+    
+       
         {image ? (
           <Image
             source={{ uri: image }}
@@ -71,6 +93,7 @@ const CreateRecipeScreen = () => {
         >
           <AnonReg style={{ color: customColors.black }}>Recipe Image</AnonReg>
         </TouchableOpacity>
+       
       </View>
 
       <ScrollView style={{ flex: 0.6 }}>
@@ -97,7 +120,10 @@ const CreateRecipeScreen = () => {
             multiline={true}
             onChangeText={(text) => setNewTitle(text)}
           />
-          <FontAwesome5 name="share" size={40} color={customColors.primary} />
+
+        
+            <FontAwesome5 name="share" size={40} color={customColors.primary} />
+          
         </View>
 
         <View style={{ flex: 1, padding: 30 }}>
@@ -204,6 +230,7 @@ const CreateRecipeScreen = () => {
           </View>
         </View>
       </ScrollView>
+      {/* <NavScreenHolder navigation={navigation} /> */}
     </View>
   );
 };
@@ -212,6 +239,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: customColors.primary,
+  },
+  menuIcon: {
+    position: 'absolute',
+    top: 60,
+    right: 20,
+    zIndex: 1,
+  
   },
   topHalf: {
     flex: 0.4,
