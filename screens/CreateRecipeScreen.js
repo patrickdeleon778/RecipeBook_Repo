@@ -21,15 +21,15 @@ import NavScreenHolder from '@react-navigation/native';
 
 
 
-const CreateRecipeScreen = ({navigation}) => {
+const CreateRecipeScreen = () => {
   const navigate = useNavigation();
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState(null);
 
 
-  const openDrawer = () => {
-    navigation.dispatch(DrawerActions.openDrawer());
-  };
+  // const openDrawer = () => {
+  //   navigation.dispatch(DrawerActions.openDrawer());
+  // };
  
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -60,7 +60,7 @@ const CreateRecipeScreen = ({navigation}) => {
  
         <TouchableOpacity
          style={styles.menuIcon}
-         onPress={() => navigation.openDrawer()}
+         onPress={() => navigate.dispatch(DrawerActions.openDrawer())}
         >
           <Ionicons name={"menu"} size={40} />
         </TouchableOpacity>

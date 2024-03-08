@@ -144,8 +144,14 @@ const HomeScreen = ({ navigation }) => {
  
 
   return (
-    <FlatList
-      contentContainerStyle={{ marginHorizontal: 20, paddingTop: 60 }}
+    <ScrollView style={{ backgroundColor: customColors.primary }}>
+      
+      <View style={{backgroundColor: customColors.primary}}>
+
+      
+          <FlatList
+      contentContainerStyle={{ marginHorizontal: 20, paddingTop: 60, }} 
+
       ListHeaderComponent={
         <>
           <View flexDirection={"row"} justifyContent="space-between">
@@ -156,34 +162,24 @@ const HomeScreen = ({ navigation }) => {
         >
           <Ionicons name={"menu"} size={40} />
         </TouchableOpacity>
-        <Image
+        <View style={styles.logoContainer}>
+           <Image
           style={styles.logo}
           source={require("../assets/images/dishLogo.png")}
         />
+        </View>
+         
       </View>
-
-
-            {/* <Image
-            style={styles.logo}
-              source={require("../assets/images/dishLogo.png")}
-              // style={{ height: 75, width: 75, borderRadius: 100 }}
-            /> */}
-
-            {/* <TouchableOpacity
-            
-              onPress={() => navigate.dispatch(DrawerActions.openDrawer())}
-              
-            >
-              <Ionicons name={"menu"} size={40}/>
-            </TouchableOpacity> */}
+       
+        
           </View>
 
           <View>
-            <AnonReg style={{ fontSize: 20, marginTop: 20 }}>Welcome!</AnonReg>
+            <AnonReg style={{ fontSize: 20, marginTop: 20}}>Welcome!</AnonReg>
             <AnonBold
               style={{ fontSize: 30, fontWeight: "bold", marginTop: 20 }}
             >
-              Food Adventures
+             
             </AnonBold>
           </View>
 
@@ -213,7 +209,6 @@ const HomeScreen = ({ navigation }) => {
 
             <TouchableOpacity
               style={{
-                backgroundColor: customColors.white,
                 width: 50,
                 height: 50,
                 alignItems: "center",
@@ -252,10 +247,10 @@ const HomeScreen = ({ navigation }) => {
                       styles.image,
                       {
                         borderWidth: selectedCuisines === cuisine.name ? 4 : 0,
-                        // borderColor: customColors.primary,
+                 
                       },
                       selectedCuisines === cuisine.name && {
-                        // backgroundColor: customColors.primary,
+                      
                       },
                     ]}
                   />
@@ -295,7 +290,7 @@ const HomeScreen = ({ navigation }) => {
                     style={{
                       width: "100%",
                       height: 200,
-                      // backgroundColor: customColors.light,
+                     
                       borderRadius: 40,
                     }}
                   />
@@ -309,20 +304,30 @@ const HomeScreen = ({ navigation }) => {
         </>
       )}
     />
+      </View>
+    </ScrollView>
+    
+  
+
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: customColors.primary,
     flex: 1,
   },
+  
   menuIcon: {
     position: 'absolute',
     top: 60,
     right: 20,
     zIndex: 1,
   },
+  logoContainer: {
+    alignItems: "center",
+    marginTop: 20,
+  },
+
   logo: {
     borderRadius: 160,
     width: 160,
@@ -338,10 +343,10 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 50,
-    backgroundColor: customColors.light,
+    
   },
   text: {
-    color: "#666",
+    color: "Black",
     fontSize: 11,
   },
 });

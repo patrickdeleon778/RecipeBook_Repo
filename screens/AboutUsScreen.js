@@ -9,9 +9,9 @@ import { DrawerActions } from "@react-navigation/routers";
 const AboutUsScreen = () => {
   const navigate = useNavigation();
 
-  const openDrawer = () => {
-    navigate.dispatch(DrawerActions.openDrawer());
-  };
+  // const openDrawer = () => {
+  //   navigate.dispatch(DrawerActions.openDrawer());
+  // };
 
   const navigateToHomeScreen = () => {
     // Replace 'AnotherScreen' with the actual name of the screen you want to navigate to

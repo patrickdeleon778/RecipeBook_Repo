@@ -12,9 +12,9 @@ const ContactScreen = () => {
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState(null);
 
-  const openDrawer = () => {
-    navigate.dispatch(DrawerActions.openDrawer());
-  };
+  // const openDrawer = () => {
+  //   navigate.dispatch(DrawerActions.openDrawer());
+  // };
 
   // const navigateToHomeScreen = () => {
   //   navigate.navigate("Home", { screen: "Settings" });
