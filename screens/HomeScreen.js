@@ -174,10 +174,10 @@ const HomeScreen = ({ navigation }) => {
         
           </View>
 
-          <View>
-            <AnonReg style={{ fontSize: 20, marginTop: 20}}>Welcome!</AnonReg>
+          <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 20 }}>
+            <AnonReg style={{ fontSize: 40, marginTop: 20}}>Welcome!</AnonReg>
             <AnonBold
-              style={{ fontSize: 30, fontWeight: "bold", marginTop: 20 }}
+              style={{ fontSize: 50, fontWeight: "bold", marginTop: 20 }}
             >
              
             </AnonBold>
@@ -325,15 +325,18 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     alignItems: "center",
-    marginTop: 20,
+    marginTop: 30,
+  
+   
   },
+ 
 
   logo: {
     borderRadius: 160,
-    width: 160,
-    height: 160,
-    marginBottom: 60,
-    marginTop: 20,
+    width: 200, 
+  height: 200, 
+  marginBottom: 60,
+  marginTop: 20,
   },
   button: {
     alignItems: "center",
