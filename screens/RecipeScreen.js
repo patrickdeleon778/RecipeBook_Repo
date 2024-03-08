@@ -28,28 +28,37 @@ const RecipeScreen = ({ route}) => {
   console.log('User email:', user.email);
   
   
-  const handleSave = () => {
-    const allIngredients = recipe.extendedIngredients || [];
-    const allInstructions = recipe.instructions || "";
-    const cleanedInstructions = allInstructions.replace(/<[^>]*>/g, "");
-
-    const recipeToSave = {
-      ...recipe,
-      extendedIngredients: allIngredients,
-      instructions: cleanedInstructions,
-    };
-
+  const handleSave = async () => {
+    console.log('Save button clicked'); // Debug log
+    console.log('Recipe object:', recipe);
+    const recipeIdAsString = String(recipe.id); // Convert recipeId to string
     if (isSaved) {
-      setSavedRecipes((prevRecipes) =>
-        prevRecipes.filter((r) => r.id !== recipe.id)
-      );
+      console.log('Removing recipe from saved list'); // Debug log
+      removeFavorite(user._id, recipeIdAsString)  // Ensure you're using user._id
+        .then(() => {
+          setIsSaved(false); // Update UI after successful removal
+          // Maybe call getFavorites() to refresh the favorites list in the context
+        })
+        .catch(error => {
+          console.error('Error removing favorite:', error);
+          // Handle error (show error message, etc.)
+        });
     } else {
-      setSavedRecipes((prevRecipes) => [...prevRecipes, recipeToSave]);
+      console.log('Adding recipe to saved list'); // Debug log
+      console.log(`Calling addFavorite on backend with userId: ${user._id} and recipeId: ${recipeIdAsString}`);
+      addFavorite(user._id, recipeIdAsString)  // Ensure you're using user._id
+        .then(() => {
+          console.log('Recipe saved');
+          setIsSaved(true); // Update UI after successful addition
+          // Maybe call getFavorites() to refresh the favorites list in the context
+        })
+        .catch(error => {
+          console.error('Error adding favorite:', error);
+          // Handle error (show error message, etc.)
+        });
     }
-
-    // Toggle the isSaved state
-    setIsSaved((prevIsSaved) => !prevIsSaved);
   };
+
 
   console.log(savedRecipes);
 
