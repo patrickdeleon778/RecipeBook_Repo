@@ -12,8 +12,11 @@ import RecipeContext from "../context/RecipeContext";
 import axios from 'axios';
 import { useUser } from '../context/UserContext'; // Adjust the path as necessary
 
-const RecipeScreen = ({ route }) => {
+const RecipeScreen = ({ route}) => {
+  
   const { recipe } = route.params;
+  const recipeId = recipe.id; 
+  console.log(recipeId);
   const { user } = useUser();
   console.log("Current user:", user); 
   const { savedRecipes, addFavorite, removeFavorite, isSaved, setIsSaved } = useContext(RecipeContext); // savedRecipes added here
@@ -23,13 +26,15 @@ const RecipeScreen = ({ route }) => {
   console.log('Current user object:', user);
   console.log('User ID:', user._id);
   console.log('User email:', user.email);
+  
+  
   const handleSave = async () => {
     console.log('Save button clicked'); // Debug log
-    const recipeId = recipe.id; // Or recipe._id or another identifier used by your backend
-
+    console.log('Recipe object:', recipe);
+    const recipeIdAsString = String(recipe.id); // Convert recipeId to string
     if (isSaved) {
       console.log('Removing recipe from saved list'); // Debug log
-      removeFavorite(user._id, recipeId)  // Ensure you're using user._id
+      removeFavorite(user._id, recipeIdAsString)  // Ensure you're using user._id
         .then(() => {
           setIsSaved(false); // Update UI after successful removal
           // Maybe call getFavorites() to refresh the favorites list in the context
@@ -40,8 +45,10 @@ const RecipeScreen = ({ route }) => {
         });
     } else {
       console.log('Adding recipe to saved list'); // Debug log
-      addFavorite(user._id, recipeId)  // Ensure you're using user._id
+      console.log(`Calling addFavorite on backend with userId: ${user._id} and recipeId: ${recipeIdAsString}`);
+      addFavorite(user._id, recipeIdAsString)  // Ensure you're using user._id
         .then(() => {
+          console.log('Recipe saved');
           setIsSaved(true); // Update UI after successful addition
           // Maybe call getFavorites() to refresh the favorites list in the context
         })

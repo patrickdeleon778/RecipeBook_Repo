@@ -24,22 +24,21 @@ export const RecipeProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   // State for favorite recipes
   const [favorites, setFavorites] = useState([]);
-
+  const [error, setError] = useState(null);
 
   const addFavorite = async (userId, recipeId) => {
-    console.log(userId); // Imprime el userId
-  console.log(recipeId); // Imprime el recipeId
-
+    // No need to print userId and recipeId here since they are being printed in handleSave
     if (!userId) {
       console.error("User ID is undefined.");
       return;
     }
     try {
-      const response = await axios.put(`https://recipeappbackend.azurewebsites.net/user/add-favorite/${userId}`, { recipeId });
-      // If it's successful, consider updating the favorites state
+      const response = await axios.post(`https://recipeappbackend.azurewebsites.net/user/add-favorite/${userId}`, { recipeId: recipeId });
       console.log(response.data.message);
+      setFavorites(prevFavorites => [...prevFavorites, recipeId]); // Update favorites
     } catch (error) {
       console.error('Error adding favorite:', error);
+      setError(error); // Set error state  
     }
   };
   
@@ -50,10 +49,11 @@ export const RecipeProvider = ({ children }) => {
     }
     try {
       const response = await axios.delete(`https://recipeappbackend.azurewebsites.net/user/remove-favorite/${userId}`, { data: { recipeId } });
-      // If it's successful, consider updating the favorites state
       console.log(response.data.message);
+      setFavorites(prevFavorites => prevFavorites.filter(id => id !== recipeId)); // Update favorites
     } catch (error) {
       console.error('Error removing favorite:', error);
+      setError(error); // Set error state
     }
   };
 
@@ -80,9 +80,11 @@ export const RecipeProvider = ({ children }) => {
     removeFavorite, // Make sure to provide removeFavorite here
     getFavorites,
     isSaved,
+    error,
     setIsSaved,
     isLoading,
     setIsLoading,
+    
   };
 
   return <RecipeContext.Provider value={value}>{children}</RecipeContext.Provider>;
